@@ -1,0 +1,293 @@
+body{
+    font:{
+        family: $roboto;
+        weight: $light;
+        size: 22px;
+    }
+    line-height: 1.4;
+    background: $white;
+    color: $black;
+}
+
+.container{
+    max-width: 100%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.overview{
+    width: 320px;
+    font-size: 18px;
+}
+
+
+.build {
+    font-family: monospace;
+    font-size: x-small;
+    color: #ffffff;
+    position: relative;
+    top: 120px;
+}
+
+.content{
+    counter-reset: h1-counter;
+    width: calc(100% - 350px);
+    position: absolute;
+    right: 0;
+    
+    @media screen and (max-width: $sidebar-collapse){
+        width: 100%;
+    }
+
+    .toggle{
+        position: absolute;
+        top: 5px;
+        left: 5px;
+    }
+}
+
+section{
+
+    &:last-of-type{
+        padding-bottom: 300px;
+    }
+
+    > p,
+    > ul,
+    > ol,
+    > div{
+        text-align: justify;
+        padding-right: 5%;
+        box-sizing: border-box;
+    }
+
+    pre {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    > ol{
+        padding-left: calc(5% + 40px);
+        text-align: left;
+    }
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-weight: $bold;
+    line-height: 1;
+    color: $blue;
+}
+
+
+h1 {
+    font-size: 2.8em;
+    text-align: left;
+    width: calc(100% - 60px);;
+    line-height: 1;
+
+    &:before {
+        content: counter(h1-counter) " ";
+    }
+}
+
+.h1{
+    counter-increment: h1-counter;
+    counter-reset: h2-counter;
+}
+
+h1.nocount:before {
+    content: none;
+    counter-increment: none;
+}
+
+h2 {
+    font-size: 2em;
+    width: 90%;
+    text-align: left;
+    line-height: 1;
+
+    &:before {
+        content: counter(h1-counter) "." counter(h2-counter) " ";
+    }
+}
+
+h2.nocount:before {
+    content: none;
+    counter-increment: none;
+}
+
+.h2{
+    counter-increment: h2-counter;
+    counter-reset: h3-counter;
+}
+
+
+h3{
+    font-size: 1.7em;
+    width: 90%;
+    text-align: left;
+    line-height: 1;
+
+    /*&:before {
+        content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
+    }*/
+}
+
+h3.nocount:before {
+    content: none;
+    counter-increment: none;
+}
+
+.h3{
+    counter-increment: h3-counter;
+    counter-reset: h4-counter;
+}
+
+h4{
+    font-size: 1.5em;
+    width: 90%;
+    text-align: left;
+    line-height: 1;
+
+    /*&:before {
+        content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
+    }*/
+}
+
+.h4{
+    counter-increment: h4-counter;
+    counter-reset: h5-counter 1;
+}
+
+
+h5{
+    font-size: 1.3em;
+    width: 90%;
+    text-align: left;
+    line-height: 1;
+
+    /*&:before {
+        content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+    }*/
+}
+
+
+a{
+    transition: .3s all;
+    color: $blue;
+    text-decoration: none;
+
+    .content &{
+        padding: 0px 2px;
+
+        &:hover{
+            border-bottom: transparent 1px solid;
+        }
+    }
+
+    &:hover{
+        color: $darkblue;
+    }
+}
+
+
+img{
+    //display: block;
+    //max-width: 100%;
+    //margin: 20px 0;
+}
+
+code{
+    font-family: 'Source Code Pro', 'Courier New', monospace;
+}
+
+.video_container{
+    margin: 30px auto;
+    @include paddinghack(90%, 894, 510);
+
+    iframe{
+        @extend %paddinghack;
+    }
+}
+
+#intro{
+    padding-top: 20px;
+}
+
+code,
+pre{
+    white-space: pre-wrap;
+    border-radius: 0px;
+    border: 0;
+}
+
+iframe{
+    padding-left: 5%;
+    padding-right: 5%;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+p + p{
+    margin-top: 20px;
+}
+.content ul{
+
+    list-style: disc;
+    list-style-position: outside;
+
+}
+.content li{
+  
+}
+
+button.toggle-collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+button.active, button.toggle-collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible-content-container {
+  margin-bottom: 18px;
+}
+.collapsible-content {
+  padding: 18px 18px 0px 18px;
+  display: none;
+  overflow: hidden;
+  border: 0.25em solid#555;
+  text-align: left;
+}
+
+.collapsible-content pre.highlight {
+  margin: 0;
+}
+
+.github-contributor {
+  margin: 2px;
+}
+
+.github-contributors {
+  display: flex;
+  flex-flow: wrap;
+  align-content: flex-start;
+}
+
+img.github-avatar {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  display: inline;
+}
+
+#github-actions {
+  text-align: center;
+}

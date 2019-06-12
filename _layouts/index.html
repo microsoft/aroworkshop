@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include head.html %}
+</head>
+
+<body>
+    <style> html{display:none;} </style>
+    <script>
+       if(self == top) {
+           document.documentElement.style.display = 'block'; 
+       } else {
+           top.location = self.location; 
+       }
+    </script>
+
+    <div class="container">
+        <div class="overview">
+            <span class="toggle">close</span>
+            {% include header.html %}
+            {% include nav.html %}
+        </div>
+
+        <div id="consent-container"></div>
+        
+        <div class="content">
+            <span class="toggle">open</span>
+            <article class="markdown-body">
+                {{ content }}
+            </article>
+        </div>
+    </div>
+
+    <script scr="js/jquery.scrollTo.js"></script>
+    <script src="js/jquery.nav.js"></script>
+    <script src="js/scripts.js"></script>
+
+</body>
+
+</html>

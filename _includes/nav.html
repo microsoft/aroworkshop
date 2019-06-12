@@ -1,0 +1,36 @@
+<ul id="nav">
+    {% assign level-1 = site.entries | where: "sectionclass", "h1" | sort: "number"%}
+    {% for entry in level-1 %}
+    <li {% if entry.is-parent or forloop.first %} class="{% if entry.is-parent %}parent{% endif %}{% if forloop.first %} current{% endif %}"{% endif %}>
+        <a href="#{{ entry.sectionid }}">{{ entry.title }}</a>
+        {% if entry.is-parent %}
+            <ul>
+                {% assign level-2 = site.entries | where: "parent-id", entry.sectionid | sort: "number" %}
+                {% for child in level-2 %}
+                    <li {% if child.is-parent %}class="parent"{% endif %}>
+                        <a href="#{{ child.sectionid }}">{{ child.title }}</a>
+                        {% if child.is-parent %}
+                            <ul>
+                                {% assign level-3 = site.entries | where: "parent-id", child.sectionid | sort: "number" %}
+                                {% for grandchild in level-3 %}
+                                <li>
+                                    <a href="#{{ grandchild.sectionid }}">{{ grandchild.title }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+    {% endfor %}
+    <li>
+      <a class="parent" href="https://privacy.microsoft.com">Privacy &amp; cookies</a>
+    </li>
+</ul>
+<div id="github-actions">
+  <a class="github-button" href="https://github.com/microsoft/aroworkshop" data-size="large" data-show-count="true" aria-label="Star microsoft/aroworkshop on GitHub">Star</a>
+  <a class="github-button" href="https://github.com/microsoft/aroworkshop/fork" data-size="large" data-show-count="true" aria-label="Fork microsoft/aroworkshop on GitHub">Fork</a>
+  <a class="github-button" href="https://github.com/microsoft/aroworkshop/issues" data-size="large" data-show-count="true" aria-label="Issue microsoft/aroworkshop on GitHub">Issue</a>
+</div>
