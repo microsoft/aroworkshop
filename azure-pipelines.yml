@@ -26,7 +26,7 @@ variables:
   imageRepository: 'aroworkshop'
   containerRegistry: 'msworkshops.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: '$(Build.BuildNumber)'
   sourceBranch: '$(Build.SourceBranch)'
   
   # Agent VM image name
