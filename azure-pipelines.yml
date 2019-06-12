@@ -27,6 +27,7 @@ variables:
   containerRegistry: 'msworkshops.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
+  sourceBranch: '$(Build.SourceBranch)'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -53,8 +54,8 @@ stages:
         tags: |
           $(tag)
 
-- stage: DeployStaging
-  displayName: Deploy to staging
+- stage: Deploy
+  displayName: Deploy to slot (master/staging)
   jobs:
   - job: Deploy
     displayName: Deploy job
@@ -69,7 +70,7 @@ stages:
         WebAppName: 'aroworkshop'
         deployToSlotOrASE: true
         ResourceGroupName: 'workshops'
-        SlotName: 'staging'
+        SlotName: '$(sourceBranch)'
         DockerNamespace: '$(containerRegistry)'
         DockerRepository: '$(imageRepository)'
         DockerImageTag: '$(tag)'
