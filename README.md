@@ -6,7 +6,7 @@ This is the repository for the Azure Red Hat OpenShift Workshop website.
 
 - The website is statically built using Jekyll and you’ll find the different pages inside the `_entries` folder.
 - If you’re on a Mac/Linux machine, you can preview your edits locally if you run `make build-run` inside the repo root.
-- The build pipeline builds Docker images of the site and hosts it as a private repository on Docker Hub <https://hub.docker.com/u/azch>.
+- The build pipeline builds Docker images of the site and hosts it as a private repository on Azure Container Registry (`msworkshops.azurecr.io`).
 - The release pipeline deploys the Docker image to an Azure Web App.
 
 ## Branching and contribution
