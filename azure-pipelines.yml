@@ -55,7 +55,7 @@ stages:
           $(tag)
 
 - stage: Deploy
-  displayName: Deploy to slot (master/staging)
+  displayName: Deploy to slot $(sourceBranch)
   jobs:
   - job: Deploy
     displayName: Deploy job
