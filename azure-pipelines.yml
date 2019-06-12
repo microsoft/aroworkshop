@@ -42,3 +42,24 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+- stage: DeployStaging
+  displayName: Deploy to staging
+  jobs:
+  - job: Deploy
+    displayName: Deploy job
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'AKS Workshop(90a9e297-40f1-4e71-9eee-cfdc25f079f1)'
+        appType: 'webAppContainer'
+        WebAppName: 'aroworkshop'
+        deployToSlotOrASE: true
+        ResourceGroupName: 'workshops'
+        SlotName: 'staging'
+        DockerNamespace: '$(containerRegistry)'
+        DockerRepository: '$(imageRepository)'
+        DockerImageTag: '$(tag)'
