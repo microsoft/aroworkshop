@@ -5,7 +5,17 @@
 name: $(build.sourceBranchName)-$(Date:yyyyMMdd)$(Rev:.r)
 
 trigger:
-- master
+  batch: true
+  branches:
+    include: 
+    - master
+    - staging
+  paths:
+    exclude: 
+    # Exclude README.md from triggering content deployments
+    # Exclude the app folder from triggering content deployments, since it isn't included in the Dockerfile anyway
+    - README.md
+    - app/* 
 
 resources:
 - repo: self
