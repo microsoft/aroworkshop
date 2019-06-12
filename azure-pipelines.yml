@@ -27,7 +27,7 @@ variables:
   containerRegistry: 'msworkshops.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
-  sourceBranch: '$(Build.SourceBranch)'
+  sourceBranch: '$(Build.SourceBranchName)'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
