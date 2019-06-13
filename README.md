@@ -13,5 +13,5 @@ This is the repository for the Azure Red Hat OpenShift Workshop website.
 
 - The `master` branch gets published to [aroworkshop.io](http://aroworkshop.io).
 - The `staging` branch gets published to [staging.aroworkshop.io](http://staging.aroworkshop.io).
-- Please branch off `staging` if you want to contribute, then submit a Pull Request to `staging`.
+- Please fork and branch off `staging` if you want to contribute, then submit a Pull Request to `staging`.
 - If you want your name to show up in the [contributors](http://aroworkshop.io/#contributors), please add your GitHub username to `_entries/Contributors.md` in alphabetical order.
