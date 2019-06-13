@@ -11,6 +11,16 @@ This is the repository for the Azure Red Hat OpenShift Workshop website.
 - The `master` branch gets deployed to the production slot [aroworkshop.io](http://aroworkshop.io)
 - The `staging` branch gets deployed to the staging slot [staging.aroworkshop.io](http://staging.aroworkshop.io)
 
+## Companion repositories
+
+The application consists of 3 components:
+
+| Component                                           | Link                                                              |
+|-----------------------------------------------------|-------------------------------------------------------------------|
+| A public facing web frontend `rating-web`          | [GitHub repo](https://github.com/microsoft/rating-web)         |
+| A public facing API `rating-api`                   | [GitHub repo](https://github.com/microsoft/rating-api])         |
+| A MongoDB with pre-loaded data                      | [data](-)                |
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
