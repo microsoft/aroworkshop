@@ -16,4 +16,4 @@ parent-id: labs
 {% endcollapsible %}
 
 > **Resources**
-> * <https://docs.openshift.com/aro/admin_guide/managing_networking.html#admin-guide-networking-networkpolicy>
+> * <https://docs.openshift.com/aro/dev_guide/pod_autoscaling.html>
