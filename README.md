@@ -18,8 +18,8 @@ The application consists of 3 components:
 | Component                                           | Link                                                              |
 |-----------------------------------------------------|-------------------------------------------------------------------|
 | A public facing web frontend `rating-web`          | [GitHub repo](https://github.com/microsoft/rating-web)         |
-| A public facing API `rating-api`                   | [GitHub repo](https://github.com/microsoft/rating-api])         |
-| A MongoDB with pre-loaded data                      | [data](-)                |
+| A public facing API `rating-api`                   | [GitHub repo](https://github.com/microsoft/rating-api)         |
+| A MongoDB with pre-loaded data                      | [data](https://github.com/microsoft/rating-api/raw/master/data.tar.gz)                |
 
 ## Contributing
 
