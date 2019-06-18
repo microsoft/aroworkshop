@@ -20,7 +20,7 @@ There are two templates available:
 > ./oc get templates -n openshift
 > ```
 
-Create a mongoDB deployment using the `mongodb-persistent`. You're passing in the values to be replaced (username, passwor and database) which generates a YAML/JSON file. You then pipe it to the `oc create` command.
+Create a mongoDB deployment using the `mongodb-persistent` template. You're passing in the values to be replaced (username, passwor and database) which generates a YAML/JSON file. You then pipe it to the `oc create` command.
 
 ```sh
 ./oc process openshift//mongodb-persistent \
@@ -33,6 +33,53 @@ Create a mongoDB deployment using the `mongodb-persistent`. You're passing in th
 If you now head back to the web console, you should see a new deployment for mongoDB.
 
 ![MongoDB deployment](media/mongodb-overview.png)
+
+### Restore data
+
+Now you have the database running on the cluster, it is time to restore data.
+
+Download and unzip the data zip on the Azure Cloud Shell.
+
+```sh
+wget https://github.com/microsoft/rating-api/raw/master/data.tar.gz
+tar -zxvf data.tar.gz
+```
+
+![Download and unzip the data](media/download-data.png)
+
+Identify the name of the running MongoDB pod. For example, you can view the list of pods in your current project:
+
+```sh
+./oc get pods
+```
+
+![oc get pods](media/oc-getpods-mongo.png)
+
+Copy the data folder into the mongoDB pod.
+
+```sh
+./oc rsync ./data mongodb-1-2g98n:/opt/app-root/src
+```
+
+![oc get pods](media/oc-rsync.png)
+
+Then, open a remote shell session to the desired pod.
+
+```sh
+./oc rsh mongodb-1-2g98n
+```
+
+![oc rsh](media/oc-rsh.png)
+
+Run the `mongoimport` command to import the JSON data files into the database. Make sure the username, password and database name match what you specified when you deployed the template.
+
+```sh
+mongoimport --host 127.0.0.1 --username ratingsuser --password ratingspassword --db ratingsdb --collection items --type json --file data/items.json --jsonArray
+mongoimport --host 127.0.0.1 --username ratingsuser --password ratingspassword --db ratingsdb --collection sites --type json --file data/sites.json --jsonArray
+mongoimport --host 127.0.0.1 --username ratingsuser --password ratingspassword --db ratingsdb --collection ratings --type json --file data/ratings.json --jsonArray
+```
+
+![mongoimport](media/mongoimport.png)
 
 > **Resources**
 > * <https://docs.openshift.com/aro/using_images/db_images/mongodb.html>
