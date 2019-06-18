@@ -47,9 +47,10 @@ Open the [Azure Cloud Shell](https://shell.azure.com), navigate to where you ext
 
 A project allows a community of users to organize and manage their content in isolation from other communities.
 
+```sh
+./oc new-project workshop
 ```
-./oc new-project workshop`
-```
+
 {% endcollapsible %}
 
 > **Resources**
