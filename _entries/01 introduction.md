@@ -18,3 +18,5 @@ Some of the things you’ll be going through:
 - Creating a [network policy](https://docs.openshift.com/aro/admin_guide/managing_networking.html#admin-guide-networking-networkpolicy) to control communication between the different tiers in the application
 - Setting scaling policies using [Horizontal Pod Autoscaler](https://docs.openshift.com/aro/dev_guide/pod_autoscaling.html)
 - Application monitoring, logging and metrics
+
+You'll be doing the majority of the labs using the OpenShift CLI, but you can also accomplish them using the Azure Red Hat OpenShift web console.
