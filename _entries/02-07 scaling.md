@@ -15,5 +15,10 @@ parent-id: labs
 
 {% endcollapsible %}
 
+### Scale the Azure Red Hat OpenShift cluster
+{% collapsible %}
+
+{% endcollapsible %}
+
 > **Resources**
 > * <https://docs.openshift.com/aro/dev_guide/pod_autoscaling.html>
