@@ -7,6 +7,8 @@ parent-id: labs
 
 ### Login to the web console
 
+{% collapsible %}
+
 Each Azure Red Hat OpenShift cluster has a public hostname that hosts the OpenShift Web Console.
 
 Retrieve your cluster specific hostname. Replace `<cluster name>` and `<resource group>` by those specific to your environment.
@@ -21,7 +23,11 @@ After logging in, you should be able to see the Azure Red Hat OpenShift Web Cons
 
 ![Azure Red Hat OpenShift Web Console](media/openshift-webconsole.png)
 
+{% endcollapsible %}
+
 ### Retrieve the login command and token
+
+{% collapsible %}
 
 > **Note** Make sure you complete the [prerequisites](#prereq) to install the OpenShift CLI on the Azure Cloud Shell.
 
@@ -33,13 +39,18 @@ Open the [Azure Cloud Shell](https://shell.azure.com), navigate to where you ext
 
 ![Login through the cloud shell](media/oc-login-cloudshell.png)
 
+{% endcollapsible %}
+
 ### Create a project
+
+{% collapsible %}
 
 A project allows a community of users to organize and manage their content in isolation from other communities.
 
 ```
 ./oc new-project workshop`
 ```
+{% endcollapsible %}
 
 > **Resources**
 > * <https://docs.openshift.com/aro/getting_started/access_your_services.html>
