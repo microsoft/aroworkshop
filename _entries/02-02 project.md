@@ -35,6 +35,13 @@ Open the [Azure Cloud Shell](https://shell.azure.com), navigate to where you ext
 
 ### Create a project
 
+A project allows a community of users to organize and manage their content in isolation from other communities.
+
 ```
 ./oc new-project workshop`
 ```
+
+> **Resources**
+> * <https://docs.openshift.com/aro/getting_started/access_your_services.html>
+> * <https://docs.openshift.com/aro/cli_reference/get_started_cli.html>
+> * <https://docs.openshift.com/aro/dev_guide/projects.html>
