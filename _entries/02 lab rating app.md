@@ -1,7 +1,7 @@
 ---
-sectionid: labs
+sectionid: lab-ratingapp
 sectionclass: h1
-title: Labs
+title: Lab 1 - Rating App
 type: nocount
 is-parent: yes
 ---

@@ -1,8 +1,8 @@
 ---
-sectionid: hpa
+sectionid: scaling
 sectionclass: h2
 title: Scaling [WIP]
-parent-id: labs
+parent-id: lab-ratingapp
 ---
 
 ### Scaling deployments

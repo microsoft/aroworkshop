@@ -2,7 +2,7 @@
 sectionid: networkpolicy
 sectionclass: h2
 title: Create network policy
-parent-id: labs
+parent-id: lab-ratingapp
 ---
 
 Now that you have the application working, it is time to apply some security hardening. You'll use [network policies](https://docs.openshift.com/aro/admin_guide/managing_networking.html#admin-guide-networking-networkpolicy) to restrict communication to the `rating-api`.
