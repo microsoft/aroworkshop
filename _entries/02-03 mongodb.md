@@ -7,6 +7,7 @@ parent-id: labs
 
 ### Create mongoDB from template
 
+{% collapsible %}
 Azure Red Hat OpenShift provides a container image and template to make creating a new MongoDB database service easy. The template provides parameter fields to define all the mandatory environment variables (user, password, database name, etc) with predefined defaults including auto-generation of password values. It will also define both a deployment configuration and a service.
 
 There are two templates available:
@@ -34,7 +35,11 @@ If you now head back to the web console, you should see a new deployment for mon
 
 ![MongoDB deployment](media/mongodb-overview.png)
 
+{% endcollapsible %}
+
 ### Restore data
+
+{% collapsible %}
 
 Now you have the database running on the cluster, it is time to restore data.
 
@@ -81,6 +86,29 @@ mongoimport --host 127.0.0.1 --username ratingsuser --password ratingspassword -
 
 ![mongoimport](media/mongoimport.png)
 
+{% endcollapsible %}
+
+### Retrieve mongoDB service hostname
+
+{% collapsible %}
+
+Find the mongoDB service.
+
+```sh
+./oc get svc mongodb
+```
+
+![oc get svc](media/oc-get-svc-mongo.png)
+
+The service will be accessible at the following DNS name: `mongodb.workshop.svc.cluster.local` which is formed of `[service name].[project name].svc.cluster.local`. This resolves only within the cluster.
+
+You can also retrieve this from the web console. You'll need this hostname to configure the `rating-api`.
+
+![MongoDB service in the Web Console](media/mongo-svc-webconsole.png)
+
+{% endcollapsible %}
+
 > **Resources**
 > * <https://docs.openshift.com/aro/using_images/db_images/mongodb.html>
+> * <https://docs.openshift.com/aro/using_images/db_images/mongodb.html#running-mongodb-commands-in-containers>
 > * <https://docs.openshift.com/aro/dev_guide/templates.html>
