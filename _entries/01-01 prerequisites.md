@@ -58,19 +58,20 @@ You should now have access to the Azure Cloud Shell
 {% endcollapsible %}
 
 #### OpenShift CLI (oc)
-You'll need to [download the latest OpenShift CLI (oc)](https://artifacts-openshift-release-3-11.svc.ci.openshift.org/zips/) Linux artifact. You can follow the steps below on the Azure Cloud Shell.
+
+You'll need to [download the latest OpenShift CLI (oc)](https://github.com/openshift/origin/releases/tag/v3.11.0) client tools release. Follow the link to GitHub, and copy the link for the You can follow the steps below on the Azure Cloud Shell.
+
+> **Note** You'll need to change the link below to the latest link you get from the page.
+> ![GitHub release links](media/github-oc-release.png)
 
 ```sh
-wget https://artifacts-openshift-release-3-11.svc.ci.openshift.org/zips/openshift-origin-client-tools-v3.11.0-dfd1318-207-linux-64bit.tar.gz
+wget https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
 
 mkdir openshift
 
-tar -zxvf openshift-origin-client-tools-v3.11.0-dfd1318-207-linux-64bit.tar.gz -C openshift --strip-components=1
+tar -zxvf openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz -C openshift --strip-components=1
 ```
 
-The OpenShift CLI (oc) is now in the `openshift` directory. Test that it is working by doing
+The OpenShift CLI (oc) is now in the `openshift` directory.
 
-```sh
-cd openshift
-./oc version
-```
+> **Note** You'll need to run the OpenShift CLI commands from the `openshift` directory through `./oc`.

@@ -11,9 +11,9 @@ is-parent: yes
 Some of the things you’ll be going through:
 
 - Creating a [project](https://docs.openshift.com/aro/dev_guide/projects.html) on the Azure Red Hat OpenShift Web Console
-- Deploying a Node JS API and frontend app from Git Hub using [Source-To-Image (S2I)](https://docs.openshift.com/aro/creating_images/s2i.html)
 - Deploying a MongoDB container that uses Azure Disks for [persistent storage](https://docs.openshift.com/aro/dev_guide/persistent_volumes.html)
 - Restoring data into the MongoDB container by [executing commands](https://docs.openshift.com/aro/dev_guide/executing_remote_commands.html) on the Pod
+- Deploying a Node JS API and frontend app from Git Hub using [Source-To-Image (S2I)](https://docs.openshift.com/aro/creating_images/s2i.html)
 - Exposing the web application frontend using [Routes](https://docs.openshift.com/aro/dev_guide/routes.html)
 - Creating a [network policy](https://docs.openshift.com/aro/admin_guide/managing_networking.html#admin-guide-networking-networkpolicy) to control communication between the different tiers in the application
 - Setting scaling policies using [Horizontal Pod Autoscaler](https://docs.openshift.com/aro/dev_guide/pod_autoscaling.html)
