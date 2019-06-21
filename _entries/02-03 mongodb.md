@@ -37,6 +37,18 @@ If you now head back to the web console, you should see a new deployment for mon
 
 {% endcollapsible %}
 
+### Verify if the mongoDB pod was created successfully
+
+{% collapsible %}
+
+Run the `oc status` command to view the status of the new application and verify if the deployment of the mongoDB template was successful.
+
+```sh
+/.oc status
+```
+
+{% endcollapsible %}
+
 ### Restore data
 
 {% collapsible %}
@@ -101,6 +113,10 @@ Find the mongoDB service.
 ![oc get svc](media/oc-get-svc-mongo.png)
 
 The service will be accessible at the following DNS name: `mongodb.workshop.svc.cluster.local` which is formed of `[service name].[project name].svc.cluster.local`. This resolves only within the cluster.
+
+```sh
+./oc describe svc mongodb
+```
 
 You can also retrieve this from the web console. You'll need this hostname to configure the `rating-api`.
 
