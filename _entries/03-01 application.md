@@ -6,8 +6,8 @@ parent-id: lab-clusterapp
 ---
 
 ## Part 1: Intro to the Shifty App
-The source code for this app is available here: https://github.com/openshift-cs/shifty-demo
-Shifty front-end container image: quay.io/aroworkshop/shifty-frontend
+The source code for this app is available here: https://github.com/openshift-cs/shifty-demo <br>
+Shifty front-end container image: quay.io/aroworkshop/shifty-frontend <br> 
 Shifty microservice container image: quay.io/aroworkshop/shifty-microservice
 
 Shifty is a simple Node.js application that we will deploy to Azure Red Hat OpenShift. It is used to help us explore the functionality of Kubernetes. This application has a user interface which you can:
