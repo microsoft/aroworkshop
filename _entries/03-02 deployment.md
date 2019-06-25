@@ -14,7 +14,7 @@ parent-id: lab-clusterapp
 Then go to your CLI and paste that command and press enter.  You will see a similar confirmation message if you successfully logged in.
 
 ```
-[user@ok-vm Shifty]# oc login https://openshift.abcd1234.eastus.azmosa.io --token=hUBBG3XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+[okashi@ok-vm Shifty]# oc login https://openshift.abcd1234.eastus.azmosa.io --token=hUBBG3XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 Logged into "https://openshift.abcd1234.eastus.azmosa.io:443" as "okashi" using the token provided.
 
 You have access to the following projects and can switch between them with 'oc project <projectname>':
@@ -30,7 +30,7 @@ You have access to the following projects and can switch between them with 'oc p
 
 You should revieve the following response
 
-```[user@ok-vm Shifty]# oc new-project shifty
+```[okashi@ok-vm Shifty]# oc new-project shifty
 Now using project "shifty" on server "https://openshift.abcd1234.eastus.azmosa.io:443".
 
 You can add applications to this project with the 'new-app' command. For example, try:
@@ -59,7 +59,7 @@ In your command line deploy the microservice using the following command:
 
 You should see the following response:
 ```
-[user@ok-vm Shifty]# oc apply -f shifty-microservice-deployment.yaml 
+[okashi@ok-vm Shifty]# oc apply -f shifty-microservice-deployment.yaml 
 deployment.apps/shifty-microservice created
 service/shifty-microservice-svc created
 ```
@@ -80,7 +80,7 @@ The frontend deployment contains the node.js frontend for our application along 
 You should see all objects created successfully as in below
 
 ```
-[user@ok-vm Shifty]# oc apply -f shifty-fe-deployment.yaml
+[okashi@ok-vm Shifty]# oc apply -f shifty-fe-deployment.yaml
 persistentvolumeclaim/shifty-pvc created
 deployment.apps/shifty-frontend created
 service/shifty-frontend-svc created
