@@ -14,7 +14,7 @@ parent-id: lab-clusterapp
 Then go to your CLI and paste that command and press enter.  You will see a similar confirmation message if you successfully logged in.
 
 ```
-[root@ok-vm Shifty]# oc login https://openshift.abcd1234.eastus.azmosa.io --token=hUBBG3XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+[user@ok-vm Shifty]# oc login https://openshift.abcd1234.eastus.azmosa.io --token=hUBBG3XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 Logged into "https://openshift.abcd1234.eastus.azmosa.io:443" as "okashi" using the token provided.
 
 You have access to the following projects and can switch between them with 'oc project <projectname>':
