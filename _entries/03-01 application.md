@@ -18,7 +18,7 @@ Shifty is a simple Node.js application that we will deploy to Azure Red Hat Open
  - if connected to shared storage, read and write files
  - check network connectivity, intra-cluster DNS, and intra-communication with an included microservice
 
-[insert arch diagram here]
+![Shifty Diagram](/images/ProductPages.png)
 
 To learn more click on the "About" menu item on the left once we deploy the app.
 
