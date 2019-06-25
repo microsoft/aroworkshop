@@ -15,7 +15,7 @@ Then go to your CLI and paste that command and press enter.  You will see a simi
 
 ```
 [root@ok-vm Shifty]# oc login https://api.XXXXXXX.openshift.com --token=hUBBG3XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-Logged into "https://api.XXXXXXXX.openshift.com:443" as "okashi18" using the token provided.
+Logged into "https://api.XXXXXXXX.openshift.com:443" as "okashi" using the token provided.
 
 You have access to the following projects and can switch between them with 'oc project <projectname>':
 
@@ -35,8 +35,8 @@ then clicking on "+Create Project" button on the right.
 
 **Step 2:** Download the Kubernetes deployment object yamls from the following locations to your local drive in a directory of your choosing (just remember where you placed them for the next step).  Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits to seperating these out into individual yaml files. 
 
-[shifty-fe-deployment.yaml](/Shifty-YAMLs/shifty-fe-deployment.yaml)
-[shifty-microservice-deployment.yaml](/Shifty-YAMLs/shifty-microservice-deployment.yaml
+[shifty-fe-deployment.yaml](/Shifty-YAMLs/shifty-fe-deployment.yaml)<br>
+[shifty-microservice-deployment.yaml](/Shifty-YAMLs/shifty-microservice-deployment.yaml)
 
 **Step 3:** Deploy the backend microservice
 The microservice application serves internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.
@@ -47,8 +47,34 @@ In your command line deploy the microservice using the following command:
 
 You should see the following response:
 ```
-[root@ok-vm Shifty]# oc apply -f shifty-microservice-deployment.yaml 
+[user@ok-vm Shifty]# oc apply -f shifty-microservice-deployment.yaml 
 deployment.apps/shifty-microservice created
 service/shifty-microservice-svc created
 ```
 
+**Step 4:** Deploy the front-end service
+The frontend deployment contains the node.js frontend for our application along with a few other Kubernetes objects to illustrate examples. If you open the *shifty-fe-deployment.yaml* you will see we are defining:
+ - Persistent Volume Claim
+ - Deployment Object
+ - Service
+ - Route
+ - Configmaps
+ - Secrets
+ 
+ In your command line deploy the frontend along with creating all objects mentioned above by entering:
+ 
+ `oc apply -f shifty-fe-deployment.yaml`
+
+You should see all objects created successfully as in below
+
+```
+[user@ok-vm Shifty]# oc apply -f shifty-fe-deployment.yaml
+persistentvolumeclaim/shifty-pvc created
+deployment.apps/shifty-frontend created
+service/shifty-frontend-svc created
+route.route.openshift.io/shifty-route created
+configmap/shifty-configmap-env created
+secret/shifty-secret-env created
+configmap/shifty-configmap-files created
+secret/shifty-secret created
+```
