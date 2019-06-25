@@ -5,7 +5,7 @@ title: Application Overview [WIP]
 parent-id: lab-clusterapp
 ---
 
-##Part 1: Intro to the Shifty App
+## Part 1: Intro to the Shifty App
 The source code for this app is available here: https://github.com/openshift-cs/shifty-demo
 Shifty front-end container image: quay.io/aroworkshop/shifty-frontend
 Shifty microservice container image: quay.io/aroworkshop/shifty-microservice
@@ -18,7 +18,7 @@ Shifty is a simple Node.js application that we will deploy to Azure Red Hat Open
  - if connected to shared storage, read and write files
  - check network connectivity, intra-cluster DNS, and intra-communication with an included microservice
 
-![Shifty Diagram](/images/ProductPages.png)
+![Shifty Diagram](/images/ProductPages.png) . https://github.com/okashi18/aroworkshop/blob/master/media/managedlab/0-registration.png
 
 To learn more click on the "About" menu item on the left once we deploy the app.
 
