@@ -14,8 +14,8 @@ parent-id: lab-clusterapp
 Then go to your CLI and paste that command and press enter.  You will see a similar confirmation message if you successfully logged in.
 
 ```
-[root@ok-vm Shifty]# oc login https://api.XXXXXXX.openshift.com --token=hUBBG3XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-Logged into "https://api.XXXXXXXX.openshift.com:443" as "okashi" using the token provided.
+[root@ok-vm Shifty]# oc login https://openshift.abcd1234.eastus.azmosa.io --token=hUBBG3XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Logged into "https://openshift.abcd1234.eastus.azmosa.io:443" as "okashi" using the token provided.
 
 You have access to the following projects and can switch between them with 'oc project <projectname>':
 
@@ -27,6 +27,18 @@ You have access to the following projects and can switch between them with 'oc p
 **Step 1:** Create a new project called "shifty" in your clusterm using the following command
 
 `oc new-project shifty`
+
+You should revieve the following response
+
+```[user@ok-vm Shifty]# oc new-project shifty
+Now using project "shifty-test" on server "https://openshift.abcd1234.eastus.azmosa.io:443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app centos/ruby-25-centos7~https://github.com/sclorg/ruby-ex.git
+
+to build a new example application in Ruby.
+```
 
 Equivalently you can also create this new project using the web UI by selecting "Application Console" at the top 
 then clicking on "+Create Project" button on the right.
@@ -77,4 +89,11 @@ configmap/shifty-configmap-env created
 secret/shifty-secret-env created
 configmap/shifty-configmap-files created
 secret/shifty-secret created
+```
+
+**Step 5:** Get the route so that we can access the application via `oc get route`
+
+Should see the following response
+```NAME           HOST/PORT                                                             PATH      SERVICES              PORT      TERMINATION   WILDCARD
+shifty-route   shifty-route-shifty.apps.abcd1234.eastus.azmosa.io             shifty-frontend-svc   <all>                   None
 ```
