@@ -31,7 +31,7 @@ You have access to the following projects and can switch between them with 'oc p
 You should revieve the following response
 
 ```[user@ok-vm Shifty]# oc new-project shifty
-Now using project "shifty-test" on server "https://openshift.abcd1234.eastus.azmosa.io:443".
+Now using project "shifty" on server "https://openshift.abcd1234.eastus.azmosa.io:443".
 
 You can add applications to this project with the 'new-app' command. For example, try:
 
@@ -97,3 +97,5 @@ Should see the following response
 ```NAME           HOST/PORT                                                             PATH      SERVICES              PORT      TERMINATION   WILDCARD
 shifty-route   shifty-route-shifty.apps.abcd1234.eastus.azmosa.io             shifty-frontend-svc   <all>                   None
 ```
+
+Copy `shifty-route-shifty.apps.abcd1234.eastus.azmosa.io` above and paste it into you browser and press enter.  You should see the homepage of the application deployed.
