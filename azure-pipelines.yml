@@ -30,6 +30,7 @@ variables:
   containerRegistry: 'msworkshops.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
+  sourceVersion: '$(Build.SourceVersion)'
   sourceBranch: '$(Build.SourceBranchName)'
   
   # Agent VM image name
@@ -46,6 +47,9 @@ stages:
     steps:
     - script: sed -i 's/#BUILD_ID#/$(tag)/g' _includes/header.html
       displayName: Update site with Build ID
+
+    - script: sed -i 's/#COMMIT_ID#/$(sourceVersion)/g' _includes/header.html
+      displayName: Update site with Commit ID
 
     - task: Docker@2
       displayName: Build and push an image to container registry

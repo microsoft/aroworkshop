@@ -18,17 +18,17 @@ There are two templates available:
 
 > **Hint** You can retrieve a list of templates using the command below. The templates are preinstalled in the `openshift` namespace.
 > ```sh
-> ./oc get templates -n openshift
+> oc get templates -n openshift
 > ```
 
 Create a mongoDB deployment using the `mongodb-persistent` template. You're passing in the values to be replaced (username, password and database) which generates a YAML/JSON file. You then pipe it to the `oc create` command.
 
 ```sh
-./oc process openshift//mongodb-persistent \
+oc process openshift//mongodb-persistent \
     -p MONGODB_USER=ratingsuser \
     -p MONGODB_PASSWORD=ratingspassword \
     -p MONGODB_DATABASE=ratingsdb \
-    -p MONGODB_ADMIN_PASSWORD=ratingspassword | ./oc create -f -
+    -p MONGODB_ADMIN_PASSWORD=ratingspassword | oc create -f -
 ```
 
 If you now head back to the web console, you should see a new deployment for mongoDB.
@@ -44,10 +44,10 @@ If you now head back to the web console, you should see a new deployment for mon
 Run the `oc status` command to view the status of the new application and verify if the deployment of the mongoDB template was successful.
 
 ```sh
-./oc status
+oc status
 ```
 
-![oc status](media/oc-status-mongo.png)
+![oc status](media/oc-status-mongodb.png)
 
 {% endcollapsible %}
 
@@ -69,7 +69,7 @@ tar -zxvf data.tar.gz
 Identify the name of the running MongoDB pod. For example, you can view the list of pods in your current project:
 
 ```sh
-./oc get pods
+oc get pods
 ```
 
 ![oc get pods](media/oc-getpods-mongo.png)
@@ -77,7 +77,7 @@ Identify the name of the running MongoDB pod. For example, you can view the list
 Copy the data folder into the mongoDB pod.
 
 ```sh
-./oc rsync ./data mongodb-1-2g98n:/opt/app-root/src
+oc rsync ./data mongodb-1-nqpt5:/opt/app-root/src
 ```
 
 ![oc rsync](media/oc-rsync.png)
@@ -85,7 +85,7 @@ Copy the data folder into the mongoDB pod.
 Then, open a remote shell session to the desired pod.
 
 ```sh
-./oc rsh mongodb-1-2g98n
+oc rsh mongodb-1-nqpt5
 ```
 
 ![oc rsh](media/oc-rsh.png)
@@ -109,7 +109,7 @@ mongoimport --host 127.0.0.1 --username ratingsuser --password ratingspassword -
 Find the mongoDB service.
 
 ```sh
-./oc get svc mongodb
+oc get svc mongodb
 ```
 
 ![oc get svc](media/oc-get-svc-mongo.png)
