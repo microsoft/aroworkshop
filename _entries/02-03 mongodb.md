@@ -123,6 +123,6 @@ You can also retrieve this from the web console. You'll need this hostname to co
 {% endcollapsible %}
 
 > **Resources**
-> * <https://docs.openshift.com/aro/using_images/db_images/mongodb.html>
-> * <https://docs.openshift.com/aro/using_images/db_images/mongodb.html#running-mongodb-commands-in-containers>
-> * <https://docs.openshift.com/aro/dev_guide/templates.html>
+> * [ARO Documentation - MongoDB](https://docs.openshift.com/aro/using_images/db_images/mongodb.html)
+> * [ARO Documentation - Running MongoDB Commands...](https://docs.openshift.com/aro/using_images/db_images/mongodb.html#running-mongodb-commands-in-containers)
+> * [ARO Documentation - Templates](https://docs.openshift.com/aro/dev_guide/templates.html)

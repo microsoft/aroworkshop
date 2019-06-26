@@ -57,6 +57,6 @@ oc new-project workshop
 {% endcollapsible %}
 
 > **Resources**
-> * <https://docs.openshift.com/aro/getting_started/access_your_services.html>
-> * <https://docs.openshift.com/aro/cli_reference/get_started_cli.html>
-> * <https://docs.openshift.com/aro/dev_guide/projects.html>
+> * [ARO Documentation - Access your services](https://docs.openshift.com/aro/getting_started/access_your_services.html)
+> * [ARO Documentation - Getting started with the CLI](https://docs.openshift.com/aro/cli_reference/get_started_cli.html)
+> * [ARO Documentation - Projects](https://docs.openshift.com/aro/dev_guide/projects.html)
