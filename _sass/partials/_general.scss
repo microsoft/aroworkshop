@@ -24,7 +24,16 @@ body {
 
 .build {
   font-family: monospace;
+  color: black;
   font-size: x-small;
+}
+
+.commit {
+  font-family: monospace;
+  text-decoration: underline;
+  font-size: x-small;
+  color: $darkblue;
+  margin-top: 0;
 }
 
 .content {
