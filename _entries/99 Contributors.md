@@ -11,5 +11,6 @@ The following people have contributed to this workshop, thanks!
 {% githubauthor chzbrgr71 %}
 {% githubauthor haroldwongms %}
 {% githubauthor jschluchter %}
+{% githubauthor jamesread %}
 {% githubauthor sabbour %}
 </div>
