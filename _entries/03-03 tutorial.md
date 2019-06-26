@@ -17,6 +17,13 @@ Continuing from part 2, and assuming you can access the application via the Rout
   4. Config Maps:  Shows the contents of configmaps available to the application and the key:value pairs.
   5. Secrets: Shows the contents of secrets available to the application and the key:value pairs.
   6. ENV Variables: Shows the environment varaibles available to the application.
-  7. Networking: Tools to illustrate networking within the application
+  7. Networking: Tools to illustrate networking within the application.
+  8. Shows some more information about the application.
 
-**Step 1:** 
+### Logging
+
+**Step 1:** Click on the *Home* menu item and then click in the message box for "Log Message (stdout)" and write any message you want outputted to the stdout stream.  You can try "**All is well!**".  Then click *Send Message*.
+
+**Step 2:** Click on message box located in "Log Message (stderr)" and write any message you want outputted to the stderr stream. You can try "**Oh no! Error!**".  Then click *Send Message*.
+
+**Step 4:** 
