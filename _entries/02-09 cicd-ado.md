@@ -6,6 +6,7 @@ parent-id: lab-ratingapp
 ---
 
 ### Setting up CI/CD
+
 {% collapsible %}
 
 {% endcollapsible %}
