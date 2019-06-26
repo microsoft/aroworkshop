@@ -12,7 +12,7 @@ Continuing from part 2, and assuming you can access the application via the Rout
 
 **Step 1:** Familiarization with the Application UI
   1. Shows the pod name that served your browser the page.
-  2. Left Menu: Home - The main page of the applicaiton where you can perform some of the functions listed
+  2. Left Menu: Home - The main page of the applicaiton where you can perform some of the functions listed<br>
     ```a. Enter a message here to send a log message to the *stdout* stream
     b. Enter a message here to send a log message to the *stderr* stream```
   3. blahblah
