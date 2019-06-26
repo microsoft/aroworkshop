@@ -32,7 +32,8 @@ Continuing from part 2, and assuming you can access the application via the Rout
 
 **Step 3:** Go to the CLI and enter the following command to retrieve the name of your frontend pod
 
-```[okashi@ok-vm ~]# oc get pods -o name
+```
+[okashi@ok-vm ~]# oc get pods -o name
 pod/shifty-frontend-5bf5dcfcdc-x9snr
 pod/shifty-microservice-86b4c6f559-p594d```
 
