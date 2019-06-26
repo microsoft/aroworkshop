@@ -16,4 +16,4 @@ az openshift scale  --name <cluster name> --resource-group <resource group name>
 ```
 
 > **Resources**
-> * <https://docs.microsoft.com/en-us/azure/openshift/tutorial-scale-cluster>
+> * [ARO Documentation - Scaling the cluster](https://docs.microsoft.com/en-us/azure/openshift/tutorial-scale-cluster)
