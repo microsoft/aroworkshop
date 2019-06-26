@@ -35,7 +35,7 @@ Once you're logged into the Web Console, click on the username on the top right,
 
 ![Copy login command](media/login-command.png)
 
-Open the [Azure Cloud Shell](https://shell.azure.com), navigate to where you extracted the OpenShift CLI, and paste the login command. You should be able to connect to the cluster.
+Open the [Azure Cloud Shell](https://shell.azure.com) and paste the login command. You should be able to connect to the cluster.
 
 ![Login through the cloud shell](media/oc-login-cloudshell.png)
 
@@ -48,12 +48,15 @@ Open the [Azure Cloud Shell](https://shell.azure.com), navigate to where you ext
 A project allows a community of users to organize and manage their content in isolation from other communities.
 
 ```sh
-./oc new-project workshop
+oc new-project workshop
 ```
+
+![Create new project](media/oc-newproject.png)
+
 
 {% endcollapsible %}
 
 > **Resources**
-> * <https://docs.openshift.com/aro/getting_started/access_your_services.html>
-> * <https://docs.openshift.com/aro/cli_reference/get_started_cli.html>
-> * <https://docs.openshift.com/aro/dev_guide/projects.html>
+> * [ARO Documentation - Access your services](https://docs.openshift.com/aro/getting_started/access_your_services.html)
+> * [ARO Documentation - Getting started with the CLI](https://docs.openshift.com/aro/cli_reference/get_started_cli.html)
+> * [ARO Documentation - Projects](https://docs.openshift.com/aro/dev_guide/projects.html)

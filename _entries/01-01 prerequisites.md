@@ -72,10 +72,11 @@ wget https://github.com/openshift/origin/releases/download/v3.11.0/openshift-ori
 mkdir openshift
 
 tar -zxvf openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz -C openshift --strip-components=1
+
+echo 'export PATH=$PATH:~/openshift' >> ~/.bashrc && source ~/.bashrc
+
 ```
 
-The OpenShift CLI (oc) is now in the `openshift` directory.
-
-> **Note** You'll need to run the OpenShift CLI commands from the `openshift` directory through `./oc`.
+The OpenShift CLI (oc) is now installed.
 
 {% endcollapsible %}

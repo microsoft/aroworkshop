@@ -48,4 +48,4 @@ Click **Create**.
 {% endcollapsible %}
 
 > **Resources**
-> * <https://docs.openshift.com/aro/admin_guide/managing_networking.html#admin-guide-networking-networkpolicy>
+> * [ARO Documentation - Managing Networking with Network Policy](https://docs.openshift.com/aro/admin_guide/managing_networking.html#admin-guide-networking-networkpolicy)
