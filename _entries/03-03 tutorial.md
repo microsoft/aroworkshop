@@ -30,15 +30,12 @@ Continuing from part 2, and assuming you can access the application via the Rout
 
 ![Logging stderr](/media/managedlab/9-shifty-stderr.png)
 
-**Step 3:** Go to the CLI and enter the following command to retrieve the name of your frontend pod
+**Step 3:** Go to the CLI and enter the following command to retrieve the name of your frontend pod which we will use to view the pod logs:
 
 
 ```[okashi@ok-vm ~]# oc get pods -o name
 pod/shifty-frontend-5bf5dcfcdc-x9snr
 pod/shifty-microservice-86b4c6f559-p594d```
-
-
-
 
 So the pod name in this case is **shifty-frontend-5bf5dcfcdc-x9snr**
 
@@ -50,3 +47,7 @@ Responding to /health endpoint healthy
 stdout: All is well!
 Responding to /health endpoint healthy
 ```
+
+You should see both the stdout and std error messages.  TODO FIX ABOVE
+
+**Step 4:** 
