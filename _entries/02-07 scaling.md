@@ -5,11 +5,6 @@ title: Scaling
 parent-id: lab-ratingapp
 ---
 
-### Scaling deployments
-{% collapsible %}
-
-{% endcollapsible %}
-
 ### Scale the Azure Red Hat OpenShift cluster
 
 You can scale the number of application nodes in the cluster using the Azure CLI.
