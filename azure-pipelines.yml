@@ -17,6 +17,9 @@ trigger:
     - README.md
     - app/* 
 
+# no PR builds
+pr: none
+
 resources:
 - repo: self
 
