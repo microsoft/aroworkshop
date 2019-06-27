@@ -57,7 +57,7 @@ You should see both the stdout and std error messages.
 
 **Step 1:** It would be best to prepare the OpenShift Web UI in either split-screen or at least open in another tab so you can quickly switch to it once you click the button. To get to this deployment in the UI go to: 
 
-Appliations > Deployments > click the number in the "Last Version" column for the "shifty-frontend" row
+Applications > Deployments > click the number in the "Last Version" column for the "shifty-frontend" row
 
 ![Deploy Num](/media/managedlab/11-shifty-deploynum.png)
 
