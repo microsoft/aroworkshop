@@ -12,7 +12,7 @@ In this section we will execute a simple example of using persistent storage by 
 
 **Step 1:** Inside the OpenShift web UI click on "Storage" in the left menu and the you will see a list of all peristent volume claims that our application has made.  In this case there is just one called "shifty-pvc".  You will also see some other pertinent information such as whether it is bound or not, size, access mode and age.  
 
-In this case it is RWO (Read-Write-Once) which means that the volume can only be mounted to one node, but the pod(s) can both read and write to that volume.  The default in ARO is for Persistent Volumes to be backed by Azure Disk, but it is possible to chose Azure Files so that you can use the RWX (Read-Write-Many) access mode.  ([See here for more info on access modes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes)
+In this case it is RWO (Read-Write-Once) which means that the volume can only be mounted to one node, but the pod(s) can both read and write to that volume.  The default in ARO is for Persistent Volumes to be backed by Azure Disk, but it is possible to chose Azure Files so that you can use the RWX (Read-Write-Many) access mode.  ([See here for more info on access modes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes))
 
 **Step 2:** In the Shifty app click on "Persistent Storage" in the left menu.  In the "Filename" area enter a filename for the file you will create. (ie: "shifty-file.txt")
 
