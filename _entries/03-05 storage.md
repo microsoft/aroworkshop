@@ -18,11 +18,11 @@ In this case it is RWO (Read-Write-Once) which means that the volume can only be
 
 **Step 3:** Underneath that in the "File Contents" box enter in some text to be stored in the file. (ie: "Azure Red Hat OpenShift is the greatest thing since sliced bread!" or "test" :) ).  Then click "Create file".
 
-image
+![Crash Message](/media/managedlab/17-shifty-createfile.png)
 
 **Step 4:** You will then see the file you created appear on the right under "Existing files".  Click on the file and you will see the filename and the contents you entered.
 
-image
+![Crash Message](/media/managedlab/18-shifty-viewfile.png)
 
 **Step 5:** We now want to kill the pod and ensure that the new pod that spins up will be able to see the file we created.  Click on "Home" in the left menu.
 
@@ -32,6 +32,6 @@ image
 
 **Step 8:** You should see the file you created is still there and you can open it to view its contents to confirm.
 
-image
+![Crash Message](/media/managedlab/19-shifty-existingfile.png)
 
 
