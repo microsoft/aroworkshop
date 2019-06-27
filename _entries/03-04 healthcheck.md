@@ -10,7 +10,6 @@ parent-id: lab-clusterapp
 ### Health Checks
 In this section we will play with intentionally crashing our pods as well as making the pods non-responsive to the liveliness probes from Kubernetes and see how Kubernetes behaves.  We will first intentionally crash our pod and see how Kubernetes will immediately spin it back up and then we will trigger the health check buy stopping the response on the `/heatlh` endpoint in our app.  After three failures Kubernetes should kill the pod and then recreate it.
 
-
 **Step 1:** It would be best to prepare the OpenShift Web UI in either split-screen or at least open in another tab so you can quickly switch to it once you click the button. To get to this deployment in the UI go to: 
 
 Applications > Deployments > click the number in the "Last Version" column for the "shifty-frontend" row
@@ -28,3 +27,11 @@ Applications > Deployments > click the number in the "Last Version" column for t
 **Step 4:** You can also check in the pod events and further verify that the container has crashed and been restarted.
 
 ![Pod Events](/media/managedlab/14-shifty-podevents.png)
+
+**Step 5:** Keep the page from the pod events still open from step 4.  Then in antoher tab click on the "Toggle Health" button, in the "Toggle Health Status" tile.  
+
+![Pod Events](/media/managedlab/15-shifty-togglehealth.png)
+
+This will cause the app to stop respoding with a "200 HHTP code" and after 3 such failures Kubernetes should kill the pod and restart it. Switch quickly back to the pod events and you will see the failure of the livliness probe and the restarting of the pod
+
+![Pod Events2](/media/managedlab/16-shifty-podevents2.png)
