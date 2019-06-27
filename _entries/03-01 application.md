@@ -1,7 +1,7 @@
 ---
 sectionid: appoverview
 sectionclass: h2
-title: Application Overview [WIP]
+title: Application Overview
 parent-id: lab-clusterapp
 ---
 
