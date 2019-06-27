@@ -28,10 +28,10 @@ Applications > Deployments > click the number in the "Last Version" column for t
 
 ![Pod Events](/media/managedlab/14-shifty-podevents.png)
 
-**Step 5:** Keep the page from the pod events still open from step 4.  Then in antoher tab click on the "Toggle Health" button, in the "Toggle Health Status" tile.  
+**Step 5:** Keep the page from the pod events still open from step 4.  Then in antoher tab click on the "Toggle Health" button, in the "Toggle Health Status" tile.  You will see the "Current Health" switch to "I'm not feeling all that well".
 
 ![Pod Events](/media/managedlab/15-shifty-togglehealth.png)
 
-This will cause the app to stop respoding with a "200 HHTP code" and after 3 such failures Kubernetes should kill the pod and restart it. Switch quickly back to the pod events and you will see the failure of the livliness probe and the restarting of the pod
+This will cause the app to stop respoding with a "200 HHTP code". After 3 such failures Kubernetes will kill the pod and restart it. Switch quickly back to the pod events tab and you will see that the livliness probe failed and the pod as being restarted.
 
 ![Pod Events2](/media/managedlab/16-shifty-podevents2.png)
