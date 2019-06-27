@@ -1,7 +1,7 @@
 ---
-sectionid: appoverview
+sectionid: logging
 sectionclass: h2
-title: Becoming Familiar with OpenShift
+title: Logging on ARO
 parent-id: lab-clusterapp
 ---
 
