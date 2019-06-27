@@ -30,7 +30,7 @@ spec:
           type: Recreate
         containers:
         - name: shifty-frontend
-          image: quay.io/aroworkshop/shifty-frontend:1.1.0
+          image: quay.io/aroworkshop/shifty-frontend:1.1.1
           imagePullPolicy: IfNotPresent
           ports:
           - name: shifty-port
@@ -68,6 +68,8 @@ spec:
                 key: ENV_TOY_SECRET
           - name: MICROSERVICE_NAME
             value: SHIFTY_MICROSERVICE_SVC
+          - name: ENABLE_ARO_LOGO
+            value: "true"
         volumes:
           - name: configvol
             configMap:
