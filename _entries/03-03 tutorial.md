@@ -61,7 +61,7 @@ Applications > Deployments > click the number in the "Last Version" column for t
 
 ![Deploy Num](/media/managedlab/11-shifty-deploynum.png)
 
-**Step 2:** Enter a message in the "Crash Pod" tile and press the Crash Pod button.  This will cause the pod to crash and Kubernetes should restart the pod. After you press the button you will see:
+**Step 2:** Go back to the Shifty app and enter a message in the "Crash Pod" tile and press the Crash Pod button.  This will cause the pod to crash and Kubernetes should restart the pod. After you press the button you will see:
 
 ![Crash Message](/media/managedlab/12-shifty-crashmsg.png)
 
