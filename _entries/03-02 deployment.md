@@ -101,4 +101,4 @@ shifty-route   shifty-route-shifty.apps.abcd1234.eastus.azmosa.io             sh
 
 Copy `shifty-route-shifty.apps.abcd1234.eastus.azmosa.io` above and paste it into you browser and press enter.  You should see the homepage of the application deployed.
 
-TODO: ADD SCREENSHOT HERE***
+![Home Page](/media/managedlab/10-shifty-homepage.png)
