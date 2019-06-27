@@ -20,6 +20,8 @@ Continuing from part 2, and assuming you can access the application via the Rout
   7. Networking: Tools to illustrate networking within the application.
   8. Shows some more information about the application.
 
+![Home Page](/media/managedlab/10-shifty-homepage-1.png)
+
 ### Logging
 
 **Step 1:** Click on the *Home* menu item and then click in the message box for "Log Message (stdout)" and write any message you want outputted to the stdout stream.  You can try "**All is well!**".  Then click *Send Message*.
@@ -38,7 +40,7 @@ pod/shifty-frontend-679cb85695-5cn7x
 pod/shifty-microservice-86b4c6f559-p594d
 ```
 
-So the pod name in this case is **shifty-frontend-679cb85695-5cn7x**.  Then run `oc get logs shifty-frontend-5bf5dcfcdc-x9snr` and you should see your messages:
+So the pod name in this case is **shifty-frontend-679cb85695-5cn7x**.  Then run `oc get logs shifty-frontend-679cb85695-5cn7x` and you should see your messages:
 
 ```
 [okashi@ok-vm Shifty]# oc logs shifty-frontend-679cb85695-5cn7x
@@ -51,6 +53,22 @@ stderr: Oh no! Error!
 
 You should see both the stdout and std error messages.
 
+### Health Checks
 
+**Step 1:** It would be best to prepare the OpenShift Web UI in either split-screen or at least open in another tab so you can quickly switch to it once you click the button. To get to this deployment in the UI go to: 
 
-**Step 4:** 
+Appliations > Deployments > click the number in the "Last Version" column for the "shifty-frontend" row
+
+![Deploy Num](/media/managedlab/11-shifty-deploynum.png)
+
+**Step 2:** Enter a message in the "Crash Pod" tile and press the Crash Pod button.  This will cause the pod to crash and Kubernetes should restart the pod. After you press the button you will see:
+
+![Crash Message](/media/managedlab/12-shifty-crashmsg.png)
+
+**Step 3:** Quickly switch to the Deplyoment screen you will see that the pod is red, meaning it is down but should quickly come back up and show blue.
+
+![Pod Crash](/media/managedlab/13-shifty-podcrash.png)
+
+**Step 4:** You can also check in the pod events and further verify that the container has crashed and been restarted.
+
+![Pod Events](/media/managedlab/14-shifty-podevents.png)
