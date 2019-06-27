@@ -10,6 +10,8 @@ The source code for this app is available here: https://github.com/openshift-cs/
 Shifty front-end container image: quay.io/aroworkshop/shifty-frontend <br> 
 Shifty microservice container image: quay.io/aroworkshop/shifty-microservice
 
+*Note:* In order to simplify the deployment of the app (which you will do next) we have included all the objects needed in the above yamls as "all-in-one" yamls.  In reality though, an enterprise would most likely want to have a different yaml file for each kubernetes object.
+
 Shifty is a simple Node.js application that we will deploy to Azure Red Hat OpenShift. It is used to help us explore the functionality of Kubernetes. This application has a user interface which you can:
  - write messages to the log (stdout / stderr)
  - intentionally crash the application to view auto repair
