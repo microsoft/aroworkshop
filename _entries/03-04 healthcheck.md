@@ -5,7 +5,7 @@ title: Exploring Health Checks
 parent-id: lab-clusterapp
 ---
 
-## Part 3 (continued)
+## Part 3: Using Shifty to become familiar with OpenShift (continued)
 
 ### Health Checks
 In this section we will play with intentionally crashing our pods as well as making the pods non-responsive to the liveliness probes from Kubernetes and see how Kubernetes behaves.  We will first intentionally crash our pod and see how Kubernetes will immediately spin it back up and then we will trigger the health check buy stopping the response on the `/heatlh` endpoint in our app.  After three failures Kubernetes should kill the pod and then recreate it.
