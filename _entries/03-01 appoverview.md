@@ -6,8 +6,8 @@ parent-id: lab-clusterapp
 ---
 
 ## Part 1: Intro to the Shifty App
-The source code for this app is available here: https://github.com/openshift-cs/shifty-demo <br>
-Shifty front-end container image: [quay.io/aroworkshop/shifty-frontend] <br> 
+The source code for this app is available here: [https://github.com/openshift-cs/shifty-demo]
+Shifty front-end container image: [quay.io/aroworkshop/shifty-frontend]
 Shifty microservice container image: [quay.io/aroworkshop/shifty-microservice]
 
 *Note:* In order to simplify the deployment of the app (which you will do next) we have included all the objects needed in the above yamls as "all-in-one" yamls.  In reality though, an enterprise would most likely want to have a different yaml file for each kubernetes object.
