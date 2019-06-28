@@ -1,0 +1,136 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shifty-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shifty-frontend
+  labels:
+    app: shifty
+spec:
+    selector:
+      matchLabels:
+        app: shifty-frontend
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          app: shifty-frontend
+      spec:
+        strategy:
+          type: Recreate
+        containers:
+        - name: shifty-frontend
+          image: quay.io/aroworkshop/shifty-frontend:1.2.0
+          imagePullPolicy: IfNotPresent
+          ports:
+          - name: shifty-port
+            containerPort: 8080
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "200m"
+          volumeMounts:
+          - name: configvol
+            mountPath: /var/config
+          - name: secretvol
+            mountPath: /var/secret
+          - name: datavol
+            mountPath: /var/demo_files
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          env:
+          - name: ENV_TOY_CONFIGMAP
+            valueFrom:
+              configMapKeyRef:
+                name: shifty-configmap-env
+                key: ENV_TOY_CONFIGMAP
+          - name: ENV_TOY_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: shifty-secret-env
+                key: ENV_TOY_SECRET
+          - name: MICROSERVICE_NAME
+            value: SHIFTY_MICROSERVICE_SVC
+        volumes:
+          - name: configvol
+            configMap:
+              name: shifty-configmap-files
+          - name: secretvol
+            secret:
+              defaultMode: 420
+              secretName: shifty-secret
+          - name: datavol
+            persistentVolumeClaim:
+              claimName: shifty-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shifty-frontend-svc
+  labels:
+    app: shifty-frontend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: shifty-port
+      protocol: TCP
+      name: shifty
+  selector:
+    app: shifty-frontend
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: shifty-route
+spec:
+  to:
+    kind: Service
+    name: shifty-frontend-svc
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: shifty-configmap-env
+data:
+  ENV_TOY_CONFIGMAP: 'This is a configuration value.'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: shifty-secret-env
+type: Opaque
+data:
+  ENV_TOY_SECRET: VGhpcyBpcyBhIHRlc3Q=
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: shifty-configmap-files
+data:
+  config.json:  '{ "default": "123" }'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: shifty-secret
+data:
+  secret.txt: VVNFUk5BTUU9bXlfdXNlcgpQQVNTV09SRD1AT3RCbCVYQXAhIzYzMlk1RndDQE1UUWsKU01UUD1sb2NhbGhvc3QKU01UUF9QT1JUPTI1
+type: Opaque
