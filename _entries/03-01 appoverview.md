@@ -6,7 +6,7 @@ parent-id: lab-clusterapp
 ---
 
 ## Part 1: Intro to the Shifty App
-The source code for this app is available here: [https://github.com/openshift-cs/shifty-demo] <br>
+The source code for this app is available here: [https://github.com/openshift-cs/shifty-demo/] <br>
 Shifty front-end container image: [quay.io/aroworkshop/shifty-frontend] <br>
 Shifty microservice container image: [quay.io/aroworkshop/shifty-microservice]
 
