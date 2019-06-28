@@ -1,11 +1,18 @@
 ---
 sectionid: network
 sectionclass: h2
-title: Networking
+title: Networking and Scaling
 parent-id: lab-clusterapp
 ---
 
 ## Part 3: Using Shifty to become familiar with OpenShift (continued)
 
-### Intra-cluster networking
-In this section well take a look at how Shifty can be configured using [ConfigMaps](https://docs.openshift.com/container-platform/3.11/dev_guide/configmaps.html), [Secrets](https://docs.openshift.com/container-platform/3.11/dev_guide/secrets.html), and [Environment Variables](https://docs.openshift.com/container-platform/3.11/dev_guide/environment_variables.html).  This section won't go into details explaining each, but show you how they are exposed to the application.  Click the links above if you want to find out more about each or you can also go to the Kubernetes documentation.
+### Intra-cluster networking and scalin
+In this section we'll see how Shifty uses intra-cluster networking to seperate functions out by using microservices and visualize the scaling of pods.  (**TODO: FILL OUT**)
+
+### Networking
+**Step 1:** Click on "Networking" in the left menu
+
+**Step 2:** The left tile titled "Hostname Lookup" illustrates how the service name created for a pod can be used to translate into an internal ClusterIP address.
+
+Let's review how this application is set up.  
