@@ -30,7 +30,7 @@ spec:
           type: Recreate
         containers:
         - name: shifty-frontend
-          image: quay.io/aroworkshop/shifty-frontend:1.1.1
+          image: quay.io/aroworkshop/shifty-frontend:1.2.0
           imagePullPolicy: IfNotPresent
           ports:
           - name: shifty-port
