@@ -8,7 +8,7 @@ parent-id: lab-clusterapp
 ## Part 3: Using Shifty to become familiar with OpenShift (continued)
 
 ### Intra-cluster networking and scalin
-In this section we'll see how Shifty uses intra-cluster networking to seperate functions out by using microservices and visualize the scaling of pods.  (**TODO: FILL OUT**)
+In this section we'll see how Shifty uses intra-cluster networking to seperate functions out by using microservices and visualize the scaling of pods.
 
 Let's review how this application is set up...
 
@@ -48,5 +48,35 @@ OpenShift allows one to scale up/down the number of pods for each part of an app
 
 If we look at the tile on the right we should see one box randomly changing colors.  This box represented the randomly generated color sent to the frontend by our microservice. Since we see only one box that means there is only one microservice pod.  We will now scale our microservice pods and will see the number of boxes changing.
 
-**Step 1:** Let's change our microservice definition yaml to reflect that we want 3 pods instead of the one we see.  
+**Step 1:** To confirm that we only have one pod running for our microservice we can run the following command, or use the web UI.
+```
+[okashi@ok-vm Shifty]# oc get pods
+NAME                                   READY     STATUS    RESTARTS   AGE
+shifty-frontend-679cb85695-5cn7x       1/1       Running   0          1h
+shifty-microservice-86b4c6f559-p594d   1/1       Running   0          1h
+```
 
+**Step 2:** Let's change our microservice definition yaml to reflect that we want 3 pods instead of the one we see.  Download the `shifty-microservice-deployment.yaml` and save it on your local machine.
+
+**Step 3:** Open the file using your favorite editor. Ex: `vi shifty-microservice-deployment.yaml`.
+
+**Step 4:** Find the line that states `replicas: 1` and change that to 3 and save and quit.
+
+It will look like this
+```
+spec:
+    selector:
+      matchLabels:
+        app: shifty-microservice
+    replicas: 3
+ ```
+ 
+ **Step 5:** Assuming you are still logged in via the cli, execute the following command:
+ 
+ `oc apply -f shifty-microservice-deployment.yaml`
+ 
+ **Step 6:** Confirn that there are inded 3 pods now via the CLI or the web UI.
+ 
+ **Step 7:** See this visually by visiting the Shifty App and seeing how many boxes you now see.  It should be three.
+ 
+ IMAGE!
