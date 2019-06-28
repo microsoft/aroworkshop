@@ -15,7 +15,7 @@ ConfigMaps allow you to decouple configuration artifacts from image content to k
 
 **Step 1:** Click on "Config Maps" on the left menu
 
-**Step 2:** 
+**Step 2:** This will display the contents of the configmap available to the Shifty application.  We defined this in the `shifty-fe-deployment.yaml` here:
 
 ```
 kind: ConfigMap
