@@ -68,8 +68,6 @@ spec:
                 key: ENV_TOY_SECRET
           - name: MICROSERVICE_NAME
             value: SHIFTY_MICROSERVICE_SVC
-          - name: ENABLE_ARO_LOGO
-            value: "true"
         volumes:
           - name: configvol
             configMap:
