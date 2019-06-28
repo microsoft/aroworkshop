@@ -11,11 +11,11 @@ Continuing from part 2, and assuming you can access the application via the Rout
 
 ### Logging
 
-**Step 1:** Click on the *Home* menu item and then click in the message box for "Log Message (stdout)" and write any message you want outputted to the stdout stream.  You can try "**All is well!**".  Then click *Send Message*.
+**Step 1:** Click on the *Home* menu item and then click in the message box for "Log Message (stdout)" and write any message you want outputted to the stdout stream.  You can try "**All is well!**".  Then click "Send Message".
 
 ![Logging stdout](/media/managedlab/8-shifty-stdout.png)
 
-**Step 2:** Click on message box located in "Log Message (stderr)" and write any message you want outputted to the stderr stream. You can try "**Oh no! Error!**".  Then click *Send Message*.
+**Step 2:** Click on message box located in "Log Message (stderr)" and write any message you want outputted to the stderr stream. You can try "**Oh no! Error!**".  Then click "Send Message".
 
 ![Logging stderr](/media/managedlab/9-shifty-stderr.png)
 
