@@ -11,13 +11,13 @@ Shifty front-end container image: [https://quay.io/aroworkshop/shifty-frontend] 
 Shifty microservice container image: [https://quay.io/aroworkshop/shifty-microservice] <br>
 Deployment Definition yamls: [/yaml/](/yaml/) <-FIX THIS
 
-*Note:* In order to simplify the deployment of the app (which you will do next) we have included all the objects needed in the above yamls as "all-in-one" yamls.  In reality though, an enterprise would most likely want to have a different yaml file for each kubernetes object.
+*Note:* In order to simplify the deployment of the app (which you will do next) we have included all the objects needed in the above yamls as "all-in-one" yamls.  In reality though, an enterprise would most likely want to have a different yaml file for each Kubernetes object.
 
 Shifty is a simple Node.js application that we will deploy to Azure Red Hat OpenShift. It is used to help us explore the functionality of Kubernetes. This application has a user interface which you can:
  - write messages to the log (stdout / stderr)
- - intentionally crash the application to view auto repair
- - toggle a liveness probe and monitor OpenShift behavior
- - if provided; read config maps, secrets, and env variables
+ - intentionally crash the application to view self-healing
+ - toggle a livliness probe and monitor OpenShift behavior
+ - read config maps, secrets, and env variables
  - if connected to shared storage, read and write files
  - check network connectivity, intra-cluster DNS, and intra-communication with an included microservice
 
