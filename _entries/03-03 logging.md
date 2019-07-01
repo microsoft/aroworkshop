@@ -27,7 +27,7 @@ pod/shifty-frontend-679cb85695-5cn7x
 pod/shifty-microservice-86b4c6f559-p594d
 ```
 
-So the pod name in this case is **shifty-frontend-679cb85695-5cn7x**.  Then run `oc get logs shifty-frontend-679cb85695-5cn7x` and you should see your messages:
+So the pod name in this case is **shifty-frontend-679cb85695-5cn7x**.  Then run `oc logs shifty-frontend-679cb85695-5cn7x` and you should see your messages:
 
 ```
 [okashi@ok-vm Shifty]# oc logs shifty-frontend-679cb85695-5cn7x
