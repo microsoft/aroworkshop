@@ -14,11 +14,11 @@ Let's review how this application is set up...
 
 ![Shifty Diagram](/media/managedlab/4-shifty-arch.png)
 
-As can be seen in the image above we see we have defined at least 2 seperate pods, each with its own service.  One is the frontend web application (with a service and a publicly accessible route) and the other is the backend microservice with a service object created so that the frontend pod can communicate with the microservice (accross the pods if more than one).  Therefore this microservice is not accessible from outside this cluster (and due to ARO's network policy, ovs-subnet) nor from other namespaces/projects.  The sole purpose of this microservice is to serve internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.  This color string is used to display a box with that color displayed in the left tile (titled "Intra-cluster Communication").
+As can be seen in the image above we see we have defined at least 2 seperate pods, each with its own service.  One is the frontend web application (with a service and a publicly accessible route) and the other is the backend microservice with a service object created so that the frontend pod can communicate with the microservice (accross the pods if more than one).  Therefore this microservice is not accessible from outside this cluster, nor from other namespaces/projects (due to ARO's network policy, ovs-subnet).  The sole purpose of this microservice is to serve internal web requests and return a JSON object containing the current hostname and a randomly generated color string.  This color string is used to display a box with that color displayed in the tile (titled "Intra-cluster Communication").
 
 
 ### Networking
-**Step 1:** Click on "Networking" in the left menu
+**Step 1:** Click on "Networking" in the left menu.
 
 **Step 2:** The right tile titled "Hostname Lookup" illustrates how the service name created for a pod can be used to translate into an internal ClusterIP address. Enter the name of the microservice following the format of `my-svc.my-namespace.svc.cluster.local` which we created in our `shifty-microservice.yaml` which can be seen here:
 
@@ -40,7 +40,7 @@ spec:
 ```
 In this case we will enter: `shifty-microservice-svc.aroshifty.svc.cluster.local`
 
-**Step 3:** We should see an IP address returned.  In our example it is ```172.30.237.85```.
+**Step 3:** We will see an IP address returned.  In our example it is ```172.30.237.85```.  This is the intra-cluster IP address only accessible from within the cluster.
 
 ![Shifty DNS](/media/managedlab/20-shifty-dns.png)
 
