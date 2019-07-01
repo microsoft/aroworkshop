@@ -7,14 +7,14 @@ parent-id: lab-clusterapp
 
 ## Part 3: Using Shifty to become familiar with OpenShift (continued)
 
-### Intra-cluster networking and scalin
+### Intra-cluster networking and scaling
 In this section we'll see how Shifty uses intra-cluster networking to seperate functions out by using microservices and visualize the scaling of pods.
 
 Let's review how this application is set up...
 
 ![Shifty Diagram](/media/managedlab/4-shifty-arch.png)
 
-As can be seen in the image above we see we have defined at least 2 seperate pods, each with its own service.  One is the frontend web application (with a service and a publicly accessible route) and the other is the backend microservice with a service object created so that the frontend pod can communicate with the microservice.  Therefore this microservice is not accessible from outside this cluster (and due to ARO's network policy, ovs-subnet) nor from other namespaces/projects.  The sole purpose of this microservice is to serve internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.  This color string is used to display a box in that color displayed in the tile to the right (titled "Intra-cluster Communication").
+As can be seen in the image above we see we have defined at least 2 seperate pods, each with its own service.  One is the frontend web application (with a service and a publicly accessible route) and the other is the backend microservice with a service object created so that the frontend pod can communicate with the microservice (accross the pods if more than one).  Therefore this microservice is not accessible from outside this cluster (and due to ARO's network policy, ovs-subnet) nor from other namespaces/projects.  The sole purpose of this microservice is to serve internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.  This color string is used to display a box with that color displayed in the **?????WHERE????** (titled "Intra-cluster Communication").
 
 
 ### Networking
@@ -90,6 +90,8 @@ spec:
  **Step 10:** See this visually by visiting the Shifty App and seeing how many boxes you now see.  It should be two.
  
  **Step 11:** Lastly let's use the web UI to scale back down to one pod.  In the project you created for this app (ie "shifty") in the left menu click *Overview > expand "shifty-microservice"*.  On the right you will see a blue circle with the number 2 in the middle. Click on the down arrow to the right of that to scale the number of pods down to 1.
+ 
+ ![UI Scale](/media/managedlab/21-shifty-uiscale.png)
  
  **Step 12:** See this visually by visiting the Shifty App and seeing how many boxes you now see.  It should be one.
  
