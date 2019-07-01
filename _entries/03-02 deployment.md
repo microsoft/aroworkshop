@@ -7,11 +7,11 @@ parent-id: lab-clusterapp
 
 ## Part 2: Deploying Shifty
 
-**Step 0:** Log into the CLI if not already logged in.  Click on the dropdown arrow next to your name in the top-right and select *Copy Login Command*. 
+**Step 0:** In not logged in via the CLI, click on the dropdown arrow next to your name in the top-right and select *Copy Login Command*. 
 
 ![CLI Login](/media/managedlab/7-shifty-login.png)
 
-Then go to your CLI and paste that command and press enter.  You will see a similar confirmation message if you successfully logged in.
+Then go to your terminal and paste that command and press enter.  You will see a similar confirmation message if you successfully logged in.
 
 ```
 [okashi@ok-vm Shifty]# oc login https://openshift.abcd1234.eastus.azmosa.io --token=hUXXXXXX
