@@ -7,7 +7,7 @@ parent-id: lab-clusterapp
 
 ## Part 2: Deploying Shifty
 
-**Step 0:** In not logged in via the CLI, click on the dropdown arrow next to your name in the top-right and select *Copy Login Command*. 
+**Step 0:** If not logged in via the CLI, click on the dropdown arrow next to your name in the top-right and select *Copy Login Command*. 
 
 ![CLI Login](/media/managedlab/7-shifty-login.png)
 
