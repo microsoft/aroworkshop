@@ -75,8 +75,23 @@ spec:
  
  `oc apply -f shifty-microservice-deployment.yaml`
  
- **Step 6:** Confirn that there are inded 3 pods now via the CLI or the web UI.
+ **Step 6:** Confirm that there are indeed 3 pods now via the CLI (`oc get pods`) or the web UI (Overview > expand "shifty-microservice").
  
  **Step 7:** See this visually by visiting the Shifty App and seeing how many boxes you now see.  It should be three.
  
  IMAGE!
+ 
+ **Step 8:** Now we will scale the pods down using the commandline.  Execute the following command from the Cli: 
+ 
+ `oc scale deployment shifty-microservice --replicas=2`
+ 
+ **Step 9:** Confirm that there are indeed 2 pods now via the CLI (`oc get pods`) or the web UI.
+ 
+ **Step 10:** See this visually by visiting the Shifty App and seeing how many boxes you now see.  It should be two.
+ 
+ **Step 11:** Lastly let's use the web UI to scale back down to one pod.  In the project you created for this app (ie "shifty") in the left menu click *Overview > expand "shifty-microservice"*.  On the right you will see a blue circle with the number 2 in the middle. Click on the down arrow to the right of that to scale the number of pods down to 1.
+ 
+ **Step 12:** See this visually by visiting the Shifty App and seeing how many boxes you now see.  It should be one.
+ 
+ 
+ 
