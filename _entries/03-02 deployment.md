@@ -99,6 +99,6 @@ NAME           HOST/PORT                                                      PA
 shifty-route   shifty-route-shifty.apps.abcd1234.eastus.azmosa.io             shifty-frontend-svc   <all>                   None
 ```
 
-Copy `shifty-route-shifty.apps.abcd1234.eastus.azmosa.io` above and paste it into you browser and press enter.  You should see the homepage of the application deployed.
+Copy `shifty-route-shifty.apps.abcd1234.eastus.azmosa.io` above and paste it into your browser and press enter.  You should see the homepage of the application deployed.
 
 ![Home Page](/media/managedlab/10-shifty-homepage.png)
