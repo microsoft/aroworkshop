@@ -28,7 +28,7 @@ You have access to the following projects and can switch between them with 'oc p
 
 `oc new-project shifty`
 
-You should revieve the following response
+You should receive the following response
 
 ```[okashi@ok-vm Shifty]# oc new-project shifty
 Now using project "shifty" on server "https://openshift.abcd1234.eastus.azmosa.io:443".
@@ -45,7 +45,7 @@ then clicking on "+Create Project" button on the right.
 
 ![UI Create Project](/media/managedlab/6-shifty-newproj.png)
 
-**Step 2:** Download the Kubernetes deployment object yamls from the following locations to your local drive in a directory of your choosing (just remember where you placed them for the next step).  Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits to seperating these out into individual yaml files. 
+**Step 2:** Download the Kubernetes deployment object yamls from the following locations to your local drive in a directory of your choosing (just remember where you placed them for the next step).  Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits to separating these out into individual yaml files. 
 
 [shifty-fe-deployment.yaml](/Shifty-YAMLs/shifty-fe-deployment.yaml)<br>
 [shifty-microservice-deployment.yaml](/Shifty-YAMLs/shifty-microservice-deployment.yaml)
