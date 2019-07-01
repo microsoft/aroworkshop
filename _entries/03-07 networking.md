@@ -45,11 +45,11 @@ In this case we will enter: `shifty-microservice-svc.aroshifty.svc.cluster.local
 ![Shifty DNS](/media/managedlab/20-shifty-dns.png)
 
 ### Scaling
-OpenShift allows one to scale up/down the number of pods for each part of an application as needed.  This can be accomplished via changing our *replicaset/deployment* definition (declarative), by the commandline (imperative), or via the web UI (imperative). In our deployment definition (part of our `shifty-fe-deployment.yaml`) we stated that we only want one pod for our microservice to start with. This means that the Kubernetes Replication Controler will always strive to keep one pod alive.  (We can also define [autoscalling](https://docs.openshift.com/container-platform/3.11/dev_guide/pod_autoscaling.html) based on load to expand past what we defined if needed)
+OpenShift allows one to scale up/down the number of pods for each part of an application as needed.  This can be accomplished via changing our *replicaset/deployment* definition (declarative), by the command line (imperative), or via the web UI (imperative). In our deployment definition (part of our `shifty-fe-deployment.yaml`) we stated that we only want one pod for our microservice to start with. This means that the Kubernetes Replication Controler will always strive to keep one pod alive.  (We can also define [autoscalling](https://docs.openshift.com/container-platform/3.11/dev_guide/pod_autoscaling.html) based on load to expand past what we defined if needed)
 
 If we look at the tile on the left we should see one box randomly changing colors.  This box displays the randomly generated color sent to the frontend by our microservice along with the pod name that sent it. Since we see only one box that means there is only one microservice pod.  We will now scale our microservice pods and will see the number of boxes changing.
 
-**Step 1:** To confirm that we only have one pod running for our microservice we can run the following command, or use the web UI.
+**Step 1:** To confirm that we only have one pod running for our microservice, run the following command, or use the web UI.
 ```
 [okashi@ok-vm Shifty]# oc get pods
 NAME                                   READY     STATUS    RESTARTS   AGE
@@ -61,7 +61,7 @@ shifty-microservice-86b4c6f559-p594d   1/1       Running   0          1h
 
 **Step 3:** Open the file using your favorite editor. Ex: `vi shifty-microservice-deployment.yaml`.
 
-**Step 4:** Find the line that states `replicas: 1` and change that to 3 and save and quit.
+**Step 4:** Find the line that states `replicas: 1` and change that to `replicas: 3`. Then save and quit.
 
 It will look like this
 ```
@@ -72,7 +72,7 @@ spec:
     replicas: 3
  ```
  
- **Step 5:** Assuming you are still logged in via the cli, execute the following command:
+ **Step 5:** Assuming you are still logged in via the CLI, execute the following command:
  
  `oc apply -f shifty-microservice-deployment.yaml`
  
@@ -82,15 +82,15 @@ spec:
  
 ![UI Scale](/media/managedlab/22-shifty-colorspods.png)
  
- **Step 8:** Now we will scale the pods down using the commandline.  Execute the following command from the Cli: 
+ **Step 8:** Now we will scale the pods down using the command line.  Execute the following command from the CLI: 
  
  `oc scale deployment shifty-microservice --replicas=2`
  
- **Step 9:** Confirm that there are indeed 2 pods now via the CLI (`oc get pods`) or the web UI.
+ **Step 9:** Confirm that there are indeed 2 pods, via the CLI (`oc get pods`) or the web UI.
  
  **Step 10:** See this visually by visiting the Shifty App and seeing how many boxes you now see.  It should be two.
  
- **Step 11:** Lastly let's use the web UI to scale back down to one pod.  In the project you created for this app (ie "shifty") in the left menu click *Overview > expand "shifty-microservice"*.  On the right you will see a blue circle with the number 2 in the middle. Click on the down arrow to the right of that to scale the number of pods down to 1.
+ **Step 11:** Lastly let's use the web UI to scale back down to one pod.  In the project you created for this app (ie: "shifty") in the left menu click *Overview > expand "shifty-microservice"*.  On the right you will see a blue circle with the number 2 in the middle. Click on the down arrow to the right of that to scale the number of pods down to 1.
  
  ![UI Scale](/media/managedlab/21-shifty-uiscale.png)
  
