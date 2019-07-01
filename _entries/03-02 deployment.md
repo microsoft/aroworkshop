@@ -64,7 +64,7 @@ deployment.apps/shifty-microservice created
 service/shifty-microservice-svc created
 ```
 
-**Step 4:** Deploy the front-end service
+**Step 4:** Deploy the front-end service.<br>
 The frontend deployment contains the node.js frontend for our application along with a few other Kubernetes objects to illustrate examples. If you open the *shifty-fe-deployment.yaml* you will see we are defining:
  - Persistent Volume Claim
  - Deployment Object
