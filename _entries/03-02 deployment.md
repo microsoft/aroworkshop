@@ -50,7 +50,7 @@ then clicking on "+Create Project" button on the right.
 [shifty-fe-deployment.yaml](/Shifty-YAMLs/shifty-fe-deployment.yaml)<br>
 [shifty-microservice-deployment.yaml](/Shifty-YAMLs/shifty-microservice-deployment.yaml)
 
-**Step 3:** Deploy the backend microservice
+**Step 3:** Deploy the backend microservice.  <br>
 The microservice application serves internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.
 
 In your command line deploy the microservice using the following command:
