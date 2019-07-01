@@ -38,4 +38,4 @@ stdout: All is well!
 stderr: Oh no! Error!
 ```
 
-You should see both the stdout and std error messages.
+You should see both the *stdout* and *stderr* messages.
