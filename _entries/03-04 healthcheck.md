@@ -8,7 +8,7 @@ parent-id: lab-clusterapp
 ## Part 3: Using Shifty to become familiar with OpenShift (continued)
 
 ### Health Checks
-In this section we will intentionally crash our pods as well as make the pods non-responsive to the liveliness probes from Kubernetes and see how Kubernetes behaves.  We will first intentionally crash our pod and see that Kubernetes will self-heal and immediately spin it back up. Then we will trigger the health check by stopping the response on the `/health` endpoint in our app. After three consecutive failures Kubernetes should kill the pod and then recreate it.
+In this section we will intentionally crash our pods as well as make a pod non-responsive to the liveliness probes from Kubernetes and see how Kubernetes behaves.  We will first intentionally crash our pod and see that Kubernetes will self-heal and immediately spin it back up. Then we will trigger the health check by stopping the response on the `/health` endpoint in our app. After three consecutive failures Kubernetes should kill the pod and then recreate it.
 
 **Step 1:** It would be best to prepare the OpenShift Web UI in either split-screen, or at least open in another tab so you can quickly switch to it once you click the button. To get to this deployment in the UI go to: 
 
