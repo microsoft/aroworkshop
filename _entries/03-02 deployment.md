@@ -77,7 +77,7 @@ The frontend deployment contains the node.js frontend for our application along 
  
  `oc apply -f shifty-fe-deployment.yaml`
 
-You should see all objects created successfully as in below
+You should see all objects created successfully
 
 ```
 [okashi@ok-vm Shifty]# oc apply -f shifty-fe-deployment.yaml
