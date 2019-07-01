@@ -24,7 +24,7 @@ You have access to the following projects and can switch between them with 'oc p
   ...
 ```
 
-**Step 1:** Create a new project called "shifty" in your clusterm using the following command
+**Step 1:** Create a new project called "shifty" in your cluster using the following command
 
 `oc new-project shifty`
 
