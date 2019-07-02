@@ -7,7 +7,7 @@ parent-id: lab-clusterapp
 
 ## Part 3: Using Shifty to become familiar with OpenShift
 
-Continuing from part 2, and assuming you can access the application via the Route provided and are still logged into the CLI (please go back to part 2 if you need to do any of those) we'll start to use this application.  As stated earlier, this application will allow you to "push the buttons" of OpenShift and see how it works.
+Continuing from part 2; assuming you can access the application via the Route provided and are still logged into the CLI (please go back to part 2 if you need to do any of those) we'll start to use this application.  As stated earlier, this application will allow you to "push the buttons" of OpenShift and see how it works.
 
 ### Logging
 
