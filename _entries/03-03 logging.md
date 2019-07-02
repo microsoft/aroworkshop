@@ -15,7 +15,7 @@ Continuing from part 2; assuming you can access the application via the Route pr
 
 ![Logging stdout](/media/managedlab/8-shifty-stdout.png)
 
-**Step 2:** Click in message box located in "Log Message (stderr)" and write any message you want to output to the *stderr* stream. You can try "**Oh no! Error!**".  Then click "Send Message".
+**Step 2:** Click in the message box for "Log Message (stderr)" and write any message you want to output to the *stderr* stream. You can try "**Oh no! Error!**".  Then click "Send Message".
 
 ![Logging stderr](/media/managedlab/9-shifty-stderr.png)
 
