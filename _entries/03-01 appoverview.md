@@ -39,6 +39,6 @@ Shifty is a simple Node.js application that we will deploy to Azure Red Hat Open
 ![Home Page](/media/managedlab/10-shifty-homepage-1.png)
 
 ### Learn More about the application
-To learn more click on the "About" menu item on the left once we deploy the app.
+To learn more, click on the "About" menu item on the left once we deploy the app.
 
 ![Shifty About](/media/managedlab/5-shifty-about.png)
