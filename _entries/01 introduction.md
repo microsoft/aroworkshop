@@ -16,8 +16,5 @@ Some of the things you’ll be going through:
 - Deploying a Node JS API and frontend app from Git Hub using [Source-To-Image (S2I)](https://docs.openshift.com/aro/creating_images/s2i.html)
 - Exposing the web application frontend using [Routes](https://docs.openshift.com/aro/dev_guide/routes.html)
 - Creating a [network policy](https://docs.openshift.com/aro/admin_guide/managing_networking.html#admin-guide-networking-networkpolicy) to control communication between the different tiers in the application
-- Setting scaling policies and using [Horizontal Pod Autoscaler](https://docs.openshift.com/aro/dev_guide/pod_autoscaling.html)
-- Working with Continuous Integration/Continuous Deployment (CI/CD)
-- Application monitoring, logging and metrics
 
 You'll be doing the majority of the labs using the OpenShift CLI, but you can also accomplish them using the Azure Red Hat OpenShift web console.

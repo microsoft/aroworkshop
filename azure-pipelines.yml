@@ -45,10 +45,10 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - script: sed -i 's/#BUILD_ID#/$(tag)/g' _includes/header.html
+    - script: sed -i 's/#BUILD_ID#/$(tag)/g' _includes/nav.html
       displayName: Update site with Build ID
 
-    - script: sed -i 's/#COMMIT_ID#/$(sourceVersion)/g' _includes/header.html
+    - script: sed -i 's/#COMMIT_ID#/$(sourceVersion)/g' _includes/nav.html
       displayName: Update site with Commit ID
 
     - task: Docker@2
