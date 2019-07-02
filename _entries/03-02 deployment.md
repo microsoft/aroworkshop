@@ -93,7 +93,7 @@ secret/shifty-secret created
 
 **Step 5:** Get the route so that we can access the application via `oc get route`
 
-Should see the following response
+You should see the following response:
 ```
 NAME           HOST/PORT                                                      PATH      SERVICES              PORT      TERMINATION   WILDCARD
 shifty-route   shifty-route-shifty.apps.abcd1234.eastus.azmosa.io             shifty-frontend-svc   <all>                   None
