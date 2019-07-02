@@ -11,7 +11,7 @@ Continuing from part 2; assuming you can access the application via the Route pr
 
 ### Logging
 
-**Step 1:** Click on the *Home* menu item and then click in the message box for "Log Message (stdout)" and write any message you want outputted to the *stdout* stream.  You can try "**All is well!**".  Then click "Send Message".
+**Step 1:** Click on the *Home* menu item and then click in the message box for "Log Message (stdout)" and write any message you want to output to the *stdout* stream.  You can try "**All is well!**".  Then click "Send Message".
 
 ![Logging stdout](/media/managedlab/8-shifty-stdout.png)
 
