@@ -16,7 +16,7 @@ spec:
       spec:
         containers:
         - name: shifty-microservice
-          image: quay.io/aroworkshop/shifty-microservice:1.2.1
+          image: quay.io/aroworkshop/shifty-microservice:1.2.2
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 8080
