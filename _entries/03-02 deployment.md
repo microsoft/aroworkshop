@@ -5,16 +5,16 @@ title: Application Deployment
 parent-id: lab-clusterapp
 ---
 
-## Part 2: Deploying Shifty
+## Part 2: Deploying OSToy
 
 **Step 0:** If not logged in via the CLI, click on the dropdown arrow next to your name in the top-right and select *Copy Login Command*. 
 
-![CLI Login](/media/managedlab/7-shifty-login.png)
+![CLI Login](/media/managedlab/7-ostoy-login.png)
 
 Then go to your terminal and paste that command and press enter.  You will see a similar confirmation message if you successfully logged in.
 
 ```
-[okashi@ok-vm Shifty]# oc login https://openshift.abcd1234.eastus.azmosa.io --token=hUXXXXXX
+[okashi@ok-vm ostoy]# oc login https://openshift.abcd1234.eastus.azmosa.io --token=hUXXXXXX
 Logged into "https://openshift.abcd1234.eastus.azmosa.io:443" as "okashi" using the token provided.
 
 You have access to the following projects and can switch between them with 'oc project <projectname>':
@@ -24,14 +24,14 @@ You have access to the following projects and can switch between them with 'oc p
   ...
 ```
 
-**Step 1:** Create a new project called "shifty" in your cluster using the following command
+**Step 1:** Create a new project called "OSToy" in your cluster using the following command
 
-`oc new-project shifty`
+`oc new-project ostoy`
 
 You should receive the following response
 
-```[okashi@ok-vm Shifty]# oc new-project shifty
-Now using project "shifty" on server "https://openshift.abcd1234.eastus.azmosa.io:443".
+```[okashi@ok-vm ostoy]# oc new-project ostoy
+Now using project "ostoy" on server "https://openshift.abcd1234.eastus.azmosa.io:443".
 
 You can add applications to this project with the 'new-app' command. For example, try:
 
@@ -43,29 +43,29 @@ to build a new example application in Ruby.
 Equivalently you can also create this new project using the web UI by selecting "Application Console" at the top 
 then clicking on "+Create Project" button on the right.
 
-![UI Create Project](/media/managedlab/6-shifty-newproj.png)
+![UI Create Project](/media/managedlab/6-ostoy-newproj.png)
 
 **Step 2:** Download the Kubernetes deployment object yamls from the following locations to your local drive in a directory of your choosing (just remember where you placed them for the next step).  Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits to separating these out into individual yaml files. 
 
-[shifty-fe-deployment.yaml](/Shifty-YAMLs/shifty-fe-deployment.yaml)<br>
-[shifty-microservice-deployment.yaml](/Shifty-YAMLs/shifty-microservice-deployment.yaml)
+[ostoy-fe-deployment.yaml](/yaml/ostoy-fe-deployment.yaml)<br>
+[ostoy-microservice-deployment.yaml](/yaml/ostoy-microservice-deployment.yaml)
 
 **Step 3:** Deploy the backend microservice.  <br>
 The microservice application serves internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.
 
 In your command line deploy the microservice using the following command:
 
-`oc apply -f shifty-microservice-deployment.yaml`
+`oc apply -f ostoy-microservice-deployment.yaml`
 
 You should see the following response:
 ```
-[okashi@ok-vm Shifty]# oc apply -f shifty-microservice-deployment.yaml 
-deployment.apps/shifty-microservice created
-service/shifty-microservice-svc created
+[okashi@ok-vm ostoy]# oc apply -f ostoy-microservice-deployment.yaml 
+deployment.apps/ostoy-microservice created
+service/ostoy-microservice-svc created
 ```
 
 **Step 4:** Deploy the front-end service.<br>
-The frontend deployment contains the node.js frontend for our application along with a few other Kubernetes objects to illustrate examples. If you open the *shifty-fe-deployment.yaml* you will see we are defining:
+The frontend deployment contains the node.js frontend for our application along with a few other Kubernetes objects to illustrate examples. If you open the *ostoy-fe-deployment.yaml* you will see we are defining:
  - Persistent Volume Claim
  - Deployment Object
  - Service
@@ -75,20 +75,20 @@ The frontend deployment contains the node.js frontend for our application along 
  
  In your command line deploy the frontend along with creating all objects mentioned above by entering:
  
- `oc apply -f shifty-fe-deployment.yaml`
+ `oc apply -f ostoy-fe-deployment.yaml`
 
 You should see all objects created successfully
 
 ```
-[okashi@ok-vm Shifty]# oc apply -f shifty-fe-deployment.yaml
-persistentvolumeclaim/shifty-pvc created
-deployment.apps/shifty-frontend created
-service/shifty-frontend-svc created
-route.route.openshift.io/shifty-route created
-configmap/shifty-configmap-env created
-secret/shifty-secret-env created
-configmap/shifty-configmap-files created
-secret/shifty-secret created
+[okashi@ok-vm ostoy]# oc apply -f ostoy-fe-deployment.yaml
+persistentvolumeclaim/ostoy-pvc created
+deployment.apps/ostoy-frontend created
+service/ostoy-frontend-svc created
+route.route.openshift.io/ostoy-route created
+configmap/ostoy-configmap-env created
+secret/ostoy-secret-env created
+configmap/ostoy-configmap-files created
+secret/ostoy-secret created
 ```
 
 **Step 5:** Get the route so that we can access the application via `oc get route`
@@ -96,9 +96,9 @@ secret/shifty-secret created
 You should see the following response:
 ```
 NAME           HOST/PORT                                                      PATH      SERVICES              PORT      TERMINATION   WILDCARD
-shifty-route   shifty-route-shifty.apps.abcd1234.eastus.azmosa.io             shifty-frontend-svc   <all>                   None
+ostoy-route   ostoy-route-ostoy.apps.abcd1234.eastus.azmosa.io             ostoy-frontend-svc   <all>                   None
 ```
 
-Copy `shifty-route-shifty.apps.abcd1234.eastus.azmosa.io` above and paste it into your browser and press enter.  You should see the homepage of the application deployed.
+Copy `ostoy-route-ostoy.apps.abcd1234.eastus.azmosa.io` above and paste it into your browser and press enter.  You should see the homepage of the application deployed.
 
-![Home Page](/media/managedlab/10-shifty-homepage.png)
+![Home Page](/media/managedlab/10-ostoy-homepage.png)
