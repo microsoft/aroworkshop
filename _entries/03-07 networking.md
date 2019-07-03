@@ -1,5 +1,5 @@
 ---
-sectionid: network
+sectionid: lab2-network
 sectionclass: h2
 title: Networking and Scaling
 parent-id: lab-clusterapp

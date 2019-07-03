@@ -1,5 +1,5 @@
 ---
-sectionid: logging
+sectionid: lab2-logging
 sectionclass: h2
 title: Logging on ARO
 parent-id: lab-clusterapp

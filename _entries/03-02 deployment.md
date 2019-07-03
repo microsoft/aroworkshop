@@ -1,5 +1,5 @@
 ---
-sectionid: app-deployment
+sectionid: lab2-app-deployment
 sectionclass: h2
 title: Application Deployment
 parent-id: lab-clusterapp

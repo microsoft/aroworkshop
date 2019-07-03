@@ -1,5 +1,5 @@
 ---
-sectionid: storage
+sectionid: lab2-storage
 sectionclass: h2
 title: Persistent Storage
 parent-id: lab-clusterapp

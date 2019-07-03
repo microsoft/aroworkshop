@@ -1,5 +1,5 @@
 ---
-sectionid: heathcheck
+sectionid: lab2-heathcheck
 sectionclass: h2
 title: Exploring Health Checks
 parent-id: lab-clusterapp

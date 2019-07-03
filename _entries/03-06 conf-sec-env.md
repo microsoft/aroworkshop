@@ -1,5 +1,5 @@
 ---
-sectionid: config
+sectionid: lab2-config
 sectionclass: h2
 title: Configuration
 parent-id: lab-clusterapp
