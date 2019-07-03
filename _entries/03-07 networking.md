@@ -44,6 +44,8 @@ We will see an IP address returned.  In our example it is ```172.30.165.246```. 
 
 ![ostoy DNS](/media/managedlab/20-ostoy-dns.png)
 
+{% endcollapsible %}
+
 ### Scaling
 
 OpenShift allows one to scale up/down the number of pods for each part of an application as needed.  This can be accomplished via changing our *replicaset/deployment* definition (declarative), by the command line (imperative), or via the web UI (imperative). In our deployment definition (part of our `ostoy-fe-deployment.yaml`) we stated that we only want one pod for our microservice to start with. This means that the Kubernetes Replication Controler will always strive to keep one pod alive.  (We can also define [autoscalling](https://docs.openshift.com/container-platform/3.11/dev_guide/pod_autoscaling.html) based on load to expand past what we defined if needed)
