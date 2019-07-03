@@ -49,8 +49,8 @@ stages:
       displayName: Update site with Build ID
 
     - script: |
-          SHORTCOMMITID=$(echo $(sourceVersion) | cut -c1-6)  
-          echo '##vso[task.setvariable variable=shortCommitId]$SHORTCOMMITID
+          SHORTCOMMITID=$(echo $(sourceVersion) | cut -c1-7)  
+          echo '##vso[task.setvariable variable=shortCommitId]$SHORTCOMMITID'
           sed -i 's/#COMMIT_ID#/$(shortCommitId)/g' _includes/nav.html
       displayName: Update site with Commit ID
 
