@@ -14,7 +14,7 @@ In this section we will intentionally crash our pods as well as make a pod non-r
 
 ![Splitscreen](/media/managedlab/23-ostoy-splitscreen.png)
 
-But if your screen is too small or that just won't work then open the OSToy application in another tab so you can quickly switch to OpenShift Web Console once you click the button. To get to this deployment in the OpenShift Web Console go to: 
+But if your screen is too small or that just won't work, then open the OSToy application in another tab so you can quickly switch to OpenShift Web Console once you click the button. To get to this deployment in the OpenShift Web Console go to: 
 
 Applications > Deployments > click the number in the "Last Version" column for the "ostoy-frontend" row
 
@@ -36,6 +36,6 @@ Applications > Deployments > click the number in the "Last Version" column for t
 
 ![Pod Events](/media/managedlab/15-ostoy-togglehealth.png)
 
-This will cause the app to stop responding with a "200 HTTP code". After 3 such consecutive failures, Kubernetes will kill the pod and restart it. Quickly switch back to the pod events tab and you will see that the liveliness probe failed and the pod as being restarted.
+This will cause the app to stop responding with a "200 HTTP code". After 3 such consecutive failures ("A"), Kubernetes will kill the pod ("B") and restart it ("C"). Quickly switch back to the pod events tab and you will see that the liveliness probe failed and the pod as being restarted.
 
 ![Pod Events2](/media/managedlab/16-ostoy-podevents2.png)
