@@ -40,7 +40,7 @@ spec:
 ```
 In this case we will enter: `ostoy-microservice-svc.ostoy.svc.cluster.local`
 
-**Step 3:** We will see an IP address returned.  In our example it is ```172.30.237.85```.  This is the intra-cluster IP address only accessible from within the cluster.
+**Step 3:** We will see an IP address returned.  In our example it is ```172.30.165.246```.  This is the intra-cluster IP address only accessible from within the cluster.
 
 ![ostoy DNS](/media/managedlab/20-ostoy-dns.png)
 
