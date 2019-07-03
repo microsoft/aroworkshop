@@ -7,9 +7,9 @@ parent-id: lab-clusterapp
 
 ### Retrieve login command
 
-{% collapsible %}
-
 If not logged in via the CLI, click on the dropdown arrow next to your name in the top-right and select *Copy Login Command*.
+
+{% collapsible %}
 
 ![CLI Login](/media/managedlab/7-ostoy-login.png)
 
@@ -30,9 +30,11 @@ You have access to the following projects and can switch between them with 'oc p
 
 ### Create new project
 
+Create a new project called "OSToy" in your cluster.
+
 {% collapsible %}
 
-Create a new project called "OSToy" in your cluster using the following command
+Use the following command
 
 `oc new-project ostoy`
 
@@ -57,9 +59,11 @@ Equivalently you can also create this new project using the web UI by selecting 
 
 ### Download YAML configuration
 
+Download the Kubernetes deployment object yamls from the following locations to your local drive in a directory of your choosing (just remember where you placed them for the next step).
+
 {% collapsible %}
 
-Download the Kubernetes deployment object yamls from the following locations to your local drive in a directory of your choosing (just remember where you placed them for the next step).  Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits to separating these out into individual yaml files.
+Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits to separating these out into individual yaml files.
 
 [ostoy-fe-deployment.yaml](/yaml/ostoy-fe-deployment.yaml)
 
@@ -69,9 +73,9 @@ Download the Kubernetes deployment object yamls from the following locations to 
 
 ### Deploy backend microservice
 
-{% collapsible %}
-
 The microservice application serves internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.
+
+{% collapsible %}
 
 In your command line deploy the microservice using the following command:
 
@@ -88,9 +92,11 @@ service/ostoy-microservice-svc created
 
 ### Deploy the front-end service
 
+The frontend deployment contains the node.js frontend for our application along with a few other Kubernetes objects to illustrate examples.
+
 {% collapsible %}
 
-The frontend deployment contains the node.js frontend for our application along with a few other Kubernetes objects to illustrate examples. If you open the *ostoy-fe-deployment.yaml* you will see we are defining:
+ If you open the *ostoy-fe-deployment.yaml* you will see we are defining:
 
 - Persistent Volume Claim
 - Deployment Object
@@ -121,9 +127,9 @@ secret/ostoy-secret created
 
 ### Get route
 
-{% collapsible %}
-
 Get the route so that we can access the application via `oc get route`
+
+{% collapsible %}
 
 You should see the following response:
 

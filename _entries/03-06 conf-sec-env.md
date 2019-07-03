@@ -9,9 +9,9 @@ In this section we'll take a look at how OSToy can be configured using [ConfigMa
 
 ### Configuration using ConfigMaps
 
-{% collapsible %}
-
 ConfigMaps allow you to decouple configuration artifacts from container image content to keep containerized applications portable.
+
+{% collapsible %}
 
 Click on *Config Maps* in the left menu.
 
