@@ -94,4 +94,4 @@ spec:
  
  ![UI Scale](/media/managedlab/21-ostoy-uiscale.png)
  
- **Step 12:** See this visually by visiting the OSToy App and seeing how many boxes you now see.  It should be one.
+ **Step 12:** See this visually by visiting the OSToy app and seeing how many boxes you now see.  It should be one.
