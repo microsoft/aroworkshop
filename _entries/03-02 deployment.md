@@ -5,9 +5,11 @@ title: Application Deployment
 parent-id: lab-clusterapp
 ---
 
-### Part 2: Deploying OSToy
+### Retrieve login command
 
-**Step 0:** If not logged in via the CLI, click on the dropdown arrow next to your name in the top-right and select *Copy Login Command*.
+If not logged in via the CLI, click on the dropdown arrow next to your name in the top-right and select *Copy Login Command*.
+
+{% collapsible %}
 
 ![CLI Login](/media/managedlab/7-ostoy-login.png)
 
@@ -24,7 +26,15 @@ You have access to the following projects and can switch between them with 'oc p
   ...
 ```
 
-**Step 1:** Create a new project called "OSToy" in your cluster using the following command
+{% endcollapsible %}
+
+### Create new project
+
+Create a new project called "OSToy" in your cluster.
+
+{% collapsible %}
+
+Use the following command
 
 `oc new-project ostoy`
 
@@ -45,15 +55,27 @@ Equivalently you can also create this new project using the web UI by selecting 
 
 ![UI Create Project](/media/managedlab/6-ostoy-newproj.png)
 
-**Step 2:** Download the Kubernetes deployment object yamls from the following locations to your local drive in a directory of your choosing (just remember where you placed them for the next step).  Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits to separating these out into individual yaml files. 
+{% endcollapsible %}
+
+### Download YAML configuration
+
+Download the Kubernetes deployment object yamls from the following locations to your local drive in a directory of your choosing (just remember where you placed them for the next step).
+
+{% collapsible %}
+
+Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits to separating these out into individual yaml files.
 
 [ostoy-fe-deployment.yaml](/yaml/ostoy-fe-deployment.yaml)
 
 [ostoy-microservice-deployment.yaml](/yaml/ostoy-microservice-deployment.yaml)
 
-**Step 3:** Deploy the backend microservice.
+{% endcollapsible %}
+
+### Deploy backend microservice
 
 The microservice application serves internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.
+
+{% collapsible %}
 
 In your command line deploy the microservice using the following command:
 
@@ -66,9 +88,15 @@ deployment.apps/ostoy-microservice created
 service/ostoy-microservice-svc created
 ```
 
-**Step 4:** Deploy the front-end service.
+{% endcollapsible %}
 
-The frontend deployment contains the node.js frontend for our application along with a few other Kubernetes objects to illustrate examples. If you open the *ostoy-fe-deployment.yaml* you will see we are defining:
+### Deploy the front-end service
+
+The frontend deployment contains the node.js frontend for our application along with a few other Kubernetes objects to illustrate examples.
+
+{% collapsible %}
+
+ If you open the *ostoy-fe-deployment.yaml* you will see we are defining:
 
 - Persistent Volume Claim
 - Deployment Object
@@ -95,7 +123,13 @@ configmap/ostoy-configmap-files created
 secret/ostoy-secret created
 ```
 
-**Step 5:** Get the route so that we can access the application via `oc get route`
+{% endcollapsible %}
+
+### Get route
+
+Get the route so that we can access the application via `oc get route`
+
+{% collapsible %}
 
 You should see the following response:
 
@@ -107,3 +141,5 @@ ostoy-route   ostoy-route-ostoy.apps.abcd1234.eastus.azmosa.io             ostoy
 Copy `ostoy-route-ostoy.apps.abcd1234.eastus.azmosa.io` above and paste it into your browser and press enter.  You should see the homepage of our application.
 
 ![Home Page](/media/managedlab/10-ostoy-homepage.png)
+
+{% endcollapsible %}

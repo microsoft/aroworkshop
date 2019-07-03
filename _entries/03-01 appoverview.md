@@ -5,18 +5,18 @@ title: Application Overview
 parent-id: lab-clusterapp
 ---
 
-### Part 1: Intro to the OSToy App
+### Resources
 
-#### Resources
-
-The source code for this app is available here: [https://github.com/openshift-cs/ostoy] <br>
-OSToy front-end container image: [https://quay.io/aroworkshop/ostoy-frontend] <br>
-OSToy microservice container image: [https://quay.io/aroworkshop/ostoy-microservice] <br>
-Deployment Definition YAMLs: [OSToy yamls](/yaml/)
+- The source code for this app is available here: <https://github.com/openshift-cs/ostoy>
+- OSToy front-end container image: <https://quay.io/aroworkshop/ostoy-frontend>
+- OSToy microservice container image: <https://quay.io/aroworkshop/ostoy-microservice>
+- Deployment Definition YAMLs:
+  - [ostoy-fe-deployment.yaml](/yaml/ostoy-fe-deployment.yaml)
+  - [ostoy-microservice-deploymen.yaml](/yaml/ostoy-microservice-deployment.yaml)
 
 > **Note** In order to simplify the deployment of the app (which you will do next) we have included all the objects needed in the above YAMLs as "all-in-one" YAMLs.  In reality though, an enterprise would most likely want to have a different yaml file for each Kubernetes object.
 
-#### About OSToy
+### About OSToy
 
 OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenShift. It is used to help us explore the functionality of Kubernetes. This application has a user interface which you can:
 
@@ -27,11 +27,11 @@ OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenS
 - if connected to shared storage, read and write files
 - check network connectivity, intra-cluster DNS, and intra-communication with an included microservice
 
-#### OSToy Application Diagram
+### OSToy Application Diagram
 
 ![OSToy Diagram](/media/managedlab/4-ostoy-arch.png)
 
-#### Familiarization with the Application UI
+### Familiarization with the Application UI
 
 1. Shows the pod name that served your browser the page.
 2. **Home:** The main page of the application where you can perform some of the functions listed which we will explore.
@@ -44,7 +44,7 @@ OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenS
 
 ![Home Page](/media/managedlab/10-ostoy-homepage-1.png)
 
-#### Learn more about the application
+### Learn more about the application
 
 To learn more, click on the "About" menu item on the left once we deploy the app.
 
