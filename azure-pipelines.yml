@@ -50,8 +50,7 @@ stages:
 
     - script: |
           SHORTCOMMITID=$(echo $(sourceVersion) | cut -c1-7)  
-          echo '##vso[task.setvariable variable=shortCommitId]$SHORTCOMMITID'
-          sed -i 's/#COMMIT_ID#/$(shortCommitId)/g' _includes/nav.html
+          sed -i "s/#COMMIT_ID#/$SHORTCOMMITID/g" _includes/nav.html
       displayName: Update site with Commit ID
 
     - task: Docker@2
