@@ -20,7 +20,7 @@ Applications > Deployments > click the number in the "Last Version" column for t
 
 ![Deploy Num](/media/managedlab/11-ostoy-deploynum.png)
 
-**Step 2:** Go back to the OSToy app and enter a message in the "Crash Pod" tile (ie: "This is goodbye!") and press the "Crash Pod" button.  This will cause the pod to crash and Kubernetes should restart the pod. After you press the button you will see:
+**Step 2:** Go to the OSToy app, click on *Home* in the left menu, and enter a message in the "Crash Pod" tile (ie: "This is goodbye!") and press the "Crash Pod" button.  This will cause the pod to crash and Kubernetes should restart the pod. After you press the button you will see:
 
 ![Crash Message](/media/managedlab/12-ostoy-crashmsg.png)
 
@@ -32,7 +32,7 @@ Applications > Deployments > click the number in the "Last Version" column for t
 
 ![Pod Events](/media/managedlab/14-ostoy-podevents.png)
 
-**Step 5:** Keep the page from the pod events still open from step 4.  Then in another tab click on the "Toggle Health" button, in the "Toggle Health Status" tile.  You will see the "Current Health" switch to "I'm not feeling all that well".
+**Step 5:** Keep the page from the pod events still open from step 4.  Then in the OSToy app click on the "Toggle Health" button, in the "Toggle Health Status" tile.  You will see the "Current Health" switch to "I'm not feeling all that well".
 
 ![Pod Events](/media/managedlab/15-ostoy-togglehealth.png)
 
