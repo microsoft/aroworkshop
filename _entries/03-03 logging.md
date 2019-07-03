@@ -7,6 +7,8 @@ parent-id: lab-clusterapp
 
 Assuming you can access the application via the Route provided and are still logged into the CLI (please go back to part 2 if you need to do any of those) we'll start to use this application.  As stated earlier, this application will allow you to "push the buttons" of OpenShift and see how it works.
 
+{% collapsible %}
+
 Click on the *Home* menu item and then click in the message box for "Log Message (stdout)" and write any message you want to output to the *stdout* stream.  You can try "**All is well!**".  Then click "Send Message".
 
 ![Logging stdout](/media/managedlab/8-ostoy-stdout.png)
@@ -35,3 +37,5 @@ stderr: Oh no! Error!
 ```
 
 You should see both the *stdout* and *stderr* messages.
+
+{% endcollapsible %}
