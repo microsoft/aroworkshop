@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: shifty-microservice
+  name: ostoy-microservice
   labels:
-    app: shifty
+    app: ostoy
 spec:
     selector:
       matchLabels:
-        app: shifty-microservice
+        app: ostoy-microservice
     replicas: 1
     template:
       metadata:
         labels:
-          app: shifty-microservice
+          app: ostoy-microservice
       spec:
         containers:
-        - name: shifty-microservice
-          image: quay.io/aroworkshop/shifty-microservice:1.2.2
+        - name: ostoy-microservice
+          image: quay.io/aroworkshop/ostoy-microservice:1.2.2
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 8080
@@ -32,9 +32,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: shifty-microservice-svc
+  name: ostoy-microservice-svc
   labels:
-    app: shifty-microservice
+    app: ostoy-microservice
 spec:
   type: ClusterIP
   ports:
@@ -42,4 +42,4 @@ spec:
       targetPort: 8080
       protocol: TCP
   selector:
-    app: shifty-microservice
+    app: ostoy-microservice
