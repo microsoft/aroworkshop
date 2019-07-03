@@ -5,9 +5,10 @@ title: Exploring Health Checks
 parent-id: lab-clusterapp
 ---
 
-## Part 3: Using OSToy to become familiar with OpenShift (continued)
+### Part 3: Using OSToy to become familiar with OpenShift (continued)
 
-### Health Checks
+#### Health Checks
+
 In this section we will intentionally crash our pods as well as make a pod non-responsive to the liveliness probes from Kubernetes and see how Kubernetes behaves.  We will first intentionally crash our pod and see that Kubernetes will self-heal and immediately spin it back up. Then we will trigger the health check by stopping the response on the `/health` endpoint in our app. After three consecutive failures Kubernetes should kill the pod and then recreate it.
 
 **Step 1:** It would be best to prepare by splitting your screen between the OpenShift Web UI and the OSToy application so that you can see the results of our actions immediately.

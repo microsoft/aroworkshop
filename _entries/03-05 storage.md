@@ -5,9 +5,10 @@ title: Persistent Storage
 parent-id: lab-clusterapp
 ---
 
-## Part 3: Using OSToy to become familiar with OpenShift (continued)
+### Part 3: Using OSToy to become familiar with OpenShift (continued)
 
-### Persistent Storage
+#### Persistent Storage
+
 In this section we will execute a simple example of using persistent storage by creating a file that will be stored on a persistent volume in our cluster and then confirm that it will "persist" across pod failures and recreation.
 
 **Step 1:** Inside the OpenShift web UI click on *Storage* in the left menu. You will then see a list of all persistent volume claims that our application has made.  In this case there is just one called "ostoy-pvc".  You will also see other pertinent information such as whether it is bound or not, size, access mode and age.  
@@ -33,5 +34,3 @@ In this case the mode is RWO (Read-Write-Once) which means that the volume can o
 **Step 8:** You will see the file you created is still there and you can open it to view its contents to confirm.
 
 ![Crash Message](/media/managedlab/19-ostoy-existingfile.png)
-
-
