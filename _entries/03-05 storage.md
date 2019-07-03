@@ -7,6 +7,8 @@ parent-id: lab-clusterapp
 
 In this section we will execute a simple example of using persistent storage by creating a file that will be stored on a persistent volume in our cluster and then confirm that it will "persist" across pod failures and recreation.
 
+{% collapsible %}
+
 Inside the OpenShift web UI click on *Storage* in the left menu. You will then see a list of all persistent volume claims that our application has made.  In this case there is just one called "ostoy-pvc".  You will also see other pertinent information such as whether it is bound or not, size, access mode and age.  
 
 In this case the mode is RWO (Read-Write-Once) which means that the volume can only be mounted to one node, but the pod(s) can both read and write to that volume.  The default in ARO is for Persistent Volumes to be backed by Azure Disk, but it is possible to chose Azure Files so that you can use the RWX (Read-Write-Many) access mode.  ([See here for more info on access modes](https://docs.openshift.com/aro/architecture/additional_concepts/storage.html#pv-access-modes))
@@ -30,3 +32,5 @@ Click on *Persistent Storage* in the left menu
 You will see the file you created is still there and you can open it to view its contents to confirm.
 
 ![Crash Message](/media/managedlab/19-ostoy-existingfile.png)
+
+{% endcollapsible %}
