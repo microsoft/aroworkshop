@@ -9,6 +9,8 @@ In this section we'll take a look at how OSToy can be configured using [ConfigMa
 
 ### Configuration using ConfigMaps
 
+{% collapsible %}
+
 ConfigMaps allow you to decouple configuration artifacts from container image content to keep containerized applications portable.
 
 Click on *Config Maps* in the left menu.
@@ -24,9 +26,13 @@ data:
   config.json:  '{ "default": "123" }'
 ```
 
+{% endcollapsible %}
+
 ### Configuration using Secrets
 
 Kubernetes Secret objects allow you to store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys. Putting this information in a secret is safer and more flexible than putting it, verbatim, into a Pod definition or a container image.
+
+{% collapsible %}
 
 Click on *Secrets* in the left menu.
 
@@ -42,9 +48,13 @@ data:
 type: Opaque
 ```
 
+{% endcollapsible %}
+
 ### Configuration using Environment Variables
 
 Using environment variables is an easy way to change application behavior without requiring code changes. It allows different deployments of the same application to potentially behave differently based on the environment variables, and OpenShift makes it simple to set, view, and update environment variables for Pods/Deployments.
+
+{% collapsible %}
 
 Click on *ENV Variables* in the left menu.
 
@@ -67,3 +77,5 @@ This will display the environment variables available to the OSToy application. 
 ```
 
 The last one, `MICROSERVICE_NAME` is used for the intra-cluster communications between pods for this application.  The application looks for this environment variable to know how to access the microservice in order to get the colors.
+
+{% endcollapsible %}
