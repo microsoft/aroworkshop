@@ -7,6 +7,8 @@ parent-id: lab-clusterapp
 
 ### Retrieve login command
 
+{% collapsible %}
+
 If not logged in via the CLI, click on the dropdown arrow next to your name in the top-right and select *Copy Login Command*.
 
 ![CLI Login](/media/managedlab/7-ostoy-login.png)
@@ -24,7 +26,11 @@ You have access to the following projects and can switch between them with 'oc p
   ...
 ```
 
+{% endcollapsible %}
+
 ### Create new project
+
+{% collapsible %}
 
 Create a new project called "OSToy" in your cluster using the following command
 
@@ -47,7 +53,11 @@ Equivalently you can also create this new project using the web UI by selecting 
 
 ![UI Create Project](/media/managedlab/6-ostoy-newproj.png)
 
+{% endcollapsible %}
+
 ### Download YAML configuration
+
+{% collapsible %}
 
 Download the Kubernetes deployment object yamls from the following locations to your local drive in a directory of your choosing (just remember where you placed them for the next step).  Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits to separating these out into individual yaml files.
 
@@ -55,7 +65,11 @@ Download the Kubernetes deployment object yamls from the following locations to 
 
 [ostoy-microservice-deployment.yaml](/yaml/ostoy-microservice-deployment.yaml)
 
+{% endcollapsible %}
+
 ### Deploy backend microservice
+
+{% collapsible %}
 
 The microservice application serves internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.
 
@@ -70,7 +84,11 @@ deployment.apps/ostoy-microservice created
 service/ostoy-microservice-svc created
 ```
 
+{% endcollapsible %}
+
 ### Deploy the front-end service
+
+{% collapsible %}
 
 The frontend deployment contains the node.js frontend for our application along with a few other Kubernetes objects to illustrate examples. If you open the *ostoy-fe-deployment.yaml* you will see we are defining:
 
@@ -99,7 +117,11 @@ configmap/ostoy-configmap-files created
 secret/ostoy-secret created
 ```
 
+{% endcollapsible %}
+
 ### Get route
+
+{% collapsible %}
 
 Get the route so that we can access the application via `oc get route`
 
@@ -113,3 +135,5 @@ ostoy-route   ostoy-route-ostoy.apps.abcd1234.eastus.azmosa.io             ostoy
 Copy `ostoy-route-ostoy.apps.abcd1234.eastus.azmosa.io` above and paste it into your browser and press enter.  You should see the homepage of our application.
 
 ![Home Page](/media/managedlab/10-ostoy-homepage.png)
+
+{% endcollapsible %}
