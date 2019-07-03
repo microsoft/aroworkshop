@@ -6,6 +6,8 @@ parent-id: lab-clusterapp
 ---
 
 ## Part 1: Intro to the OSToy App
+
+### Resources
 The source code for this app is available here: [https://github.com/openshift-cs/ostoy] <br>
 OSToy front-end container image: [https://quay.io/aroworkshop/ostoy-frontend] <br>
 OSToy microservice container image: [https://quay.io/aroworkshop/ostoy-microservice] <br>
@@ -13,6 +15,8 @@ Deployment Definition yamls: [OSToy yamls](/yaml/)
 
 *Note:* In order to simplify the deployment of the app (which you will do next) we have included all the objects needed in the above yamls as "all-in-one" yamls.  In reality though, an enterprise would most likely want to have a different yaml file for each Kubernetes object.
 
+
+### About OSToy
 OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenShift. It is used to help us explore the functionality of Kubernetes. This application has a user interface which you can:
  - write messages to the log (stdout / stderr)
  - intentionally crash the application to view self-healing
