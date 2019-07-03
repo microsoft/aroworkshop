@@ -99,6 +99,6 @@ NAME           HOST/PORT                                                      PA
 ostoy-route   ostoy-route-ostoy.apps.abcd1234.eastus.azmosa.io             ostoy-frontend-svc   <all>                   None
 ```
 
-Copy `ostoy-route-ostoy.apps.abcd1234.eastus.azmosa.io` above and paste it into your browser and press enter.  You should see the homepage of the application deployed.
+Copy `ostoy-route-ostoy.apps.abcd1234.eastus.azmosa.io` above and paste it into your browser and press enter.  You should see the homepage of our applicaiton.
 
 ![Home Page](/media/managedlab/10-ostoy-homepage.png)
