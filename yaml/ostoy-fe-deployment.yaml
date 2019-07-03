@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: shifty-pvc
+  name: ostoy-pvc
 spec:
   accessModes:
     - ReadWriteOnce
@@ -13,27 +13,27 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: shifty-frontend
+  name: ostoy-frontend
   labels:
-    app: shifty
+    app: ostoy
 spec:
     selector:
       matchLabels:
-        app: shifty-frontend
+        app: ostoy-frontend
     replicas: 1
     template:
       metadata:
         labels:
-          app: shifty-frontend
+          app: ostoy-frontend
       spec:
         strategy:
           type: Recreate
         containers:
-        - name: shifty-frontend
-          image: quay.io/aroworkshop/shifty-frontend:1.2.2
+        - name: ostoy-frontend
+          image: quay.io/aroworkshop/ostoy-frontend:1.2.2
           imagePullPolicy: IfNotPresent
           ports:
-          - name: shifty-port
+          - name: ostoy-port
             containerPort: 8080
           resources:
             requests:
@@ -59,63 +59,63 @@ spec:
           - name: ENV_TOY_CONFIGMAP
             valueFrom:
               configMapKeyRef:
-                name: shifty-configmap-env
+                name: ostoy-configmap-env
                 key: ENV_TOY_CONFIGMAP
           - name: ENV_TOY_SECRET
             valueFrom:
               secretKeyRef:
-                name: shifty-secret-env
+                name: ostoy-secret-env
                 key: ENV_TOY_SECRET
           - name: MICROSERVICE_NAME
-            value: SHIFTY_MICROSERVICE_SVC
+            value: OSTOY_MICROSERVICE_SVC
         volumes:
           - name: configvol
             configMap:
-              name: shifty-configmap-files
+              name: ostoy-configmap-files
           - name: secretvol
             secret:
               defaultMode: 420
-              secretName: shifty-secret
+              secretName: ostoy-secret
           - name: datavol
             persistentVolumeClaim:
-              claimName: shifty-pvc
+              claimName: ostoy-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: shifty-frontend-svc
+  name: ostoy-frontend-svc
   labels:
-    app: shifty-frontend
+    app: ostoy-frontend
 spec:
   type: ClusterIP
   ports:
     - port: 8080
-      targetPort: shifty-port
+      targetPort: ostoy-port
       protocol: TCP
-      name: shifty
+      name: ostoy
   selector:
-    app: shifty-frontend
+    app: ostoy-frontend
 ---
 apiVersion: v1
 kind: Route
 metadata:
-  name: shifty-route
+  name: ostoy-route
 spec:
   to:
     kind: Service
-    name: shifty-frontend-svc
+    name: ostoy-frontend-svc
 ---
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: shifty-configmap-env
+  name: ostoy-configmap-env
 data:
   ENV_TOY_CONFIGMAP: 'This is a configuration value.'
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: shifty-secret-env
+  name: ostoy-secret-env
 type: Opaque
 data:
   ENV_TOY_SECRET: VGhpcyBpcyBhIHRlc3Q=
@@ -123,14 +123,14 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: shifty-configmap-files
+  name: ostoy-configmap-files
 data:
   config.json:  '{ "default": "123" }'
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: shifty-secret
+  name: ostoy-secret
 data:
   secret.txt: VVNFUk5BTUU9bXlfdXNlcgpQQVNTV09SRD1AT3RCbCVYQXAhIzYzMlk1RndDQE1UUWsKU01UUD1sb2NhbGhvc3QKU01UUF9QT1JUPTI1
 type: Opaque
