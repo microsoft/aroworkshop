@@ -67,6 +67,8 @@ An OpenShift route exposes a service at a host name, like www.example.com, so th
 
 > **NOTE:** DNS resolution for a host name is handled separately from routing; your administrator may have configured a cloud domain that will always correctly resolve to the router, or if using an unrelated host name you may need to modify its DNS records independently to resolve to the router.
 
+Also of note is that an individual route can override some defouts by providong specific configuraitons in its annotiations.  see here for more details: [https://docs.openshift.com/dedicated/architecture/networking/routes.html#route-specific-annotations](https://docs.openshift.com/dedicated/architecture/networking/routes.html#route-specific-annotations)
+
 ### ImageStreams
 
 An ImageStream stores a mapping of tags to images, metadata overrides that are applied when images are tagged in a stream, and an optional reference to a Docker image repository on a registry.
