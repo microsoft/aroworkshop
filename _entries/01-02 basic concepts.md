@@ -82,7 +82,7 @@ You can also use ImageStreams in conjuction with DeploymentConfigs to set a trig
 {% endcollapsible %}
 
 
-See here for more details: ![https://blog.openshift.com/image-streams-faq/](https://blog.openshift.com/image-streams-faq/)
+See here for more details: [https://blog.openshift.com/image-streams-faq/](https://blog.openshift.com/image-streams-faq/)
 OpenShift Docs: [https://docs.openshift.com/container-platform/3.11/dev_guide/managing_images.html](https://docs.openshift.com/container-platform/3.11/dev_guide/managing_images.html)
 Here for ImageStream and Builds: [https://cloudowski.com/articles/why-managing-container-images-on-openshift-is-better-than-on-kubernetes/](https://cloudowski.com/articles/why-managing-container-images-on-openshift-is-better-than-on-kubernetes/)
 
