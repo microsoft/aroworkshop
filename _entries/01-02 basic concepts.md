@@ -1,7 +1,7 @@
 ---
 sectionid: concepts
 sectionclass: h2
-title: Basic concepts [WIP]
+title: Basic concepts
 parent-id: intro
 ---
 
