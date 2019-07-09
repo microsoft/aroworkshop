@@ -27,7 +27,7 @@ For example, to create a reproducible build pipeline for Tomcat (the popular Jav
 
 1. Create a builder image containing OpenJDK and Tomcat that expects to have a WAR file injected
 
-1. reate a second image that layers on top of the first image Maven and any other standard dependencies, and expects to have a Maven project injected
+1. Create a second image that layers on top of the first image Maven and any other standard dependencies, and expects to have a Maven project injected
 
 1. Invoke source-to-image using the Java application source and the Maven image to create the desired application WAR
 
@@ -75,8 +75,10 @@ An ImageStream stores a mapping of tags to images, metadata overrides that are a
 
 
 #### What are the benefits? 
+
 {% collapsible %}
-Using an ImageStream is easy to change a tag for a container image.  Otherwise to change a tag you need to download the whole image, change it locally, then push it all back. Also promoting applications by having to do that to change the tag and then update the deployment object entails many steps.  With ImageStreams you upload a container image once and then you manage it’s virtual tags internally in OpenShift.  In one project you may use the `dev` tag and only change reference to it internally, in prod you may use a `prod` tag and also manage it internally. You don't really have to deal with the registry!
+
+Using an ImageStream makes it easy to change a tag for a container image.  Otherwise to change a tag you need to download the whole image, change it locally, then push it all back. Also promoting applications by having to do that to change the tag and then update the deployment object entails many steps.  With ImageStreams you upload a container image once and then you manage it’s virtual tags internally in OpenShift.  In one project you may use the `dev` tag and only change reference to it internally, in prod you may use a `prod` tag and also manage it internally. You don't really have to deal with the registry!
 
 You can also use ImageStreams in conjuction with DeploymentConfigs to set a trigger that will start a deployment as soon as a new image appears or a tag changes its reference.
 
