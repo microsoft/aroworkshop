@@ -54,10 +54,13 @@ You should see the text you entered in the UI.
 NAME                                  READY     STATUS    RESTARTS   AGE
 ostoy-frontend-5fc8d486dc-wsw24       1/1       Running   0          18m
 ostoy-microservice-6cf764974f-hx4qm   1/1       Running   0          18m
+
 [okashi@ok-vm ostoy]# oc rsh ostoy-frontend-5fc8d486dc-wsw24
 / $ cd /var/demo_files/
+
 /var/demo_files $ ls
 lost+found   test-pv.txt
+
 /var/demo_files $ cat test-pv.txt 
 Azure Red Hat OpenShift is the greatest thing since sliced bread!
 ```
