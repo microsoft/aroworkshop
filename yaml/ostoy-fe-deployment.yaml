@@ -25,7 +25,7 @@ spec:
         labels:
           app: ostoy-frontend
     strategy:
-          type: Recreate
+      type: Recreate
       spec:
         containers:
         - name: ostoy-frontend
