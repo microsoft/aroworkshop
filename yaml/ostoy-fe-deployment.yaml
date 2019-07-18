@@ -24,9 +24,9 @@ spec:
       metadata:
         labels:
           app: ostoy-frontend
-      spec:
-        strategy:
+    strategy:
           type: Recreate
+      spec:
         containers:
         - name: ostoy-frontend
           image: quay.io/aroworkshop/ostoy-frontend:1.2.2
