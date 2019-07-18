@@ -55,11 +55,6 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 5
           env:
-          - name: ENV_TOY_CONFIGMAP
-            valueFrom:
-              configMapKeyRef:
-                name: ostoy-configmap-env
-                key: ENV_TOY_CONFIGMAP
           - name: ENV_TOY_SECRET
             valueFrom:
               secretKeyRef:
@@ -103,13 +98,6 @@ spec:
   to:
     kind: Service
     name: ostoy-frontend-svc
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: ostoy-configmap-env
-data:
-  ENV_TOY_CONFIGMAP: 'This is a configuration value.'
 ---
 apiVersion: v1
 kind: Secret
