@@ -19,13 +19,13 @@ spec:
     selector:
       matchLabels:
         app: ostoy-frontend
+    strategy:
+      type: Recreate
     replicas: 1
     template:
       metadata:
         labels:
           app: ostoy-frontend
-    strategy:
-      type: Recreate
       spec:
         containers:
         - name: ostoy-frontend
