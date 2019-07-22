@@ -33,4 +33,38 @@ You will see the file you created is still there and you can open it to view its
 
 ![Crash Message](/media/managedlab/19-ostoy-existingfile.png)
 
+Now let's confirm that it's actually there by using the CLI and checking if it is available to the container.  If you remember we mounted the directory `/var/demo-files` to our PVC.  So get the name of your frontend pod
+
+`oc get pods`
+
+then get an SSH session into the container
+
+`oc rsh <podname>`
+
+then `cd /var/demo-files`
+
+if you enter `ls` you can see all the files you created.  Next, let's open the file we created and see the contents
+
+`cat test-pv.txt`
+
+You should see the text you entered in the UI.
+
+```
+[okashi@ok-vm ostoy]# oc get pods
+NAME                                  READY     STATUS    RESTARTS   AGE
+ostoy-frontend-5fc8d486dc-wsw24       1/1       Running   0          18m
+ostoy-microservice-6cf764974f-hx4qm   1/1       Running   0          18m
+
+[okashi@ok-vm ostoy]# oc rsh ostoy-frontend-5fc8d486dc-wsw24
+/ $ cd /var/demo_files/
+
+/var/demo_files $ ls
+lost+found   test-pv.txt
+
+/var/demo_files $ cat test-pv.txt 
+Azure Red Hat OpenShift is the greatest thing since sliced bread!
+```
+
+Then exit the SSH session by typing `exit`. You will then be in your CLI.
+
 {% endcollapsible %}
