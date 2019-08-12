@@ -18,18 +18,20 @@ az openshift scale  --name <cluster name> --resource-group <resource group name>
 After the cluster has scaled successfully. You can run following command to verify the number of application nodes.
 
 ```sh
-$ az openshift list -o yaml|grep count -B 1
+az openshift show --name <cluster name> --resource-group <resource group name> --query "agentPoolProfiles"[0]
 ```
-You can notice that the value of `count` for `agentPoolProfiles` has been scaled to 5.
+
+Following is a sample output. You can notice that the value of `count` for `agentPoolProfiles` has been scaled to 5.
+
 ```sh
-- agentPoolProfiles:
-  - count: 5
---
-    vmSize: Standard_D4s_v3
-  - count: 3
---
-  masterPoolProfile:
-    count: 3
+{
+  "count": 5,
+  "name": "compute",
+  "osType": "Linux",
+  "role": "compute",
+  "subnetCidr": "10.0.0.0/24",
+  "vmSize": "Standard_D4s_v3"
+}
 ```
 
 > **Resources**
