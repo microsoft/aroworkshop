@@ -12,6 +12,7 @@ The following people have contributed to this workshop, thanks!
 {% githubauthor haroldwongms %}
 {% githubauthor jschluchter %}
 {% githubauthor jamesread %}
+{% githubauthor nichochen%}
 {% githubauthor okashi18 %}
 {% githubauthor sabbour %}
 {% githubauthor wgordon17 %}
