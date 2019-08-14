@@ -11,6 +11,12 @@ parent-id: lab-ratingapp
 
 Each Azure Red Hat OpenShift cluster has a public hostname that hosts the OpenShift Web Console.
 
+You can use command `az openshift list` to list the clusters in your current Azure subscription.
+
+```sh
+az openshift list -o table
+```
+
 Retrieve your cluster specific hostname. Replace `<cluster name>` and `<resource group>` by those specific to your environment.
 
 ```sh

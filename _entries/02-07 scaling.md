@@ -15,5 +15,24 @@ Run the below on the [Azure Cloud Shell](https://shell.azure.com) to scale your 
 az openshift scale  --name <cluster name> --resource-group <resource group name> --compute-count 5
 ```
 
+After the cluster has scaled successfully. You can run following command to verify the number of application nodes.
+
+```sh
+az openshift show --name <cluster name> --resource-group <resource group name> --query "agentPoolProfiles"[0]
+```
+
+Following is a sample output. You can notice that the value of `count` for `agentPoolProfiles` has been scaled to 5.
+
+```sh
+{
+  "count": 5,
+  "name": "compute",
+  "osType": "Linux",
+  "role": "compute",
+  "subnetCidr": "10.0.0.0/24",
+  "vmSize": "Standard_D4s_v3"
+}
+```
+
 > **Resources**
 > * [ARO Documentation - Scaling the cluster](https://docs.microsoft.com/en-us/azure/openshift/tutorial-scale-cluster)
