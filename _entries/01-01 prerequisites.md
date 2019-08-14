@@ -83,5 +83,8 @@ echo 'export PATH=$PATH:~/openshift' >> ~/.bashrc && source ~/.bashrc
 The OpenShift CLI (oc) is now installed.
 
 {% endcollapsible %}
+
 #### GitHub Account
 You'll need a personal GitHub account. You can sign up for free [here](https://github.com/join).
+=======
+
