@@ -1,13 +1,13 @@
 ---
 sectionid: lab3-deploy-cdcd-demo
 sectionclass: h2
-title: Deploy CICD Demo
+title: Deploy CI/CD Demo
 parent-id: lab-cicd
 ---
 
 ### Clone the GitHub Repo 
 
-To deploy the CICD demo, you need to download the required deployment files from GitHub repository `https://github.com/nichochen/openshift-cd-demo.git`.
+To deploy the CI/CD demo, you need to download the required deployment files from GitHub repository `https://github.com/nichochen/openshift-cd-demo.git`.
 
 {% collapsible %}
 On your Azure Cloud Shell, clone the OpenShift CICD demo repository. Currently ARO supports OpenShift 3.11, you'll need to checkout branch `azure-redhat-openshift-3.11`.
