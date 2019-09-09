@@ -1,13 +1,13 @@
 ---
 sectionid: lab3-run_cicd_pipeline
 sectionclass: h2
-title: Run CICD Pipeline
+title: Run CI/CD Pipeline
 parent-id: lab-cicd
 ---
 
-### Run the CICD Pipeline
+### Run the CI/CD Pipeline
 
-A CICD pipeline is created by the demo provision script. Please review the pipeline and trigger an execution.
+A CI/CD pipeline is created by the demo provision script. Please review the pipeline and trigger an execution.
 
 {% collapsible %}
 
