@@ -59,7 +59,7 @@ Equivalently you can also create this new project using the web UI by selecting 
 
 ### Download YAML configuration
 
-Download the Kubernetes deployment object yamls from the following locations to your local drive in a directory of your choosing (just remember where you placed them for the next step).
+Download the Kubernetes deployment object yamls from the following locations to your Azure Cloud Shell, in a directory of your choosing (just remember where you placed them for the next step).
 
 {% collapsible %}
 

@@ -1,7 +1,7 @@
 ---
 sectionid: scaling
 sectionclass: h2
-title: Scaling
+title: Scaling ARO Cluster
 parent-id: lab-ratingapp
 ---
 

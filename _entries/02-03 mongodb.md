@@ -1,7 +1,7 @@
 ---
 sectionid: mongodb
 sectionclass: h2
-title: Deploy mongoDB
+title: Deploy MongoDB
 parent-id: lab-ratingapp
 ---
 

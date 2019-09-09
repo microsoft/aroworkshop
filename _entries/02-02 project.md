@@ -1,7 +1,7 @@
 ---
 sectionid: createproject
 sectionclass: h2
-title: Create project
+title: Create Project
 parent-id: lab-ratingapp
 ---
 
