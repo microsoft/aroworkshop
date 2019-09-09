@@ -5,11 +5,11 @@ title: Cloud Native IDE
 parent-id: lab-cicd
 ---
 
-To provide your development team a cloud native experience, you can leverge the power of cloud native IDE. Eclipse Che is an open-source web based IDE. It supports multi-users and wide range of programming languages and frameworks.
+To provide your development team a cloud native experience, you can leverge the power of a cloud native integrated development environment (IDE). Eclipse Che is an open-source web based IDE. It supports multi-users and wide range of programming languages and frameworks.
 
 ### Launch Eclipse Che
 
-Please launch Eclipse Che and create a workspace for the demo application .
+Please launch Eclipse Che and create a workspace for the demo application.
 {% collapsible %}
 
 Get the Route for Eclipse Che with following command.
@@ -18,7 +18,7 @@ Get the Route for Eclipse Che with following command.
 oc get route -n cicd-aro che
 ```
 
-You will see some output similar as followig.
+You will see some output similar as following.
 
 ```sh
 NAME      HOST/PORT                                                 PATH      SERVICES   PORT      TERMINATION   WILDCARD
@@ -53,6 +53,7 @@ Back to Eclipse Che, click `Import Project` from menu `Workspace` to import the 
 
 ![Check out source code](media/che-import.png)
 {% endcollapsible %}
+
 ### Change and Deploy
 
 Please make some changes to the demo application, and commit the changes to the remote Git repository.
@@ -78,7 +79,7 @@ $ git push origin
 
 ### Verify the update
 
-After pushing the commit to the remote repository, the CICD pipeline will be triggered automatically. You will see a new pipeline execution has been launched for the new commit. After the execution finished successfully, you will be able to see your changes on the web page of the application.
+After pushing the commit to the remote repository, the CI/CD pipeline will be triggered automatically. You will see a new pipeline execution has been launched for the new commit. After the execution finished successfully, you will be able to see your changes on the web page of the application.
 
-From this example you can see, it's easy to build up a CICD pipeline with Open Source tool chains and Azure Red Hat OpenShift. With container & cloud based CICD, application development and delivery are significantly accelerated.
+From this example you can see, it's easy to build up a CI/CD pipeline with Open Source tool chains and Azure Red Hat OpenShift. With container & cloud based CI/CD, application development and delivery are significantly accelerated.
 
