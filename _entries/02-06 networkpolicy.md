@@ -1,7 +1,7 @@
 ---
 sectionid: networkpolicy
 sectionclass: h2
-title: Create network policy
+title: Create Network Policy
 parent-id: lab-ratingapp
 ---
 
