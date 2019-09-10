@@ -47,7 +47,7 @@ Select **Show advanced settings**
 
 ![Select show advanced settings](media/cloudshell/1-mountstorage-advanced.png)
 
-Set the **Storage account** and **File share** names to your resource group name (all lowercase, without any special characters), then hit **Create storage**
+Set the **Storage account** and **File share** names to your resource group name (all lowercase, without any special characters). Leave other settings unchanged, then hit **Create storage**
 
 ![Azure Cloud Shell](media/cloudshell/2-storageaccount-fileshare.png)
 
@@ -83,5 +83,6 @@ echo 'export PATH=$PATH:~/openshift' >> ~/.bashrc && source ~/.bashrc
 The OpenShift CLI (oc) is now installed.
 
 {% endcollapsible %}
+
 #### GitHub Account
 You'll need a personal GitHub account. You can sign up for free [here](https://github.com/join).
