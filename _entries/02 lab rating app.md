@@ -1,7 +1,7 @@
 ---
 sectionid: lab-ratingapp
 sectionclass: h1
-title: Lab 1 - Rating App
+title: Lab 1 - Go Microservices
 type: nocount
 is-parent: yes
 ---
