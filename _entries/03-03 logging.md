@@ -20,7 +20,7 @@ Click in the message box for "Log Message (stderr)" and write any message you wa
 Go to the CLI and enter the following command to retrieve the name of your frontend pod which we will use to view the pod logs:
 
 ```sh
-[okashi@ok-vm ~]# oc get pods -o name
+$ oc get pods -o name
 pod/ostoy-frontend-679cb85695-5cn7x
 pod/ostoy-microservice-86b4c6f559-p594d
 ```
@@ -28,7 +28,7 @@ pod/ostoy-microservice-86b4c6f559-p594d
 So the pod name in this case is **ostoy-frontend-679cb85695-5cn7x**.  Then run `oc logs ostoy-frontend-679cb85695-5cn7x` and you should see your messages:
 
 ```sh
-[okashi@ok-vm ostoy]# oc logs ostoy-frontend-679cb85695-5cn7x
+$ oc logs ostoy-frontend-679cb85695-5cn7x
 [...]
 ostoy-frontend-679cb85695-5cn7x: server starting on port 8080
 Redirecting to /home
