@@ -13,7 +13,7 @@ It would be best to prepare by splitting your screen between the OpenShift Web U
 
 ![Splitscreen](/media/managedlab/23-ostoy-splitscreen.png)
 
-But if your screen is too small or that just won't work, then open the OSToy application in another tab so you can quickly switch to OpenShift Web Console once you click the button. To get to this deployment in the OpenShift Web Console go to: 
+But if your screen is too small or that just won't work, then open the OSToy application in another tab so you can quickly switch to the OpenShift Web Console once you click the button. To get to this deployment in the OpenShift Web Console go to: 
 
 *Applications > Deployments >* click the number in the "Last Version" column for the "ostoy-frontend" row
 
