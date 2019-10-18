@@ -51,57 +51,6 @@ oc status
 
 {% endcollapsible %}
 
-### Restore data
-
-{% collapsible %}
-
-Now you have the database running on the cluster, it is time to restore data.
-
-Download and unzip the data zip on the Azure Cloud Shell.
-
-```sh
-wget https://github.com/microsoft/rating-api/raw/master/data.tar.gz
-tar -zxvf data.tar.gz
-```
-
-![Download and unzip the data](media/download-data.png)
-
-Identify the name of the running MongoDB pod. For example, you can view the list of pods in your current project:
-
-```sh
-oc get pods
-```
-
-![oc get pods](media/oc-getpods-mongo.png)
-
-Copy the data folder into the mongoDB pod.
-
-```sh
-oc rsync ./data mongodb-1-nqpt5:/opt/app-root/src
-```
-
-![oc rsync](media/oc-rsync.png)
-
-Then, open a remote shell session to the desired pod.
-
-```sh
-oc rsh mongodb-1-nqpt5
-```
-
-![oc rsh](media/oc-rsh.png)
-
-Run the `mongoimport` command to import the JSON data files into the database. Make sure the username, password and database name match what you specified when you deployed the template.
-
-```sh
-mongoimport --host 127.0.0.1 --username ratingsuser --password ratingspassword --db ratingsdb --collection items --type json --file data/items.json --jsonArray
-mongoimport --host 127.0.0.1 --username ratingsuser --password ratingspassword --db ratingsdb --collection sites --type json --file data/sites.json --jsonArray
-mongoimport --host 127.0.0.1 --username ratingsuser --password ratingspassword --db ratingsdb --collection ratings --type json --file data/ratings.json --jsonArray
-```
-
-![mongoimport](media/mongoimport.png)
-
-{% endcollapsible %}
-
 ### Retrieve mongoDB service hostname
 
 {% collapsible %}
