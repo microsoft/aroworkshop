@@ -50,12 +50,12 @@ if you enter `ls` you can see all the files you created.  Next, let's open the f
 You should see the text you entered in the UI.
 
 ```
-[okashi@ok-vm ostoy]# oc get pods
+$ oc get pods
 NAME                                  READY     STATUS    RESTARTS   AGE
 ostoy-frontend-5fc8d486dc-wsw24       1/1       Running   0          18m
 ostoy-microservice-6cf764974f-hx4qm   1/1       Running   0          18m
 
-[okashi@ok-vm ostoy]# oc rsh ostoy-frontend-5fc8d486dc-wsw24
+$ oc rsh ostoy-frontend-5fc8d486dc-wsw24
 / $ cd /var/demo_files/
 
 /var/demo_files $ ls

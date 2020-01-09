@@ -5,7 +5,7 @@ title: Exploring Health Checks
 parent-id: lab-clusterapp
 ---
 
-In this section we will intentionally crash our pods as well as make a pod non-responsive to the liveliness probes from Kubernetes and see how Kubernetes behaves.  We will first intentionally crash our pod and see that Kubernetes will self-heal and immediately spin it back up. Then we will trigger the health check by stopping the response on the `/health` endpoint in our app. After three consecutive failures Kubernetes should kill the pod and then recreate it.
+In this section we will intentionally crash our pods as well as make a pod non-responsive to the liveness probes and see how Kubernetes behaves.  We will first intentionally crash our pod and see that Kubernetes will self-heal by immediately spinning it back up. Then we will trigger the health check by stopping the response on the `/health` endpoint in our app. After three consecutive failures, Kubernetes should kill the pod and then recreate it.
 
 {% collapsible %}
 
@@ -13,9 +13,9 @@ It would be best to prepare by splitting your screen between the OpenShift Web U
 
 ![Splitscreen](/media/managedlab/23-ostoy-splitscreen.png)
 
-But if your screen is too small or that just won't work, then open the OSToy application in another tab so you can quickly switch to OpenShift Web Console once you click the button. To get to this deployment in the OpenShift Web Console go to: 
+But if your screen is too small or that just won't work, then open the OSToy application in another tab so you can quickly switch to the OpenShift Web Console once you click the button. To get to this deployment in the OpenShift Web Console go to: 
 
-Applications > Deployments > click the number in the "Last Version" column for the "ostoy-frontend" row
+*Applications > Deployments >* click the number in the "Last Version" column for the "ostoy-frontend" row
 
 ![Deploy Num](/media/managedlab/11-ostoy-deploynum.png)
 
@@ -31,11 +31,11 @@ You can also check in the pod events and further verify that the container has c
 
 ![Pod Events](/media/managedlab/14-ostoy-podevents.png)
 
-Keep the page from the pod events still open from step 4.  Then in the OSToy app click on the "Toggle Health" button, in the "Toggle Health Status" tile.  You will see the "Current Health" switch to "I'm not feeling all that well".
+Keep the page from the pod events still open from the previous step.  Then in the OSToy app click on the "Toggle Health" button, in the "Toggle Health Status" tile.  You will see the "Current Health" switch to "I'm not feeling all that well".
 
 ![Pod Events](/media/managedlab/15-ostoy-togglehealth.png)
 
-This will cause the app to stop responding with a "200 HTTP code". After 3 such consecutive failures ("A"), Kubernetes will kill the pod ("B") and restart it ("C"). Quickly switch back to the pod events tab and you will see that the liveliness probe failed and the pod as being restarted.
+This will cause the app to stop responding with a "200 HTTP code". After 3 such consecutive failures ("A"), Kubernetes will kill the pod ("B") and restart it ("C"). Quickly switch back to the pod events tab and you will see that the liveness probe failed and the pod as being restarted.
 
 ![Pod Events2](/media/managedlab/16-ostoy-podevents2.png)
 

@@ -16,7 +16,7 @@ If not logged in via the CLI, click on the dropdown arrow next to your name in t
 Then go to your terminal and paste that command and press enter.  You will see a similar confirmation message if you successfully logged in.
 
 ```sh
-[okashi@ok-vm ostoy]# oc login https://openshift.abcd1234.eastus.azmosa.io --token=hUXXXXXX
+$ oc login https://openshift.abcd1234.eastus.azmosa.io --token=hUXXXXXX
 Logged into "https://openshift.abcd1234.eastus.azmosa.io:443" as "okashi" using the token provided.
 
 You have access to the following projects and can switch between them with 'oc project <projectname>':
@@ -41,7 +41,7 @@ Use the following command
 You should receive the following response
 
 ```sh
-[okashi@ok-vm ostoy]# oc new-project ostoy
+$ oc new-project ostoy
 Now using project "ostoy" on server "https://openshift.abcd1234.eastus.azmosa.io:443".
 
 You can add applications to this project with the 'new-app' command. For example, try:
@@ -83,7 +83,7 @@ In your command line deploy the microservice using the following command:
 
 You should see the following response:
 ```
-[okashi@ok-vm ostoy]# oc apply -f ostoy-microservice-deployment.yaml
+$ oc apply -f ostoy-microservice-deployment.yaml
 deployment.apps/ostoy-microservice created
 service/ostoy-microservice-svc created
 ```
@@ -112,7 +112,7 @@ In your command line deploy the frontend along with creating all objects mention
 You should see all objects created successfully
 
 ```sh
-[okashi@ok-vm ostoy]# oc apply -f ostoy-fe-deployment.yaml
+$ oc apply -f ostoy-fe-deployment.yaml
 persistentvolumeclaim/ostoy-pvc created
 deployment.apps/ostoy-frontend created
 service/ostoy-frontend-svc created
