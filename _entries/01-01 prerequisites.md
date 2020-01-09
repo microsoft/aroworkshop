@@ -9,9 +9,7 @@ parent-id: intro
 
 {% collapsible %}
 
-If you haven't provisioned an environment yet, please go ahead and create one now. You should have been given access to a Microsoft Hands-on Labs environment for this workshop through a registration link and an activation code. If you don't have one, please ask your proctors. For more information, please go to the [Microsoft Hands-on Labs](https://www.microsoft.com/handsonlabs/) website.
-
-Please continue the registration with the activation code you've been provided.
+If you have been provided with a Microsoft Hands-on Labs environment for this workshop through a registration link and an activation code, please continue to registration and activate the lab.
 
 ![Registration](media/managedlab/0-registration.png)
 
