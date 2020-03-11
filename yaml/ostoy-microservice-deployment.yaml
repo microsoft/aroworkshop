@@ -16,7 +16,7 @@ spec:
       spec:
         containers:
         - name: ostoy-microservice
-          image: quay.io/aroworkshop/ostoy-microservice:1.2.2
+          image: quay.io/ostoylab/ostoy-microservice:1.3.0
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 8080
