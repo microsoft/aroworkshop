@@ -72,7 +72,7 @@ stages:
       - task: AzureRmWebAppDeployment@4
         inputs:
           ConnectionType: 'AzureRM'
-          azureSubscription: 'Microsoft Azure Internal Consumption STU(2)(e294471f-f59f-42c9-842a-fad9e379127a)'
+          azureSubscription: 'Microsoft Azure Internal Consumption STU(e294471f-f59f-42c9-842a-fad9e379127a)'
           appType: 'webAppContainer'
           WebAppName: 'rochearoworkshop'
           deployToSlotOrASE: true
@@ -81,3 +81,17 @@ stages:
           DockerNamespace: '$(containerRegistry)'
           DockerRepository: '$(imageRepository)'
           DockerImageTag: '$(tag)'
+  - job: Post-Deploy
+    displayName: Post Deploy
+    dependsOn: Deploy
+    condition: ucceeded()
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+      - task: AzureAppServiceManage@0
+        inputs:
+          azureSubscription: 'Microsoft Azure Internal Consumption STU(e294471f-f59f-42c9-842a-fad9e379127a)'
+          Action: 'Swap Slots'
+          WebAppName: 'rochearoworkshop'
+          ResourceGroupName: 'rochearoworkshop'
+          SourceSlot: 'master'
