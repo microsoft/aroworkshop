@@ -81,10 +81,10 @@ stages:
           DockerNamespace: '$(containerRegistry)'
           DockerRepository: '$(imageRepository)'
           DockerImageTag: '$(tag)'
-  - job: Post-Deploy
+  - job: PostDeploy
     displayName: Post Deploy
     dependsOn: Deploy
-    condition: ucceeded()
+    condition: succeeded()
     pool:
       vmImage: $(vmImageName)
     steps:
