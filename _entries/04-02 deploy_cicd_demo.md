@@ -13,7 +13,7 @@ To deploy the CI/CD demo, you need to download the required deployment files fro
 On your Azure Cloud Shell, clone the OpenShift CI/CD demo repository. Currently ARO supports OpenShift 3.11, you'll need to checkout branch `azure-redhat-openshift-3.11`.
 
 ```sh
-git clone https://github.com/nichochen/openshift-cd-demo.git -b azure-redhat-openshift-3.11 cicd
+git clone https://github.com/siamaksade/openshift-cd-demo -b ocp-4.3 cicd
 ```
 {% endcollapsible %}
 
@@ -25,7 +25,7 @@ git clone https://github.com/nichochen/openshift-cd-demo.git -b azure-redhat-ope
 Now you can proceed to deploy the demo by running the script file `provision.sh`, which is under the folder `scripts`. In the following command, we specified to install Eclipse Che, and setting the project name suffix as `aro`.
 
 ```sh
-./cicd/scripts/provision.sh deploy --enable-che --ephemeral --project-suffix aro
+./cicd/scripts/provision.sh deploy --ephemeral --project-suffix aro
 ```
 {% endcollapsible %}
 
