@@ -25,9 +25,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'd2260d55-1ffd-48d5-ad19-2fe7cab65d3b'
+  dockerRegistryServiceConnection: 'e294471f-f59f-42c9-842a-fad9e379127a'
   imageRepository: 'aroworkshop'
-  containerRegistry: 'msworkshops.azurecr.io'
+  containerRegistry: 'micchiacr.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
   sourceVersion: '$(Build.SourceVersion)'
