@@ -81,17 +81,3 @@ stages:
           DockerNamespace: '$(containerRegistry)'
           DockerRepository: '$(imageRepository)'
           DockerImageTag: '$(tag)'
-  - job: PostDeploy
-    displayName: Post Deploy
-    dependsOn: Deploy
-    condition: succeeded()
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-      - task: AzureAppServiceManage@0
-        inputs:
-          azureSubscription: 'Microsoft Azure Internal Consumption STU(e294471f-f59f-42c9-842a-fad9e379127a)'
-          Action: 'Swap Slots'
-          WebAppName: 'rochearoworkshop'
-          ResourceGroupName: 'rochearoworkshop'
-          SourceSlot: 'master'
