@@ -11,23 +11,23 @@ parent-id: lab-ratingapp
 
 Each Azure Red Hat OpenShift cluster has a public hostname that hosts the OpenShift Web Console.
 
-You can use command `az openshift list` to list the clusters in your current Azure subscription.
+You can use command `az aro list` to list the clusters in your current Azure subscription.
 
 ```sh
-az openshift list -o table
+az aro list -o table
 ```
 
 Retrieve your cluster specific hostname. Replace `<cluster name>` and `<resource group>` by those specific to your environment.
 
 ```sh
-az openshift show -n <cluster name> -g <resource group> --query "publicHostname" -o tsv
+az aro show -n <cluster name> -g <resource group> --query "consoleProfile" -o tsv
 ```
 
-You should get back something like `openshift.77f472f620824da084be.eastus.azmosa.io`. Add `https://` to the beginning of that hostname and open that link in your browser. You'll be asked to login with Azure Active Directory. Use the username and password provided to you in the lab.
+You should get back something like `https://console-openshift-console.apps.l6xngd34.eastus.aroapp.io`. You'll be asked to login with Azure Active Directory. Use the username and password provided to you in the lab.
 
 After logging in, you should be able to see the Azure Red Hat OpenShift Web Console.
 
-![Azure Red Hat OpenShift Web Console](media/openshift-webconsole.png)
+![Azure Red Hat OpenShift Web Console](media/openshift-v4-webconsole.png)
 
 {% endcollapsible %}
 
