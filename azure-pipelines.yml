@@ -25,9 +25,8 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'd2260d55-1ffd-48d5-ad19-2fe7cab65d3b'
-  imageRepository: 'aroworkshop'
-  containerRegistry: 'msworkshops.azurecr.io'
+  imageRepository: 'micchiacr.azurecr.io/aroworkshop'
+  containerRegistry: 'micchiacr.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
   sourceVersion: '$(Build.SourceVersion)'
@@ -56,12 +55,11 @@ stages:
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+        containerRegistry: 'micchiacr'
+        repository: '$(imageRepository)'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
 
 - stage: Deploy
   displayName: Deploy to slot
@@ -71,15 +69,15 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: AzureRmWebAppDeployment@4
-      inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'AKS Workshop(90a9e297-40f1-4e71-9eee-cfdc25f079f1)'
-        appType: 'webAppContainer'
-        WebAppName: 'aroworkshop'
-        deployToSlotOrASE: true
-        ResourceGroupName: 'workshops'
-        SlotName: '$(sourceBranch)'
-        DockerNamespace: '$(containerRegistry)'
-        DockerRepository: '$(imageRepository)'
-        DockerImageTag: '$(tag)'
+      - task: AzureRmWebAppDeployment@4
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: 'Microsoft Azure Internal Consumption STU(e294471f-f59f-42c9-842a-fad9e379127a)'
+          appType: 'webAppContainer'
+          WebAppName: 'rochearoworkshop'
+          deployToSlotOrASE: true
+          ResourceGroupName: 'rochearoworkshop'
+          SlotName: '$(sourceBranch)'
+          DockerNamespace: '$(containerRegistry)'
+          DockerRepository: '$(imageRepository)'
+          DockerImageTag: '$(tag)'

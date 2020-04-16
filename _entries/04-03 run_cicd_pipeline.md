@@ -15,7 +15,7 @@ On OpenShift Web Console, Navigate to project `CICD`. From the side navigation m
 
 You will see there is a pipeline, named `tasks-pipeline`. Click on the name of the pipeline, then you will see the pipeline overview page. In the tab `Configuration`, you will see the definition of the pipeline.
 
-![Pipeline Definition](media/cicd-definition.png)
+![Pipeline Definition](media/43pipeline.png)
 
 To run the pipeline, click on button `Start Pipeline`, which is on the top right corner. Then Azure Red Hat OpenShift will start a new execution instance for that pipeline.
 
@@ -29,7 +29,7 @@ After triggering a pipeline execution, please monitor the execution on the web c
 
 You will see the execution result of each stage of the pipeline.
 
-![Pipeline Execution](media/cicd-pipeline-view.png)
+![Pipeline Execution](media/43monitor.png)
 
 For detail information, you can click on the link `View Log` of a execution instance to review the real time log output. After clicking `View Log`, you will be navigated to the Jenkins login page. Login with OpenShift credentials and grant all the required permissions to Jenkins, then you will see the log output in Jenkins.
 
