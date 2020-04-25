@@ -1,0 +1,28 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: install Jekyll
+      run: |
+           gem update --system
+           gem install jekyll 
+    - name: build Jekyll
+      run: jekyll build
+    - uses: actions/upload-artifact@v1
+      with:
+        name: arowks
+        path: _site
+
