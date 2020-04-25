@@ -11,13 +11,13 @@ A CI/CD pipeline is created by the demo provision script. Please review the pipe
 
 {% collapsible %}
 
-On OpenShift Web Console, Navigate to project `CICD`. From the side navigation menu, select menu item `Builds`, then `Pipelines`. 
+On OpenShift Web Console, Navigate to project `cicd-aro`. From the side navigation menu, select menu item `Builds`, then `Pipelines`. 
 
 You will see there is a pipeline, named `tasks-pipeline`. Click on the name of the pipeline, then you will see the pipeline overview page. In the tab `Configuration`, you will see the definition of the pipeline.
 
 ![Pipeline Definition](media/cicd-definition.png)
 
-To run the pipeline, click on button `Start Pipeline`, which is on the top right corner. Then Azure Red Hat OpenShift will start a new execution instance for that pipeline.
+To run the pipeline, click on button `Start Build`, which is on the top right corner. Then Azure Red Hat OpenShift will start a new execution instance for that pipeline.
 
 {% endcollapsible %}
 
