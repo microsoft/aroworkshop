@@ -1,0 +1,44 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: install Jekyll
+      run: |
+           gem update --system
+           gem install jekyll 
+    - name: build Jekyll
+      run: jekyll build
+    - uses: actions/upload-artifact@v1
+      with:
+        name: arowks
+        path: _site
+    - name: Azure Static Website Deploy
+      uses: feeloor/azure-static-website-deploy@v0.1.0
+      env:
+        # The name of the directory you want to upload
+        SOURCE_DIR: "./_site"
+        # Your Azure Client ID
+        AZURE_CLIENT_ID: "${{secrets.CLIENT_ID}}"
+        # Your Azure TENANT ID
+        AZURE_TENANT_ID: "72f988bf-86f1-41af-91ab-2d7cd011db47"
+        # Your Azure Secret
+        AZURE_SECRET: "${{secrets.SECRET_ID}}"
+        # Your Azure Subscription ID
+        AZURE_SUBSCRIPTION_ID: "${{secrets.SUBSCRIPTION_ID}}"
+        # Your Azure Storage Account Name
+        AZURE_STORAGE_ACCOUNT_NAME: "stoaroworkshop"
+        # The index document that you specify when you enable static website hosting, appears when users open the site and dont specify a specific file.
+        AZURE_INDEX_DOCUMENT_NAME:  "index.html"
