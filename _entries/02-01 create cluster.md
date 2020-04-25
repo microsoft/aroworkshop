@@ -50,6 +50,18 @@ You'll need the following to create an Azure Red Hat OpenShift 4.3 cluster:
 
 {% endcollapsible %}
 
+### Get a Red Hat pull secret (optional)
+
+A Red Hat pull secret enables your cluster to access Red Hat container registries and additional content. Using a pull secret is optional but recommended.
+
+To get your pull secret:
+
+1. Go to https://cloud.redhat.com/openshift/install/azure/aro-provisioned.
+1. Log in to your Red Hat account, or create a new Red Hat account by using your business email; accept the terms and conditions.
+1. Select **Download pull secret**.
+
+Save the *pull-secret.txt* file somewhere safe; you will use the file each time you create a cluster.
+
 #### Create a virtual network containing two empty subnets
 
 Follow these steps to create a virtual network containing two empty subnets.
@@ -127,7 +139,8 @@ Follow these steps to create a virtual network containing two empty subnets.
         --master-subnet "$CLUSTER-master" \
         --worker-subnet "$CLUSTER-worker" \
         --cluster-resource-group "aro-$CLUSTER" \
-        --domain "$CLUSTER" 
+        --domain "$CLUSTER" \
+        --pull-secret @pull-secret.txt
     ```
 
 >[!NOTE]
