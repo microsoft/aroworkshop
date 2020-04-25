@@ -64,7 +64,7 @@ You'll need to download the **latest OpenShift CLI (oc)** client tools for OpenS
 {% collapsible %}
 
 > **Note** You'll need to change the link below to the latest link you get from the page.
-> ![GitHub release links](media/github-oc-release.jpg)
+> ![GitHub release links](media/github-oc-release.jog)
 
 Please run following commands on Azure Cloud Shell to download and setup the OpenShift client.
 
