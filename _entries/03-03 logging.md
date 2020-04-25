@@ -46,10 +46,10 @@ You should see both the *stdout* and *stderr* messages.
 
 {% collapsible %}
 
-One can use the native Azure service, Azure Monitor, to view and keep application logs along with metrics. This lab assumes that the cluster was already configured to use Azure Monitor for application logs at cluster creation.  If you want more information on how to connect this for a new or existing cluster see the docs here: (https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat-setup)
+One can use the native Azure service, Azure Monitor, to view and keep application logs along with metrics. This lab assumes that the cluster was already configured to use Azure Monitor for application logs at cluster creation.  If you want more information on how to connect this for a new or existing cluster see the docs here: [https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat-setup](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat-setup)
 
 
-Access the azure portal at (https://portal.azure.com/)
+Access the azure portal at [https://portal.azure.com/](https://portal.azure.com/)
 
 Click on "Monitor".
 
