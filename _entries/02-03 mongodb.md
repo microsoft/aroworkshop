@@ -21,10 +21,10 @@ There are two templates available:
 > oc get templates -n openshift
 > ```
 
-Create a mongoDB deployment using the `mongodb-persistent` template. You're passing in the values to be replaced (username, password and database) which generates a YAML/JSON file. You then pipe it to the `oc create` command.
+Create a mongoDB deployment using the `mongodb-ephemeral` template. You're passing in the values to be replaced (username, password and database) which generates a YAML/JSON file. You then pipe it to the `oc create` command.
 
 ```sh
-oc process openshift//mongodb-persistent \
+oc process openshift//mongodb-ephemeral \
     -p MONGODB_USER=ratingsuser \
     -p MONGODB_PASSWORD=ratingspassword \
     -p MONGODB_DATABASE=ratingsdb \

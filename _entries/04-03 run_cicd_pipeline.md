@@ -7,17 +7,17 @@ parent-id: lab-cicd
 
 ### Run the CI/CD Pipeline
 
-A CI/CD pipeline is created by the demo provision script. Please review the pipeline and trigger an execution.
+A CI/CD pipeline is created by the demo provision script inside the cicd-aro project. Please review the pipeline and trigger an execution.
 
 {% collapsible %}
 
-On OpenShift Web Console, Navigate to project `CICD`. From the side navigation menu, select menu item `Builds`, then `Pipelines`. 
+On OpenShift Web Console, Navigate to project `cicd-aro`. From the side navigation menu, select menu item `Builds`, then `Pipelines`. 
 
 You will see there is a pipeline, named `tasks-pipeline`. Click on the name of the pipeline, then you will see the pipeline overview page. In the tab `Configuration`, you will see the definition of the pipeline.
 
 ![Pipeline Definition](media/cicd-definition.png)
 
-To run the pipeline, click on button `Start Pipeline`, which is on the top right corner. Then Azure Red Hat OpenShift will start a new execution instance for that pipeline.
+To run the pipeline, click on the menu Actions > `Start Build`, which is on the top right corner. Then Azure Red Hat OpenShift will start a new execution instance for that pipeline.
 
 {% endcollapsible %}
 
@@ -54,7 +54,7 @@ Click on the link `Input Required` , and you will be navigated to Jenkins. Click
 After the pipeline execution is completed, please review the execution result on the web console. You also can login to the Jenkins console to check out the detail.
 
 {% collapsible %}
-If everything works fine, you will be albe to see all pipeline stages completed successfully, as it shown below. The sample application was built and deployed into project `Dev` and `Stage`.
+If everything works fine, you will be able to see all pipeline stages completed successfully, as it shown below. The sample application was built and deployed into project `Dev` and `Stage`.
 
 ![CiCD Result](media/cicd-pipeline-result.png)
 

@@ -33,7 +33,7 @@ You will see the file you created is still there and you can open it to view its
 
 ![Crash Message](/media/managedlab/19-ostoy-existingfile.png)
 
-Now let's confirm that it's actually there by using the CLI and checking if it is available to the container.  If you remember we mounted the directory `/var/demo-files` to our PVC.  So get the name of your frontend pod
+Now let's confirm that it's actually there by using the CLI and checking if it is available to the container.  If you remember we mounted the directory `/var/demo_files` to our PVC.  So get the name of your frontend pod
 
 `oc get pods`
 
@@ -41,7 +41,7 @@ then get an SSH session into the container
 
 `oc rsh <podname>`
 
-then `cd /var/demo-files`
+then `cd /var/demo_files`
 
 if you enter `ls` you can see all the files you created.  Next, let's open the file we created and see the contents
 
