@@ -5,238 +5,225 @@ title: Create cluster
 parent-id: lab-ratingapp
 ---
 
-### Create an Azure Active Directory tenant for your cluster 
+### Create, access, and manage an Azure Red Hat OpenShift 4.3 Cluster
 
-Microsoft Azure Red Hat OpenShift requires an [Azure Active Directory (Azure AD)](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-create-new-tenant) tenant to create your cluster. A tenant is a dedicated instance of Azure AD that an organization or app developer receives when they create a relationship with Microsoft by signing up for Azure, Microsoft Intune, or Microsoft 365. Each Azure AD tenant is distinct and separate from other Azure AD tenants and has its own work and school identities and app registrations.
+We will now create our own ARO cluster.
 
-If you have **Administrator** access to your organization's Azure Active Directory (unlikely), you can skip this step. Otherwise, follow these instructions to create one.
+## Before you begin
 
-#### Create Azure Active Directory tenant
+If you choose to install and use the CLI locally, this tutorial requires that you are running the Azure CLI version 2.0.75 or later. Run `az --version` to find the version. If you need to install or upgrade, see [Install Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest).
 
-{% collapsible %}
+### Install the `az aro` extension
 
-1. Sign in to the Azure portal using the account you wish to associate with your Azure Red Hat OpenShift cluster, go to <https://portal.azure.com>
-
-1. Open the [Azure Active Directory blade](https://portal.azure.com/#create/Microsoft.AzureActiveDirectory) to create a new tenant (also known as a new Azure Active Directory).
-
-1. Provide an initial domain name. This will have `onmicrosoft.com` appended to it. You can reuse the value for Organization name here.
-
-1. Choose a country or region where the tenant will be created.
-
-1. Click **Create**.
-
-1. After your Azure AD tenant is created, select the **Click here to manage your new directory** link. Your new tenant name should be displayed in the upper-right of the Azure portal:
-
-    ![New tenant](../media/new-tenant.png)
-
-1. Make note of the tenant ID. You'll refer to this as `<tenant id>` when creating the cluster.
-
-    In the portal, you should now see the Azure Active Directory overview blade for your new tenant. Select Properties and copy the value for your Directory ID.
-
-{% endcollapsible %}
-
-Microsoft Azure Red Hat OpenShift needs permissions to perform tasks on behalf of your cluster. If your organization doesn’t already have an Azure Active Directory (Azure AD) user, Azure AD security group, or an Azure AD app registration to use as the service principal, follow these instructions to create them.
-
-#### Create the administrator user
+The `az aro` extension allows you to create, access, and delete Azure Red Hat OpenShift clusters directly from the command line using the Azure CLI.
 
 {% collapsible %}
 
-In the Azure portal, ensure that your tenant appears under your user name in the top right of the portal:
+Run the following command to install the `az aro` extension.
 
-![New tenant](../media/new-tenant.png)
+```azurecli-interactive
+az extension add -n aro --index https://az.aroapp.io/stable
+```
 
-If the wrong tenant is displayed, click your user name in the top right, then click Switch Directory, and select the correct tenant from the All Directories list. Create a new Azure Active Directory global administrator user to sign in to your Azure Red Hat OpenShift cluster.
+If you already have the extension installed, you can update by running the following command.
 
-1. Go to the [Users-All users](https://portal.azure.com/#blade/Microsoft_AAD_IAM/UsersManagementMenuBlade/AllUsers) blade.
-
-1. Click **+New user** to open the User pane.
-
-1. Enter a Name for this user.
-
-1. Create a User name based on the name of the tenant you created, with .onmicrosoft.com appended at the end. For example, **yourUserName@yourTenantName.onmicrosoft.com**. Write down this user name. You’ll need it to sign into your cluster.
-
-1. Click **Directory** role to open the directory role pane, and select **Global administrator** and then click Ok at the bottom of the pane.
-
-1. In the User pane, click **Show Password** and record the temporary password. After you sign in the first time, you’ll be prompted to reset it
-
-1. At the bottom of the pane, click **Create** to create the user.
-
-{% endcollapsible %}
-
-To grant cluster admin access, memberships in an Azure AD security group are synced into the OpenShift group `osa-customer-admins`. If not specified, no cluster admin access will be granted.
-
-#### Create the administrator security group
-
-{% collapsible %}
-
-1. Open the [Azure Active Directory groups](https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups) blade.
-
-1. Click **+New Group**.
-
-1. Provide a group name and description.
-
-1. Set Group type to **Security**.
-
-1. Set Membership type to **Assigned**. Add the Azure AD user that you created in the earlier step to this security group.
-
-1. Click Members to open the Select members pane.
-
-1. In the members list, select the Azure AD user that you created above.
-
-1. At the bottom of the portal, click on **Select** and then **Create** to create the security group.
-
-1. When the group is created, you will see it in the list of all groups. Click on the new group.
-
-1. On the page that appears, make note of the **Object ID**. You'll refer to this as `<group id>` when creating the cluster.
-
-{% endcollapsible %}
-
-If your organization doesn’t already have an Azure Active Directory (Azure AD) app registration to use as a service principal, follow these instructions to create one.
-
-#### Create an Azure Active Directory app registration for authentication
-
-{% collapsible %}
-
-1. Open the [App registrations blade](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredAppsPreview) and click **+New** registration.
-
-1.	 In the Register an application pane, enter a name for your application
-registration.
-
-1. Ensure that under Supported account types that **Accounts in this
-organizational directory only** is selected. This is the most secure choice.
-
-1. We will add a redirect URI later once we know the URI of the cluster. Click the
-**Register** button to create the Azure AD application registration.
-
-1. On the page that appears, copy down the **Application (client) ID** as `<app id>`. You'll need to refer to this later when provisioning the cluster.
-
-    ![App registration](../media/app-registration.png)
-
-{% endcollapsible %}
-
-Generate a client secret for authenticating your app to Azure Active Directory.
-
-#### Create a client secret
-
-{% collapsible %}
-
-1. In the Manage section of the app registrations page, click Certificates & secrets.
-
-1.	 On the Certificates & secrets pane, click +New client secret. The Add a client secret pane appears.
-
-1. Provide a Description.
-
-1.	 Set Expires to the duration you prefer, for example In 2 Years.
-
-1. Click Add and the key value will appear in the Client secrets section of the page.
-
-1. Copy down the key value. You'll refer to this as `<secret>` when creating the cluster.
-
-    ![Client secret](../media/client-secret.png)
-
-{% endcollapsible %}
-
-#### Add API permissions
-
-{% collapsible %}
-
-1. In the Manage section click **API permissions**.
-
-1. Click Add permission and select **Azure Active Directory Graph** then **Delegated permissions**.
-
-1. Expand **User** on the list below and make sure **User.Read** is enabled.
-
-1. Scroll up and select **Application permissions**.
-
-1. Expand **Directory** on the list below and enable **Directory.ReadAll**.
-
-1. Click Add permissions to accept the changes.
-
-1. The API permissions panel should now show both **User.Read** and
-**Directory.ReadAll**. Please note the warning in Admin consent required column
-next to Directory.ReadAll.
-
-    ![API permissions](../media/api-permissions.png)
-
-1. Click **Grant admin consent**.
-
-    ![Grant Admin consent](../media/grant-consent.png)
-
-{% endcollapsible %}
-
-The Microsoft.ContainerService AROGA feature, Microsoft.Solutions , Microsoft.Compute , Microsoft.Storage , Microsoft.KeyVault, and Microsoft.Network providers must be registered to your subscription manually before deploying your first Azure Red Hat OpenShift cluster.
-
-To register these providers and features manually, use the following instructions from the Azure Cloud Shell (Bash) session.
-
-#### Register subscription providers and features
-
-{% collapsible %}
-
-```bash
-az feature register --namespace Microsoft.ContainerService -n
-AROGA
-az provider register -n Microsoft.Storage --wait
-az provider register -n Microsoft.Compute --wait
-az provider register -n Microsoft.Solutions --wait
-az provider register -n Microsoft.Network --wait
-az provider register -n Microsoft.KeyVault --wait
-az provider register -n Microsoft.ContainerService --wait
+```azurecli-interactive
+az extension update -n aro --index https://az.aroapp.io/stable
 ```
 
 {% endcollapsible %}
 
-#### Create the cluster
+### Register the resource provider
+
+Next, you need to register the `Microsoft.RedHatOpenShift` resource provider in your subscription.
 
 {% collapsible %}
 
-1. Create a resource group to hold the resources, for example in East US.
+```azurecli-interactive
+az provider register -n Microsoft.RedHatOpenShift --wait
+```
 
-    ```bash
-    az group create --name aroworkshop --location eastus
+Verify the extension is registered.
+
+```azurecli-interactive
+az -v
+```
+
+  You should get an output similar to the below.
+
+```output
+...
+Extensions:
+aro                                1.0.0
+...
+```
+
+{% endcollapsible %}
+
+### Get a Red Hat pull secret (optional)
+
+A Red Hat pull secret enables your cluster to access Red Hat container registries along with additional content. This step is **optional** but recommended.
+
+Obtain your pull secret by navigating to https://cloud.redhat.com/openshift/install/azure/aro-provisioned and clicking *Download pull secret*.
+
+You will need to log in to your Red Hat account or create a new Red Hat account with your business email and accept the terms and conditions.
+
+Keep the saved `pull-secret.txt` file somewhere safe - it will be used in each cluster creation.
+
+### Create a virtual network containing two empty subnets
+
+Next, you will create a virtual network containing two empty subnets.
+
+{% collapsible %}
+
+0. **Set the following variables.**
+
+   ```console
+   LOCATION=eastus                 # the location of your cluster
+   RESOURCEGROUP=aro-rg            # the name of the resource group where you want to create your cluster
+   CLUSTER=cluster                 # the name of your cluster
+   ```
+
+1. **Create a resource group**
+
+    An Azure resource group is a logical group in which Azure resources are deployed and managed. When you create a resource group, you are asked to specify a location. This location is where resource group metadata is stored, it is also where your resources run in Azure if you don't specify another region during resource creation. Create a resource group using the [az group create][az-group-create] command.
+
+    ```azurecli-interactive
+    az group create --name $RESOURCEGROUP --location $LOCATION
     ```
 
-1. You’re now ready to create a cluster. The following will create the cluster in the specified Azure AD tenant, specify the Azure AD app object and secret to use as a security principal, and the security group that contains the members that have admin access to the cluster.
+    The following example output shows the resource group created successfully:
 
-    Make sure to replace the placeholders for `<app id>`, `<secret>`, `<tenant id>` and `<group id>` with the values you saved from the earlier steps. Also replace `<cluster name>` with a unique name for your cluster.
+    ```json
+    {
+    "id": "/subscriptions/<guid>/resourceGroups/aro-rg",
+    "location": "eastus",
+    "managedBy": null,
+    "name": "aro-rg",
+    "properties": {
+        "provisioningState": "Succeeded"
+    },
+    "tags": null
+    }
+    ```
 
-    ```bash
-    az openshift create \
-        --resource-group aroworkshop \
-        --location eastus \
-        --name <cluster name> \
-        --aad-client-app-id <app id> \
-        --aad-client-app-secret <secret> \
-        --aad-tenant-id <tenant id> \
-        --customer-admin-group-id <group id>
+2. **Create a virtual network.**
+
+    Azure Red Hat OpenShift clusters running OpenShift 4 require a virtual network with two empty subnets, for the master and worker nodes.
+
+    Create a new virtual network in the same resource group you created earlier.
+
+    ```azurecli-interactive
+    az network vnet create \
+    --resource-group $RESOURCEGROUP \
+    --name aro-vnet \
+    --address-prefixes 10.0.0.0/22
+    ```
+
+    The following example output shows the virtual network created successfully:
+
+    ```json
+    {
+    "newVNet": {
+        "addressSpace": {
+        "addressPrefixes": [
+            "10.0.0.0/22"
+        ]
+        },
+        "id": "/subscriptions/<guid>/resourceGroups/aro-rg/providers/Microsoft.Network/virtualNetworks/aro-vnet",
+        "location": "eastus",
+        "name": "aro-vnet",
+        "provisioningState": "Succeeded",
+        "resourceGroup": "aro-rg",
+        "type": "Microsoft.Network/virtualNetworks"
+    }
+    }
+    ```
+
+3. **Add an empty subnet for the master nodes.**
+
+    ```azurecli-interactive
+    az network vnet subnet create \
+    --resource-group $RESOURCEGROUP \
+    --vnet-name aro-vnet \
+    --name master-subnet \
+    --address-prefixes 10.0.0.0/23 \
+    --service-endpoints Microsoft.ContainerRegistry
+    ```
+
+4. **Add an empty subnet for the worker nodes.**
+
+    ```azurecli-interactive
+    az network vnet subnet create \
+    --resource-group $RESOURCEGROUP \
+    --vnet-name aro-vnet \
+    --name worker-subnet \
+    --address-prefixes 10.0.2.0/23 \
+    --service-endpoints Microsoft.ContainerRegistry
+    ```
+
+5. **[Disable subnet private endpoint policies](https://docs.microsoft.com/azure/private-link/disable-private-link-service-network-policy) on the master subnet.** This is required to be able to connect and manage the cluster.
+
+    ```azurecli-interactive
+    az network vnet subnet update \
+    --name master-subnet \
+    --resource-group $RESOURCEGROUP \
+    --vnet-name aro-vnet \
+    --disable-private-link-service-network-policies true
     ```
 
 {% endcollapsible %}
 
-To be able to login to the cluster, you’ll need to update the app registration you created with the sign in URL of your cluster. This will enable Azure Active Directory authentication to properly redirect back to your cluster's web console after successful authentication.
+## Create the cluster
 
-#### Update your app registration redirect URI
+Run the following command to create a cluster. Optionally, you can pass a pull secret which enables your cluster to access Red Hat container registries along with additional content. Access your pull secret by navigating to the [Red Hat OpenShift Cluster Manager](https://cloud.redhat.com/openshift/install/azure/installer-provisioned) and clicking **Copy Pull Secret**.
 
 {% collapsible %}
 
-1. Get the sign in URL for your cluster. Replace `<cluster name>` with the name of your cluster.
+```azurecli-interactive
+az aro create \
+  --resource-group $RESOURCEGROUP \
+  --name $CLUSTER \
+  --vnet aro-vnet \
+  --master-subnet master-subnet \
+  --worker-subnet worker-subnet
+  # --domain foo.example.com # [OPTIONAL] custom domain
+  # --pull-secret '$(< pull-secret.txt)' # [OPTIONAL]
+```
+>[!NOTE]
+> It normally takes about 35 minutes to create a cluster.
 
-    ```bash
-    az openshift show -n <cluster name> -g aroworkshop --query "publicHostname" -o tsv
-    ```
+>[!IMPORTANT]
+> If you choose to specify a custom domain, for example **foo.example.com**, the OpenShift console will be available at a URL such as `https://console-openshift-console.apps.foo.example.com`, instead of the built-in domain `https://console-openshift-console.apps.<random>.<location>.aroapp.io`.
+>
+> By default, OpenShift uses self-signed certificates for all of the routes created on `*.apps.<random>.<location>.aroapp.io`.  If you choose to use custom DNS after connecting to the cluster, you will need to follow the OpenShift documentation to [configure a custom CA for your ingress controller](https://docs.openshift.com/container-platform/4.3/authentication/certificates/replacing-default-ingress-certificate.html) and a [custom CA for your API server](https://docs.openshift.com/container-platform/4.3/authentication/certificates/api-server.html).
+>
 
-    You should get back something like `openshift.xxxxxxxxxxxxxxxxxxxx.eastus.azmosa.io`. The sign in URL for your cluster will be https:// followed by the publicHostName value, for example, <https://openshift.xxxxxxxxxxxxxxxxxxxx.eastus.azmosa.io>.
+{% endcollapsible %}
 
-1. Now that you have the sign in URL for the cluster, set the app registration
-redirect UI. Open the [App registrations](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredAppsPreview) blade.
+## Connect to the cluster
 
-1. Click on your app registration object.
+You can log into the cluster using the `kubeadmin` user.  
 
-1. Click on **Add a redirect URI**.
+{% collapsible %}
 
-1.  Ensure that **Type** is **Web** and set the **Redirect URI** using the following pattern: **https://<public host name>/oauth2callback/Azure%20AD**. For example: <https://openshift.xxxxxxxxxxxxxxxxxxxx.eastus.azmosa.io/oauth2callback/Azure%20AD>
+Run the following command to find the password for the `kubeadmin` user.
 
-    ![Grant Admin consent](../media/redirect-uri.png)
+```azurecli-interactive
+az aro list-credentials \
+  --name $CLUSTER \
+  --resource-group $RESOURCEGROUP
+```
 
-1. Click Save.
+The following example output shows the password will be in `kubeadminPassword`.
+
+```json
+{
+  "kubeadminPassword": "<generated password>",
+  "kubeadminUsername": "kubeadmin"
+}
+```
+
+Save these secrets, you are going to use them to connect to the Web Portal
 
 {% endcollapsible %}
