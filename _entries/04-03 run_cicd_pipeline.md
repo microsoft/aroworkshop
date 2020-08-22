@@ -47,7 +47,8 @@ When the pipeline execution runs to stage 'Promote to STAGE?' You will see the p
 
 ![Approve Pipeline Task](media/cicd-approve.png)
 
-Click on the link `Input Required` , and you will be navigated to Jenkins. Click `Back to Project` button and the click on the `Promote` buttion in Jenkins to rsume the pipeline build.
+Click on the link `Input Required` , and you will be navigated to Jenkins. Click `Back to Project` button and the click on the `Promote` buttion in Jenkins to resume the pipeline build.
+
 ![Approve Pipeline Task](../media/jenproj.png)<\br>
 
 ![promote](../media/promote.png)
