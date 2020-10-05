@@ -11,8 +11,20 @@ We will now create our own ARO cluster.
 
 ## Before you begin
 
-If you choose to install and use the CLI locally, this tutorial requires that you are running the Azure CLI version 2.0.75 or later. Run `az --version` to find the version. If you need to install or upgrade, see [Install Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest).
+If you choose to install and use the CLI locally, this tutorial requires that you are running the Azure CLI version 2.6.0 or later. Run `az --version` to find the version. If you need to install or upgrade, see [Install Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest).
 
+Azure Red Hat OpenShift requires a minimum of 40 cores to create and run an OpenShift cluster. The default Azure resource quota for a new Azure subscription does not meet this requirement. To request an increase in your resource limit, see [Standard quota: Increase limits by VM series](https://docs.microsoft.com/azure/azure-portal/supportability/per-vm-quota-requests).
+
+### Verify your permissions
+
+To create an Azure Red Hat OpenShift cluster, verify the following permissions on your Azure subscription, Azure Active Directory user, or service principal:
+
+|Permissions|Resource Group which contains the VNet|User executing `az aro create`|Service Principal passed as `–client-id`|
+|----|:----:|:----:|:----:|
+|**User Access Administrator**|X|X| |
+|**Contributor**|X|X|X|
+
+<!--
 ### Install the `az aro` extension
 
 The `az aro` extension allows you to create, access, and delete Azure Red Hat OpenShift clusters directly from the command line using the Azure CLI.
@@ -31,18 +43,6 @@ If you already have the extension installed, you can update by running the follo
 az extension update -n aro --index https://az.aroapp.io/stable
 ```
 
-{% endcollapsible %}
-
-### Register the resource provider
-
-Next, you need to register the `Microsoft.RedHatOpenShift` resource provider in your subscription.
-
-{% collapsible %}
-
-```azurecli-interactive
-az provider register -n Microsoft.RedHatOpenShift --wait
-```
-
 Verify the extension is registered.
 
 ```azurecli-interactive
@@ -57,18 +57,36 @@ Extensions:
 aro                                1.0.0
 ...
 ```
+-->
 
 {% endcollapsible %}
 
-### Get a Red Hat pull secret (optional)
+### Register the resource providers
 
-A Red Hat pull secret enables your cluster to access Red Hat container registries along with additional content. This step is **optional** but recommended.
+Next, you need to register the following resource providers in your subscription.
 
-Obtain your pull secret by navigating to https://cloud.redhat.com/openshift/install/azure/aro-provisioned and clicking *Download pull secret*.
+{% collapsible %}
 
-You will need to log in to your Red Hat account or create a new Red Hat account with your business email and accept the terms and conditions.
+1. Register the `Microsoft.RedHatOpenShift` resource provider:
 
-Keep the saved `pull-secret.txt` file somewhere safe - it will be used in each cluster creation.
+    ```azurecli-interactive
+    az provider register -n Microsoft.RedHatOpenShift --wait
+    ```
+    
+1. Register the `Microsoft.Compute` resource provider:
+
+    ```azurecli-interactive
+    az provider register -n Microsoft.Compute --wait
+    ```
+    
+1. Register the `Microsoft.Storage` resource provider:
+
+    ```azurecli-interactive
+    az provider register -n Microsoft.Storage --wait
+    ```
+
+
+{% endcollapsible %}
 
 ### Create a virtual network containing two empty subnets
 
@@ -174,26 +192,37 @@ Next, you will create a virtual network containing two empty subnets.
 
 {% endcollapsible %}
 
+### Get a Red Hat pull secret
+
+A Red Hat pull secret enables your cluster to access Red Hat container registries along with additional content. This step is required to be able to pull Red Hat images.
+
+Obtain your pull secret by navigating to <https://cloud.redhat.com/openshift/install/azure/aro-provisioned> and clicking **Download pull secret**. You will need to log in to your Red Hat account or create a new Red Hat account with your business email and accept the terms and conditions.
+
+> **Note** You can upload that file to Azure Cloud Shell by dragging and dropping the file into the window.
+
+![Download pull secret](media/redhat-pullsecret.png)
+
 ## Create the cluster
 
-Run the following command to create a cluster. Optionally, you can pass a pull secret which enables your cluster to access Red Hat container registries along with additional content. Access your pull secret by navigating to the [Red Hat OpenShift Cluster Manager](https://cloud.redhat.com/openshift/install/azure/installer-provisioned) and clicking **Copy Pull Secret**.
+Run the following command to create a cluster. When running the `az aro create` command, you can reference your pull secret using the --pull-secret @pull-secret.txt parameter. Execute `az aro create` from the directory where you stored your `pull-secret.txt` file. Otherwise, replace `@pull-secret.txt` with `@<path-to-my-pull-secret-file>`.
 
 {% collapsible %}
 
 ```azurecli-interactive
 az aro create \
-  --resource-group $RESOURCEGROUP \
-  --name $CLUSTER \
-  --vnet aro-vnet \
-  --master-subnet master-subnet \
-  --worker-subnet worker-subnet
-  # --domain foo.example.com # [OPTIONAL] custom domain
-  # --pull-secret '$(< pull-secret.txt)' # [OPTIONAL]
+--resource-group $RESOURCEGROUP \
+--name $CLUSTER \
+--vnet aro-vnet \
+--master-subnet master-subnet \
+--worker-subnet worker-subnet \
+--pull-secret @pull-secret.txt
+# --domain foo.example.com # [OPTIONAL] custom domain
 ```
->[!NOTE]
-> It normally takes about 35 minutes to create a cluster.
 
->[!IMPORTANT]
+> **Note**
+> It normally takes about 35 minutes to create a cluster. If you're running this from the Azure Cloud Shell and it timeouts, you can reconnect again and review the progress using `az aro list --query "[].{resource:resourceGroup, name:name, provisioningState:provisioningState}" -o table`.
+
+> **Important**
 > If you choose to specify a custom domain, for example **foo.example.com**, the OpenShift console will be available at a URL such as `https://console-openshift-console.apps.foo.example.com`, instead of the built-in domain `https://console-openshift-console.apps.<random>.<location>.aroapp.io`.
 >
 > By default, OpenShift uses self-signed certificates for all of the routes created on `*.apps.<random>.<location>.aroapp.io`.  If you choose to use custom DNS after connecting to the cluster, you will need to follow the OpenShift documentation to [configure a custom CA for your ingress controller](https://docs.openshift.com/container-platform/4.3/authentication/certificates/replacing-default-ingress-certificate.html) and a [custom CA for your API server](https://docs.openshift.com/container-platform/4.3/authentication/certificates/api-server.html).
