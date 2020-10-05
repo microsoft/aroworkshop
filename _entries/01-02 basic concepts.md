@@ -67,29 +67,25 @@ An OpenShift `Route` exposes a service at a host name, like www.example.com, so 
 
 > **NOTE:** DNS resolution for a host name is handled separately from routing; your administrator may have configured a cloud domain that will always correctly resolve to the router, or if using an unrelated host name you may need to modify its DNS records independently to resolve to the router.
 
-Also of note is that an individual route can override some defaults by providing specific configuraitons in its annotations.  See here for more details: [https://docs.openshift.com/dedicated/architecture/networking/routes.html#route-specific-annotations](https://docs.openshift.com/dedicated/architecture/networking/routes.html#route-specific-annotations)
+Also of note is that an individual route can override some defaults by providing specific configuraitons in its annotations.  See here for more details: [https://docs.openshift.com/aro/4/networking/routes/route-configuration.html](https://docs.openshift.com/aro/4/networking/routes/route-configuration.html)
 
 ### ImageStreams
 
 An ImageStream stores a mapping of tags to images, metadata overrides that are applied when images are tagged in a stream, and an optional reference to a Docker image repository on a registry.
 
-
-#### What are the benefits? 
+#### What are the benefits
 
 {% collapsible %}
 
 Using an ImageStream makes it easy to change a tag for a container image.  Otherwise to change a tag you need to download the whole image, change it locally, then push it all back. Also promoting applications by having to do that to change the tag and then update the deployment object entails many steps.  With ImageStreams you upload a container image once and then you manage it’s virtual tags internally in OpenShift.  In one project you may use the `dev` tag and only change reference to it internally, in prod you may use a `prod` tag and also manage it internally. You don't really have to deal with the registry!
 
-You can also use ImageStreams in conjuction with DeploymentConfigs to set a trigger that will start a deployment as soon as a new image appears or a tag changes its reference.
-
+You can also use ImageStreams in conjunction with DeploymentConfigs to set a trigger that will start a deployment as soon as a new image appears or a tag changes its reference.
 
 {% endcollapsible %}
 
-
 See here for more details: [https://blog.openshift.com/image-streams-faq/](https://blog.openshift.com/image-streams-faq/) <br>
-OpenShift Docs: [https://docs.openshift.com/container-platform/3.11/dev_guide/managing_images.html](https://docs.openshift.com/container-platform/3.11/dev_guide/managing_images.html)<br>
+OpenShift Docs: [https://docs.openshift.com/aro/4/openshift_images/managing_images/managing-images-overview.html](https://docs.openshift.com/aro/4/openshift_images/managing_images/managing-images-overview.html)<br>
 ImageStream and Builds: [https://cloudowski.com/articles/why-managing-container-images-on-openshift-is-better-than-on-kubernetes/](https://cloudowski.com/articles/why-managing-container-images-on-openshift-is-better-than-on-kubernetes/)
-
 
 ### Builds
 
@@ -99,4 +95,4 @@ OpenShift Container Platform leverages Kubernetes by creating Docker-formatted c
 
 Build objects share common characteristics: inputs for a build, the need to complete a build process, logging the build process, publishing resources from successful builds, and publishing the final status of the build. Builds take advantage of resource restrictions, specifying limitations on resources such as CPU usage, memory usage, and build or pod execution time.
 
-See here for more details: [https://docs.openshift.com/container-platform/3.11/architecture/core_concepts/builds_and_image_streams.html](https://docs.openshift.com/container-platform/3.11/architecture/core_concepts/builds_and_image_streams.html)
+See here for more details: [https://docs.openshift.com/aro/4/openshift_images/image-streams-manage.html](https://docs.openshift.com/aro/4/openshift_images/image-streams-manage.html)
