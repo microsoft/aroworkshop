@@ -31,7 +31,7 @@ oc process openshift//mongodb-persistent \
     -p MONGODB_ADMIN_PASSWORD=ratingspassword | oc create -f -
 ```
 
-If you now head back to the web console, you should see a new deployment for mongoDB.
+If you now head back to the web console, and switch to the **workshop** project, you should see a new deployment for mongoDB.
 
 ![MongoDB deployment](media/mongodb-overview.png)
 
@@ -41,10 +41,10 @@ If you now head back to the web console, you should see a new deployment for mon
 
 {% collapsible %}
 
-Run the `oc status` command to view the status of the new application and verify if the deployment of the mongoDB template was successful.
+Run the `oc get all` command to view the status of the new application and verify if the deployment of the mongoDB template was successful.
 
 ```sh
-oc status
+oc get all
 ```
 
 ![oc status](media/oc-status-mongodb.png)
@@ -72,6 +72,4 @@ You can also retrieve this from the web console. You'll need this hostname to co
 {% endcollapsible %}
 
 > **Resources**
-> * [ARO Documentation - MongoDB](https://docs.openshift.com/aro/using_images/db_images/mongodb.html)
-> * [ARO Documentation - Running MongoDB Commands...](https://docs.openshift.com/aro/using_images/db_images/mongodb.html#running-mongodb-commands-in-containers)
-> * [ARO Documentation - Templates](https://docs.openshift.com/aro/dev_guide/templates.html)
+> * [ARO Documentation - Templates](https://docs.openshift.com/aro/4/openshift_images/using-templates.html)

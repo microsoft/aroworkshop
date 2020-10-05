@@ -17,13 +17,7 @@ You can use command `az aro list` to list the clusters in your current Azure sub
 az aro list -o table
 ```
 
-Retrieve your cluster specific hostname. Replace `<cluster name>` and `<resource group>` by those specific to your environment.
-
-```sh
-az aro show -n <cluster name> -g <resource group> --query "consoleProfile" -o tsv
-```
-
-You should get back something like `console-openshift-console.apps.rt80g8x5.eastus.aroapp.io`. Add `https://` to the beginning of that hostname and open that link in your browser. You'll be asked to login with Azure Active Directory. Use the username and password provided to you in the lab.
+The cluster web console's URL will be listed. Open that link in new browser tab and login with the `kubeadmin` user and password retrieved earlier.
 
 After logging in, you should be able to see the Azure Red Hat OpenShift Web Console.
 
@@ -59,10 +53,9 @@ oc new-project workshop
 
 ![Create new project](media/oc-newproject.png)
 
-
 {% endcollapsible %}
 
 > **Resources**
-> * [ARO Documentation - Access your services](https://docs.openshift.com/aro/getting_started/access_your_services.html)
-> * [ARO Documentation - Getting started with the CLI](https://docs.openshift.com/aro/cli_reference/get_started_cli.html)
-> * [ARO Documentation - Projects](https://docs.openshift.com/aro/dev_guide/projects.html)
+
+> * [ARO Documentation - Getting started with the CLI](https://docs.openshift.com/aro/4/cli_reference/openshift_cli/getting-started-cli.html)
+> * [ARO Documentation - Projects](https://docs.openshift.com/aro/4/applications/projects/working-with-projects.html)
