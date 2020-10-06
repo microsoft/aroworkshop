@@ -17,13 +17,13 @@ You can use command `az aro list` to list the clusters in your current Azure sub
 az aro list -o table
 ```
 
-Retrieve your cluster specific hostname. Replace `<cluster name>` and `<resource group>` by those specific to your environment.
+You should get back something like `https://console-openshift-console.apps.rt80g8x5.eastus.aroapp.io` under the URL column. 
 
-```sh
-az aro show -n <cluster name> -g <resource group> --query "consoleProfile" -o tsv
-```
+![Azure Cloud Shell ARO URL](media/aro-url.png)
 
-You should get back something like `console-openshift-console.apps.rt80g8x5.eastus.aroapp.io`. Add `https://` to the beginning of that hostname and open that link in your browser. You'll be asked to login with Azure Active Directory. Use the username and password provided to you in the lab.
+If you click on this like or paste into a browser you'll be asked to login to the OpenShift Container Platform console. Use the `kubeadminUsername` and `kubeadminPassword` from previous exercise.
+
+> **Note** These credentials were gathered in step "2.2 Connect to the cluster"
 
 After logging in, you should be able to see the Azure Red Hat OpenShift Web Console.
 
@@ -39,7 +39,11 @@ After logging in, you should be able to see the Azure Red Hat OpenShift Web Cons
 
 Once you're logged into the Web Console, click on the username on the top right, then click **Copy login command**.
 
-![Copy login command](media/login-command.png)
+![Copy login command link](media/login-command.png)
+
+Click **Display Token**, then copy the command in the section **Log in with this token**.
+
+![Copy login command screen](media/login-command2.png)
 
 Open the [Azure Cloud Shell](https://shell.azure.com) and paste the login command. You should be able to connect to the cluster.
 

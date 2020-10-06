@@ -203,16 +203,16 @@ az aro create \
 
 ## Connect to the cluster
 
-You can log into the cluster using the `kubeadmin` user.  
+You can log into the cluster using the `kubeadmin` user, and you can get the password by running the command below.
 
 {% collapsible %}
 
-Run the following command to find the password for the `kubeadmin` user.
+Run the following command, replacing `<cluster name>` and `<resource group>` by those specific to your environment, to find the password for the `kubeadmin` user.
 
 ```azurecli-interactive
 az aro list-credentials \
-  --name $CLUSTER \
-  --resource-group $RESOURCEGROUP
+  --name <cluster name> \
+  --resource-group <resource group>
 ```
 
 The following example output shows the password will be in `kubeadminPassword`.
