@@ -13,21 +13,24 @@ It would be best to prepare by splitting your screen between the OpenShift Web U
 
 ![Splitscreen](/media/managedlab/23-ostoy-splitscreen.png)
 
-But if your screen is too small or that just won't work, then open the OSToy application in another tab so you can quickly switch to the OpenShift Web Console once you click the button. To get to this deployment in the OpenShift Web Console go to: 
+But if your screen is too small or that just won't work, then open the OSToy application in another tab so you can quickly switch to the OpenShift Web Console once you click the button. To get to this deployment in the OpenShift Web Console go to the left menu and click: 
 
-*Applications > Deployments >* click the number in the "Last Version" column for the "ostoy-frontend" row
+*Workloads > Deployments > "ostoy-frontend"*
 
-![Deploy Num](/media/managedlab/11-ostoy-deploynum.png)
-
-Go to the OSToy app, click on *Home* in the left menu, and enter a message in the "Crash Pod" tile (ie: "This is goodbye!") and press the "Crash Pod" button.  This will cause the pod to crash and Kubernetes should restart the pod. After you press the button you will see:
+Go to the tab for the OSToy app, click on *Home* in the left menu, and enter a message in the "Crash Pod" tile (ie: "This is goodbye!") and press the "Crash Pod" button.  This will cause the pod to crash and Kubernetes should restart the pod. After you press the button you will see:
 
 ![Crash Message](/media/managedlab/12-ostoy-crashmsg.png)
 
-Quickly switch to the Deployment screen. You will see that the pod is red, meaning it is down but should quickly come back up and show blue.
+Quickly switch to the tab with the Deployment showing in the Web Console. You will see that the pod is red, meaning it is down but should quickly come back up and show blue.
 
 ![Pod Crash](/media/managedlab/13-ostoy-podcrash.png)
 
 You can also check in the pod events and further verify that the container has crashed and been restarted.
+
+Click on *Pods > [Pod Name] > Events*
+
+![Pods](/media/managedlab/13.1-ostoy-fepod.png)
+
 
 ![Pod Events](/media/managedlab/14-ostoy-podevents.png)
 

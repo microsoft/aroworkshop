@@ -46,32 +46,55 @@ You should see both the *stdout* and *stderr* messages.
 
 {% collapsible %}
 
-One can use the native Azure service, Azure Monitor, to view and keep application logs along with metrics. This lab assumes that the cluster was already configured to use Azure Monitor for application logs at cluster creation.  If you want more information on how to connect this for a new or existing cluster see the docs here: (https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat-setup)
+One can use the native Azure service, Azure Monitor, to view and keep application logs along with metrics. In order to complete this integration you will need to follow the documentation [here](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat4-setup) and particularly the prerequisites.  The prerequisites are:
 
+- The Azure CLI version 2.0.72 or later
 
-Access the azure portal at (https://portal.azure.com/)
+- The Helm 3 CLI tool
 
-Click on "Monitor".
+- Bash version 4
+
+- The Kubectl command-line tool
+
+- A [Log Analytics workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/design-logs-deployment) (see [here](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) if you need to create one)
+
+This lab assumes you have the prerequisites already set up in your environment.
+
+Then follow the steps to (Enable Azure Monitor)[https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat4-setup#integrate-with-an-existing-workspace] for our cluster. 
+> **Note:** Although not required it would be easier to keep track of our logs by deploying into an existing Log Analytics workspace. It is recommended prior to this step.)
+
+Once the steps to connect Azure Monitor to an existing cluster were successfully completed, access the Azure portal at [https://portal.azure.com]
+
+Click on "Monitor" under the left hamburger menu.
 
 ![Monitor](/media/managedlab/24-ostoy-azuremonitor.png)
 
-Click Logs in the left menu.
-
-> Note: if you are asked to select a scope select the Log Analytics scope for your cluster
+Click Logs in the left menu. Click the "Get started" button if that screen shows up.
 
 ![container logs](/media/managedlab/29-ostoy-logs.png)
+
+If you are asked to select a scope select the Log Analytics workspace you created
 
 Expand "ContainerInsights".
 
 Double click "ContainerLog".
 
+Change the time range to be "Last 30 Minutes".
+
 Then click the "Run" button at the top.
 
 ![container logs](/media/managedlab/30-ostoy-logs.png)
 
-In the bottom pane you will see the results of the application logs returned.  You might need to sort, but you should see the two lines we outputted to *stdout* and *stderr*.
+In the bottom pane you will see the results of the application logs returned.  You might need to sort, but you should see the two lines we outputted to *stdout* and *stderr*. 
 
 ![container logs](/media/managedlab/31-ostoy-logout.png)
+
+If the logs are particularly chatty then you can paste the following query to see your message.
+
+```
+ContainerLog
+| where LogEntry contains "<Your Message>"
+```
 
 {% endcollapsible %}
 
@@ -84,7 +107,7 @@ Click on "Containers" in the left menu under Insights.
 
 ![Containers](/media/managedlab/25-ostoy-monitorcontainers.png)
 
-Click on your cluster that is integrated with Azure Monitor.
+You might need to click on the "Monitored clusters" tab. Click on your cluster that is integrated with Azure Monitor. 
 
 ![Cluster](/media/managedlab/26-ostoy-monitorcluster.png)
 
