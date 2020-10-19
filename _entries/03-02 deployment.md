@@ -45,7 +45,7 @@ You should receive the following response
 
 ```sh
 $ oc new-project ostoy
-Now using project "ostoy" on server "https://api.yq1h7kpq.westus2.aroapp.io:6443".
+Now using project "ostoy" on server "https://api.abcd1234.westus2.aroapp.io:6443".
 
 You can add applications to this project with the 'new-app' command. For example, try:
 
@@ -56,7 +56,7 @@ to build a new example application in Ruby. Or use kubectl to deploy a simple Ku
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
 ```
 
-Equivalently you can also create this new project using the web UI by selecting "Projects" under "Home" on the left menu, then clicking on "Create Project" button on the left.
+Equivalently you can also create this new project using the web UI by selecting *Home > Projects* on the left menu, then clicking on "Create Project" button on the left.
 
 ![UI Create Project](/media/managedlab/6-ostoy-newproj.png)
 

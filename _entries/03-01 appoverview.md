@@ -8,8 +8,8 @@ parent-id: lab-clusterapp
 ### Resources
 
 - The source code for this app is available here: <https://github.com/openshift-cs/ostoy>
-- OSToy front-end container image: <https://quay.io/aroworkshop/ostoy-frontend>
-- OSToy microservice container image: <https://quay.io/aroworkshop/ostoy-microservice>
+- OSToy front-end container image: <https://quay.io/repository/ostoylab/ostoy-frontend?tab=tags>
+- OSToy microservice container image: <https://quay.io/repository/ostoylab/ostoy-microservice?tab=tags>
 - Deployment Definition YAMLs:
   - [ostoy-fe-deployment.yaml](/yaml/ostoy-fe-deployment.yaml)
   - [ostoy-microservice-deployment.yaml](/yaml/ostoy-microservice-deployment.yaml)
@@ -26,6 +26,7 @@ OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenS
 - read config maps, secrets, and env variables
 - if connected to shared storage, read and write files
 - check network connectivity, intra-cluster DNS, and intra-communication with an included microservice
+- increase the load to view automatic scaling of the pods to handle the load (via the Horizontal Pod Autoscaler)
 
 ### OSToy Application Diagram
 

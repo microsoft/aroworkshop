@@ -11,11 +11,11 @@ In this section we will execute a simple example of using persistent storage by 
 
 Inside the OpenShift web UI click on *Storage > Persistent Volume Claims* in the left menu. You will then see a list of all persistent volume claims that our application has made.  In this case there is just one called "ostoy-pvc".  If you click on it you will also see other pertinent information such as whether it is bound or not, size, access mode and creation time.  
 
-In this case the mode is RWO (Read-Write-Once) which means that the volume can only be mounted to one node, but the pod(s) can both read and write to that volume.  The [default in ARO](https://docs.microsoft.com/en-us/azure/openshift/openshift-faq#can-we-choose-any-persistent-storage-solution-like-ocs) is for Persistent Volumes to be backed by Azure Disk, but it is possible to chose Azure Files so that you can use the RWX (Read-Write-Many) access mode.  [See here for more info on access modes](https://docs.openshift.com/aro/4/storage/understanding-persistent-storage.html#pv-access-modes_understanding-persistent-storage)
+In this case the mode is RWO (Read-Write-Once) which means that the volume can only be mounted to one node, but the pod(s) can both read and write to that volume.  The [default in ARO](https://docs.microsoft.com/en-us/azure/openshift/openshift-faq#can-we-choose-any-persistent-storage-solution-like-ocs) is for Persistent Volumes to be backed by Azure Disk, but it is possible to choose Azure Files so that you can use the RWX (Read-Write-Many) access mode.  [See here for more info on access modes](https://docs.openshift.com/aro/4/storage/understanding-persistent-storage.html#pv-access-modes_understanding-persistent-storage)
 
-In the OSToy app click on *Persistent Storage* in the left menu.  In the "Filename" area enter a filename for the file you will create. (ie: "test-pv.txt")
+In the OSToy app click on *Persistent Storage* in the left menu.  In the "Filename" area enter a filename for the file you will create. (e.g.: "test-pv.txt")
 
-Underneath that, in the "File Contents" box, enter text to be stored in the file. (ie: "Azure Red Hat OpenShift is the greatest thing since sliced bread!" or "test" :) ).  Then click "Create file".
+Underneath that, in the "File Contents" box, enter text to be stored in the file. (e.g.: "Azure Red Hat OpenShift is the greatest thing since sliced bread!" or "test" :) ).  Then click "Create file".
 
 ![Create File](/media/managedlab/17-ostoy-createfile.png)
 

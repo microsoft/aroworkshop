@@ -17,11 +17,11 @@ But if your screen is too small or that just won't work, then open the OSToy app
 
 *Workloads > Deployments > "ostoy-frontend"*
 
-Go to the tab for the OSToy app, click on *Home* in the left menu, and enter a message in the "Crash Pod" tile (ie: "This is goodbye!") and press the "Crash Pod" button.  This will cause the pod to crash and Kubernetes should restart the pod. After you press the button you will see:
+Go to the browser tab that has your OSToy app, click on *Home* in the left menu, and enter a message in the "Crash Pod" tile (e.g.: "This is goodbye!") and press the "Crash Pod" button.  This will cause the pod to crash and Kubernetes should restart the pod. After you press the button you will see:
 
 ![Crash Message](/media/managedlab/12-ostoy-crashmsg.png)
 
-Quickly switch to the tab with the Deployment showing in the Web Console. You will see that the pod is red, meaning it is down but should quickly come back up and show blue.
+Quickly switch to the tab with the Deployment showing in the Web Console. You will see that the pod is red, meaning it is down but should quickly come back up and show blue.  It does happen quickly so you might miss it.
 
 ![Pod Crash](/media/managedlab/13-ostoy-podcrash.png)
 
