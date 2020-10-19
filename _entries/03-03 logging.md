@@ -58,7 +58,7 @@ One can use the native Azure service, Azure Monitor, to view and keep applicatio
 
 - A [Log Analytics workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/design-logs-deployment) (see [here](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) if you need to create one)
 
-Then follow the steps to (Enable Azure Monitor)[https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat4-setup#integrate-with-an-existing-workspace] for our cluster. 
+Then follow the steps to [Enable Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat4-setup#integrate-with-an-existing-workspace) for our cluster. 
 > **Note:** Although not required, it is recommended to create a Log Analytics workspace prior to integrating with Azure Monitor.  It would make it easier to keep track of our logs.
 
 This lab assumes you have successfully set up Azure Monitor with your cluster based upon the above referenced document.
