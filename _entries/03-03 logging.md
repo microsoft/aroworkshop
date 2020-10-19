@@ -63,7 +63,7 @@ Then follow the steps to [Enable Azure Monitor](https://docs.microsoft.com/en-us
 
 This lab assumes you have successfully set up Azure Monitor with your cluster based upon the above referenced document.
 
-Once the steps to connect Azure Monitor to an existing cluster were successfully completed, access the (Azure portal)[https://portal.azure.com]
+Once the steps to connect Azure Monitor to an existing cluster were successfully completed, access the [Azure portal](https://portal.azure.com)
 
 Click on "Monitor" under the left hamburger menu.
 
