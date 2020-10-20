@@ -5,9 +5,9 @@ title: Create cluster
 parent-id: lab-ratingapp
 ---
 
-### Create, access, and manage an Azure Red Hat OpenShift 4.3 Cluster
+### Create, access, and manage an Azure Red Hat OpenShift 4 Cluster
 
-We will now create our own ARO cluster.
+We will now create our own cluster.
 
 ## Before you begin
 
