@@ -59,7 +59,7 @@ You should now have access to the Azure Cloud Shell
 
 #### OpenShift CLI (oc)
 
-You'll need to download the **latest OpenShift CLI (oc)** client tools for OpenShift 4.3. You can follow the steps below on the Azure Cloud Shell.
+You'll need to download the **latest OpenShift CLI (oc)** client tools for OpenShift 4. You can follow the steps below on the Azure Cloud Shell.
 
 {% collapsible %}
 
