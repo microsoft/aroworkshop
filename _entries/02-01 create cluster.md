@@ -24,8 +24,6 @@ To create an Azure Red Hat OpenShift cluster, verify the following permissions o
 |**User Access Administrator**|X|X| |
 |**Contributor**|X|X|X|
 
-{% endcollapsible %}
-
 ### Register the resource providers
 
 Next, you need to register the following resource providers in your subscription.
