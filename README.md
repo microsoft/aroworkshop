@@ -1,4 +1,4 @@
-![Build and depoyment](https://github.com/microsoft/aroworkshop/workflows/CI/badge.svg)
+![Build and deploy](https://github.com/microsoft/aroworkshop/workflows/Build%20and%20deploy/badge.svg)
 
 # aroworkshop.io
 
