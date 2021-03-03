@@ -13,6 +13,12 @@ We will now create our own ARO cluster.
 
 If you choose to install and use the CLI locally, this tutorial requires that you are running the Azure CLI version 2.0.75 or later. Run `az --version` to find the version. If you need to install or upgrade, see [Install Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest).
 
+Azure Red Hat OpenShift requires a minimum of 40 cores *Dv3* VM-family to create and run an OpenShift cluster. The default Azure resource quota for a new Azure subscription does not meet this requirement. To request an increase in your resource limit, see [Standard quota: Increase limits by VM series](https://docs.microsoft.com/azure/azure-portal/supportability/per-vm-quota-requests).
+
+{% collapsible %}
+![Usage + Quotas on Azure subscription](media/usage-quotas.png)
+{% endcollapsible %}
+
 ### Install the `az aro` extension
 
 The `az aro` extension allows you to create, access, and delete Azure Red Hat OpenShift clusters directly from the command line using the Azure CLI.

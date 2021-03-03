@@ -17,4 +17,5 @@ The following people have contributed to this workshop, thanks!
 {% githubauthor sabbour %}
 {% githubauthor wgordon17 %}
 {% githubauthor lgmorand %}
+{% githubauthor codeandmedia %}
 </div>

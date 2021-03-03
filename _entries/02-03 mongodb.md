@@ -10,11 +10,11 @@ parent-id: lab-ratingapp
 {% collapsible %}
 Azure Red Hat OpenShift provides a container image and template to make creating a new MongoDB database service easy. The template provides parameter fields to define all the mandatory environment variables (user, password, database name, etc) with predefined defaults including auto-generation of password values. It will also define both a deployment configuration and a service.
 
-There are two templates available:
+By default Azure Red Hat OpenShift 4.6 doesn't have `mongodb-persistent` template, and we should import it before starting. 
 
-* `mongodb-ephemeral` is for development/testing purposes only because it uses ephemeral storage for the database content. This means that if the database pod is restarted for any reason, such as the pod being moved to another node or the deployment configuration being updated and triggering a redeploy, all data will be lost.
-
-* `mongodb-persistent` uses a persistent volume store for the database data which means the data will survive a pod restart. Using persistent volumes requires a persistent volume pool be defined in the Azure Red Hat OpenShift deployment.
+```sh
+oc create -f https://raw.githubusercontent.com/openshift/origin/release-4.6/examples/db-templates/mongodb-persistent-template.json -n openshift
+```
 
 > **Hint** You can retrieve a list of templates using the command below. The templates are preinstalled in the `openshift` namespace.
 > ```sh
@@ -33,7 +33,7 @@ oc process openshift//mongodb-persistent \
 
 If you now head back to the web console, you should see a new deployment for mongoDB.
 
-![MongoDB deployment](media/mongodb-overview.png)
+![MongoDB deployment](media/mongodb-overview4-6.png)
 
 {% endcollapsible %}
 
@@ -67,9 +67,11 @@ The service will be accessible at the following DNS name: `mongodb.workshop.svc.
 
 You can also retrieve this from the web console. You'll need this hostname to configure the `rating-api`.
 
-![MongoDB service in the Web Console](media/mongo-svc-webconsole.png)
+![MongoDB service in the Web Console](media/mongo-svc-webconsole4-6.png)
 
 {% endcollapsible %}
+
+Remember to import data into MongoDB follow the [howto](https://github.com/MicrosoftDocs/mslearn-aks-workshop-ratings-api/tree/master/data) 
 
 > **Resources**
 > * [ARO Documentation - MongoDB](https://docs.openshift.com/aro/using_images/db_images/mongodb.html)
