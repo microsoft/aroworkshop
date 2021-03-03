@@ -5,14 +5,14 @@ title: Create Network Policy
 parent-id: lab-ratingapp
 ---
 
-Now that you have the application working, it is time to apply some security hardening. You'll use [network policies](https://docs.openshift.com/aro/admin_guide/managing_networking.html#admin-guide-networking-networkpolicy) to restrict communication to the `rating-api`.
+Now that you have the application working, it is time to apply some security hardening. You'll use [network policies](https://docs.openshift.com/aro/admin_guide/managing_networking.html#admin-guide-networking-networkpolicy) to restrict communication to the `mslearn-aks-workshop-ratings-api`.
 
 ### Switch to the Cluster Console
 
 {% collapsible %}
 
 Switch to the **Cluster Console** page. Switch to project **workshop**. Click **Create Network Policy**.
-![Cluster console page](media/cluster-console.png)
+![Cluster console page](media/cluster-console4-6.png)
 
 {% endcollapsible %}
 
@@ -20,7 +20,7 @@ Switch to the **Cluster Console** page. Switch to project **workshop**. Click **
 
 {% collapsible %}
 
-You will create a policy that applies to any pod matching the `app=rating-api` label. The policy will allow ingress only from pods matching the `app=rating-web` label.
+You will create a policy that applies to any pod matching the `app=mslearn-aks-workshop-ratings-api` label. The policy will allow ingress only from pods matching the `app=mslearn-aks-workshop-ratings-web` label.
 
 Use the YAML below in the editor, and make sure you're targeting the **workshop** project.
 
@@ -33,15 +33,15 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: rating-api
+      app: mslearn-aks-workshop-ratings-api
   ingress:
     - from:
         - podSelector:
             matchLabels:
-              app: rating-web
+              app: mslearn-aks-workshop-ratings-web
 ```
 
-![Create network policy](media/create-networkpolicy.png)
+![Create network policy](media/create-networkpolicy4-6.png)
 
 Click **Create**.
 
