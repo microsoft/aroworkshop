@@ -337,7 +337,3 @@ app/
 # jekyll
 *.jekyll-cache
 *_site
-
-# Ruby
-*Gemfile
-*Gemfile.lock
