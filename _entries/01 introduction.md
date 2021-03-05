@@ -1,7 +1,7 @@
 ---
 sectionid: intro
 sectionclass: h1
-title: Azure Red Hat OpenShift Workshop
+title: Red Hat OpenShift Workshop
 type: nocount
 is-parent: yes
 ---
