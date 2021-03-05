@@ -2,6 +2,7 @@
 sectionid: contributors
 sectionclass: h1
 title: Red Hat OpenShift Workshop
+type: nocount
 is-parent: yes
 ---
 
