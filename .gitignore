@@ -333,3 +333,11 @@ ASALocalRun/
 
 # Ignoring the app folder for now
 app/
+
+# jekyll
+*.jekyll-cache
+*_site
+
+# Ruby
+*Gemfile
+*Gemfile.lock

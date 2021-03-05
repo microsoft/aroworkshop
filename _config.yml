@@ -1,13 +1,13 @@
 full_rebuild: true
-name: "Azure Red Hat OpenShift Workshop"
-tracking: "aroworkshop"
-author: Microsoft
+name: "Brian's OCP Monster"
+tracking: "ocpworkshop"
+author: brianstinehart
 encoding: utf-8
 defaults:
   -
     values:
       layout: "index"
-markdown: CommonMarkGhPages
+markdown: kramdown
 kramdown:
   input: GFM
 relative_permalinks: false
