@@ -7,8 +7,7 @@ parent-id: intro
 
 ### Azure subscription and Azure Red Hat OpenShift environment
 
-<details>
-  <summary>Click to expand!</summary>
+{% collapsible %}
 
 If you have been provided with a Microsoft Hands-on Labs environment for this workshop through a registration link and an activation code, please continue to registration and activate the lab.
 
@@ -28,7 +27,7 @@ Once the environment is provisioned, a screen with all the appropriate lab crede
 
 You can now skip the **Create cluster** section and jump to [create project](#createproject).
 
-</details>
+{% endcollapsible %}
 
 ### Tools
 
