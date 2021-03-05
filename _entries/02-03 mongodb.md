@@ -5,7 +5,7 @@ title: Deploy MongoDB
 parent-id: lab-ratingapp
 ---
 
-### Create mongoDB from template
+### Create MongoDB from template
 
 {% collapsible %}
 Azure Red Hat OpenShift provides a container image and template to make creating a new MongoDB database service easy. The template provides parameter fields to define all the mandatory environment variables (user, password, database name, etc) with predefined defaults including auto-generation of password values. It will also define both a deployment configuration and a service.
@@ -21,7 +21,7 @@ There are two templates available:
 > oc get templates -n openshift
 > ```
 
-Create a mongoDB deployment using the `mongodb-persistent` template. You're passing in the values to be replaced (username, password and database) which generates a YAML/JSON file. You then pipe it to the `oc create` command.
+Create a MongoDB deployment using the `mongodb-persistent` template. You're passing in the values to be replaced (username, password and database) which generates a YAML/JSON file. You then pipe it to the `oc create` command.
 
 ```sh
 oc process openshift//mongodb-persistent \
@@ -31,13 +31,13 @@ oc process openshift//mongodb-persistent \
     -p MONGODB_ADMIN_PASSWORD=ratingspassword | oc create -f -
 ```
 
-If you now head back to the web console, you should see a new deployment for mongoDB.
+If you now head back to the web console and navigate to **Workloads > Deployment Configs**, you should see a new entry for mongoDB. Make sure you select **Project: workshop** near the top of the page as well, if you have not already done so.
 
 ![MongoDB deployment](media/mongodb-overview.png)
 
 {% endcollapsible %}
 
-### Verify if the mongoDB pod was created successfully
+### Verify if the MongoDB pod was created successfully
 
 {% collapsible %}
 
@@ -51,11 +51,11 @@ oc status
 
 {% endcollapsible %}
 
-### Retrieve mongoDB service hostname
+### Retrieve MongoDB service hostname
 
 {% collapsible %}
 
-Find the mongoDB service.
+Find the MongoDB service.
 
 ```sh
 oc get svc mongodb
@@ -65,7 +65,7 @@ oc get svc mongodb
 
 The service will be accessible at the following DNS name: `mongodb.workshop.svc.cluster.local` which is formed of `[service name].[project name].svc.cluster.local`. This resolves only within the cluster.
 
-You can also retrieve this from the web console. You'll need this hostname to configure the `rating-api`.
+You can also retrieve this from the web console by going to **. You'll need this hostname to configure the `rating-api`.
 
 ![MongoDB service in the Web Console](media/mongo-svc-webconsole.png)
 

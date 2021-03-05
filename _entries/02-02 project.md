@@ -37,7 +37,7 @@ After logging in, you should be able to see the Azure Red Hat OpenShift Web Cons
 
 > **Note** Make sure you complete the [prerequisites](#prereq) to install the OpenShift CLI on the Azure Cloud Shell.
 
-Once you're logged into the Web Console, click on the username on the top right, then click **Copy login command**.
+Once you're logged into the Web Console, click on the username on the top right, then click **Copy Login Command**.
 
 ![Copy login command link](media/login-command.png)
 
