@@ -10,19 +10,9 @@ parent-id: lab-ratingapp
 {% collapsible %}
 Azure Red Hat OpenShift provides a container image and template to make creating a new MongoDB database service easy. The template provides parameter fields to define all the mandatory environment variables (user, password, database name, etc) with predefined defaults including auto-generation of password values. It will also define both a deployment configuration and a service.
 
-Switch to the ``openshift`` project to create the mongoDB template.
-```sh
-oc project openshift
-```
-
 Load up the ``mongodb-persistent-template`` template into the ``openshift`` namespace.
 ```sh
-oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-persistent-template.json
-```
-
-Switch back to your main project ``workshop`` project.
-```sh
-oc project workshop
+oc create -n openshift -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-persistent-template.json
 ```
 
 Create a mongoDB deployment using the `mongodb-persistent` template. You're passing in the values to be replaced (username, password and database) which generates a YAML/JSON file. You then pipe it to the `oc create` command.
