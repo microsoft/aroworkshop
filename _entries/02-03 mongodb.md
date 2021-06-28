@@ -12,7 +12,7 @@ Azure Red Hat OpenShift provides a container image and template to make creating
 
 Load up the ``mongodb-persistent-template`` template into the ``openshift`` namespace.
 ```sh
-oc create -n openshift -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-persistent-template.json
+oc create -n openshift -f https://raw.githubusercontent.com/openshift/origin/4ea9e6c5961eb815c200df933eee30c48a5c9166/examples/db-templates/mongodb-persistent-template.json
 ```
 
 Create a mongoDB deployment using the `mongodb-persistent` template. You're passing in the values to be replaced (username, password and database) which generates a YAML/JSON file. You then pipe it to the `oc create` command.
