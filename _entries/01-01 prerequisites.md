@@ -70,7 +70,7 @@ Please run following commands on Azure Cloud Shell to download and setup the Ope
 
 ```sh
 cd ~
-wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
+curl https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz > openshift-client-linux.tar.gz
 
 mkdir openshift
 
