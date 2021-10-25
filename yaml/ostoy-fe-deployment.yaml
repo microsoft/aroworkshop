@@ -29,7 +29,7 @@ spec:
       spec:
         containers:
         - name: ostoy-frontend
-          image: quay.io/aroworkshop/ostoy-frontend:1.2.2
+          image: quay.io/ostoylab/ostoy-frontend:1.4.0
           imagePullPolicy: IfNotPresent
           ports:
           - name: ostoy-port

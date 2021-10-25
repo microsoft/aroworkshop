@@ -12,11 +12,10 @@ You can use this guide as an OpenShift tutorial and as study material to help yo
 
 Some of the things you’ll be going through:
 
-- Creating a [project](https://docs.openshift.com/aro/dev_guide/projects.html) on the Azure Red Hat OpenShift Web Console
-- Deploying a MongoDB container that uses Azure Disks for [persistent storage](https://docs.openshift.com/aro/dev_guide/persistent_volumes.html)
-- Restoring data into the MongoDB container by [executing commands](https://docs.openshift.com/aro/dev_guide/executing_remote_commands.html) on the Pod
-- Deploying a Node JS API and frontend app from Git Hub using [Source-To-Image (S2I)](https://docs.openshift.com/aro/creating_images/s2i.html)
-- Exposing the web application frontend using [Routes](https://docs.openshift.com/aro/dev_guide/routes.html)
-- Creating a [network policy](https://docs.openshift.com/aro/admin_guide/managing_networking.html#admin-guide-networking-networkpolicy) to control communication between the different tiers in the application
+- Creating a [project](https://docs.openshift.com/aro/4/applications/projects/working-with-projects.html) on the Azure Red Hat OpenShift Web Console
+- Deploying a MongoDB container that uses Azure Disks for [persistent storage](https://docs.openshift.com/aro/4/storage/understanding-persistent-storage.html)
+- Deploying a Node JS API and frontend app from Git Hub using [Source-To-Image (S2I)](https://docs.openshift.com/aro/4/openshift_images/create-images.html)
+- Exposing the web application frontend using [Routes](https://docs.openshift.com/aro/4/networking/routes/route-configuration.html)
+- Creating a [network policy](https://docs.openshift.com/aro/4/networking/network_policy/about-network-policy.html) to control communication between the different tiers in the application
 
 You'll be doing the majority of the labs using the OpenShift CLI, but you can also accomplish them using the Azure Red Hat OpenShift web console.

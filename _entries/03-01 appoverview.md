@@ -8,8 +8,8 @@ parent-id: lab-clusterapp
 ### Resources
 
 - The source code for this app is available here: <https://github.com/openshift-cs/ostoy>
-- OSToy front-end container image: <https://quay.io/aroworkshop/ostoy-frontend>
-- OSToy microservice container image: <https://quay.io/aroworkshop/ostoy-microservice>
+- OSToy front-end container image: <https://quay.io/repository/ostoylab/ostoy-frontend?tab=tags>
+- OSToy microservice container image: <https://quay.io/repository/ostoylab/ostoy-microservice?tab=tags>
 - Deployment Definition YAMLs:
   - [ostoy-fe-deployment.yaml](/yaml/ostoy-fe-deployment.yaml)
   - [ostoy-microservice-deployment.yaml](/yaml/ostoy-microservice-deployment.yaml)
@@ -26,6 +26,7 @@ OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenS
 - read config maps, secrets, and env variables
 - if connected to shared storage, read and write files
 - check network connectivity, intra-cluster DNS, and intra-communication with an included microservice
+- increase the load to view automatic scaling of the pods to handle the load (via the Horizontal Pod Autoscaler)
 
 ### OSToy Application Diagram
 
@@ -39,8 +40,9 @@ OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenS
 4. **Config Maps:**  Shows the contents of configmaps available to the application and the key:value pairs.
 5. **Secrets:** Shows the contents of secrets available to the application and the key:value pairs.
 6. **ENV Variables:** Shows the environment variables available to the application.
-7. **Networking:** Tools to illustrate networking within the application.
-8. Shows some more information about the application.
+7. **Auto Scaling:** Explore the Horizontal Pod Autoscaler to see how increased loads are handled.
+8. **Networking:** Tools to illustrate networking within the application.
+9. Shows some more information about the application.
 
 ![Home Page](/media/managedlab/10-ostoy-homepage-1.png)
 

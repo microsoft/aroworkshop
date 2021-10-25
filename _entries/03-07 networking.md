@@ -11,7 +11,7 @@ Let's review how this application is set up...
 
 ![OSToy Diagram](/media/managedlab/4-ostoy-arch.png)
 
-As can be seen in the image above we see we have defined at least 2 separate pods, each with its own service.  One is the frontend web application (with a service and a publicly accessible route) and the other is the backend microservice with a service object created so that the frontend pod can communicate with the microservice (across the pods if more than one).  Therefore this microservice is not accessible from outside this cluster, nor from other namespaces/projects (due to ARO's network policy, **ovs-networkpolicy**).  The sole purpose of this microservice is to serve internal web requests and return a JSON object containing the current hostname and a randomly generated color string.  This color string is used to display a box with that color displayed in the tile titled "Intra-cluster Communication".
+As can be seen in the image above we have defined at least 2 separate pods, each with its own service.  One is the frontend web application (with a service and a publicly accessible route) and the other is the backend microservice with a service object created so that the frontend pod can communicate with the microservice (across the pods if more than one).  Therefore this microservice is not accessible from outside this cluster, nor from other namespaces/projects (due to ARO's [network policy](https://docs.openshift.com/aro/4/networking/network_policy/about-network-policy.html#nw-networkpolicy-about_about-network-policy), **ovs-networkpolicy**).  The sole purpose of this microservice is to serve internal web requests and return a JSON object containing the current hostname and a randomly generated color string.  This color string is used to display a box with that color displayed in the tile titled "Intra-cluster Communication".
 
 ### Networking
 
@@ -48,7 +48,7 @@ We will see an IP address returned.  In our example it is ```172.30.165.246```. 
 
 ### Scaling
 
-OpenShift allows one to scale up/down the number of pods for each part of an application as needed.  This can be accomplished via changing our *replicaset/deployment* definition (declarative), by the command line (imperative), or via the web UI (imperative). In our deployment definition (part of our `ostoy-fe-deployment.yaml`) we stated that we only want one pod for our microservice to start with. This means that the Kubernetes Replication Controller will always strive to keep one pod alive.
+OpenShift allows one to scale up/down the number of pods for each part of an application as needed.  This can be accomplished by changing our *replicaset/deployment* definition (declarative), through the command line (imperative), or through the web UI (imperative). In our deployment definition (part of our `ostoy-fe-deployment.yaml`) we stated that we only want one pod for our microservice to start with. This means that the Kubernetes Replication Controller will always strive to keep one pod alive.
 
 {% collapsible %}
 
@@ -57,7 +57,7 @@ If we look at the tile on the left we should see one box randomly changing color
 To confirm that we only have one pod running for our microservice, run the following command, or use the web UI.
 
 ```sh
-[okashi@ok-vm ostoy]# oc get pods
+$ oc get pods
 NAME                                   READY     STATUS    RESTARTS   AGE
 ostoy-frontend-679cb85695-5cn7x       1/1       Running   0          1h
 ostoy-microservice-86b4c6f559-p594d   1/1       Running   0          1h
