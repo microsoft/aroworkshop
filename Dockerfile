@@ -14,7 +14,7 @@ RUN mkdir _site && mkdir .jekyll-cache && \
 #
 # Final stage
 #
-FROM nginx:1.15-alpine
+FROM nginx:1.20-alpine
  
 # Set workdir and copy static files from build stage!
 WORKDIR /usr/share/nginx/html
