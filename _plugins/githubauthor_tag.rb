@@ -12,7 +12,7 @@ module Jekyll
 
       <<~GITHUBAUTHORBLOCK
       <div class="github-contributor">
-        <img class="github-avatar" src="https://avatars.githubusercontent.com/#{author}?s=60&v=4"/>
+        <img class="github-avatar" alt="@#{author} on Twitter" src="https://avatars.githubusercontent.com/#{author}?s=60&v=4"/>
         <span>
           <a href="http://github.com/#{author}">@#{author}</a>
         </span>
