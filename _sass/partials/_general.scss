@@ -190,7 +190,7 @@ h5 {
 a {
   transition: .3s all;
   color: $blue;
-  text-decoration: none;
+  text-decoration: underline;
 
   .content & {
     padding: 0px 2px;
