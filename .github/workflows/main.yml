@@ -22,8 +22,20 @@ jobs:
       run: |
         sed -i "s/#COMMIT_ID#/${{ env.GITHUB_SHA_SHORT }}/g" _includes/nav.html
         
+    - name: Jekyll Build
+      uses: jerryjvl/jekyll-build-action@v1
+        
     - name: Jekyll Builder for GitHub Pages
       uses: fabacab/jekyll-builder-for-github-pages-action@v1
       with:
        secret_gh_pages_api_token: ${{ secrets.GHPAGES }}
        gh_pages_publishing_source: gh-pages
+       
+    - name: Deploy to GitHub Pages
+      if: success()
+      uses: crazy-max/ghaction-github-pages@v3
+      with:
+        target_branch: gh-pages
+        build_dir: public
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
