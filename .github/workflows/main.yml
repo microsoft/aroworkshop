@@ -26,3 +26,4 @@ jobs:
       uses: fabacab/jekyll-builder-for-github-pages-action@v1
       with:
        secret_gh_pages_api_token: ${{ secrets.GHPAGES }}
+       gh_pages_publishing_source: gh-pages
