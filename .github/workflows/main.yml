@@ -22,14 +22,18 @@ jobs:
       run: |
         sed -i "s/#COMMIT_ID#/${{ env.GITHUB_SHA_SHORT }}/g" _includes/nav.html
         
-    - name: Jekyll Build
-      uses: jerryjvl/jekyll-build-action@v1
-       
+    - name: Jekyll build
+      #uses: jerryjvl/jekyll-build-action@v1
+      run: |
+        mkdir _site
+        mkdir .jekyll-cache
+        jekyll build --future
+        
     - name: Deploy to GitHub Pages
       if: success()
       uses: crazy-max/ghaction-github-pages@v3
       with:
         target_branch: gh-pages
-        build_dir: build
+        build_dir: _site
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
