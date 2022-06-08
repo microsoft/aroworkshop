@@ -22,11 +22,7 @@ jobs:
       run: |
         sed -i "s/#COMMIT_ID#/${{ env.GITHUB_SHA_SHORT }}/g" _includes/nav.html
         
-    - name: Jekyll Actions
-      uses: helaili/jekyll-action@2.3.1
+    - name: Jekyll Builder for GitHub Pages
+      uses: fabacab/jekyll-builder-for-github-pages-action@v1
       with:
-        # The target branch name the site gets pushed to
-        # target_branch: # optional
-        # The relative path where the site gets pushed to
-        target_path: /_site
-      
+       secret_gh_pages_api_token: ${{ secrets.GHPAGES }}
