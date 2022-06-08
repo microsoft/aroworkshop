@@ -22,3 +22,4 @@ exclude: [
 README.md,
 .sass-cache
 ]
+destination: ./build

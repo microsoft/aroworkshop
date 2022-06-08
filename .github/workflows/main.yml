@@ -2,22 +2,17 @@ name: Build and deploy
 
 on:
   push:
-    branches: [ master, staging ]
+    branches: [ master, staging, migrate-github-pages ]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - name: 'Checkout the latest code'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2      
       
     - name: 'Inject slug/short variables'
       uses: rlespinasse/github-slug-action@v2.x
-      
-    - name: 'Login via Azure CLI'
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
         
     - name: 'Update site with run number'
       run: |
@@ -26,24 +21,17 @@ jobs:
     - name: 'Update site with SHA'
       run: |
         sed -i "s/#COMMIT_ID#/${{ env.GITHUB_SHA_SHORT }}/g" _includes/nav.html
-    
-    - name: 'Build and push image'
-      uses: azure/docker-login@v1
+        
+    # Use GitHub Actions' cache to shorten build times and decrease load on servers
+    - name: 'Cache gems'
+      uses: actions/cache@v2
       with:
-        login-server: ${{ secrets.REGISTRY_SERVER }}
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
-    - run: |
-        docker build . -t ${{ secrets.REGISTRY_SERVER }}/aroworkshop:${{ env.GITHUB_REF_SLUG_URL }}-${{ env.GITHUB_SHA_SHORT }}
-        docker push ${{ secrets.REGISTRY_SERVER }}/aroworkshop:${{ env.GITHUB_REF_SLUG_URL }}-${{ env.GITHUB_SHA_SHORT }}
-
-    - name: 'Deploy to Azure Web App slot'
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'aroworkshop'
-        images: ${{ secrets.REGISTRY_SERVER }}/aroworkshop:${{ env.GITHUB_REF_SLUG_URL }}-${{ env.GITHUB_SHA_SHORT }}
-        slot-name: ${{ env.GITHUB_REF_SLUG_URL }} 
-    
-    - name: Azure logout
-      run: |
-        az logout
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+          
+    - name: 'Build and publish Jekyll to GitHub Pages'
+      uses: helaili/jekyll-action@v2
+      with: 
+       token: ${{ secrets.GITHUB_TOKEN }}
