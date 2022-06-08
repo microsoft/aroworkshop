@@ -11,7 +11,7 @@ If not logged in via the CLI, click on the dropdown arrow next to your name in t
 
 {% collapsible %}
 
-![CLI Login](/media/managedlab/7-ostoy-login.png)
+![CLI Login](media/managedlab/7-ostoy-login.png)
 
 A new tab will open and select the authentication method you are using
 
@@ -58,7 +58,7 @@ to build a new example application in Ruby. Or use kubectl to deploy a simple Ku
 
 Equivalently you can also create this new project using the web UI by selecting *Home > Projects* on the left menu, then clicking on "Create Project" button on the left.
 
-![UI Create Project](/media/managedlab/6-ostoy-newproj.png)
+![UI Create Project](media/managedlab/6-ostoy-newproj.png)
 
 {% endcollapsible %}
 
@@ -145,6 +145,6 @@ ostoy-route   ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io             osto
 
 Copy `ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io` above and paste it into your browser and press enter.  You should see the homepage of our application.
 
-![Home Page](/media/managedlab/10-ostoy-homepage.png)
+![Home Page](media/managedlab/10-ostoy-homepage.png)
 
 {% endcollapsible %}

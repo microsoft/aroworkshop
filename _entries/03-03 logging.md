@@ -9,11 +9,11 @@ Assuming you can access the application via the Route provided and are still log
 
 Click on the *Home* menu item and then click in the message box for "Log Message (stdout)" and write any message you want to output to the *stdout* stream.  You can try "**All is well!**".  Then click "Send Message".
 
-![Logging stdout](/media/managedlab/8-ostoy-stdout.png)
+![Logging stdout](media/managedlab/8-ostoy-stdout.png)
 
 Click in the message box for "Log Message (stderr)" and write any message you want to output to the *stderr* stream. You can try "**Oh no! Error!**".  Then click "Send Message".
 
-![Logging stderr](/media/managedlab/9-ostoy-stderr.png)
+![Logging stderr](media/managedlab/9-ostoy-stderr.png)
 
 ### View logs directly from the pod
 
@@ -67,11 +67,11 @@ Once the steps to connect Azure Monitor to an existing cluster were successfully
 
 Click on "Monitor" under the left hamburger menu.
 
-![Monitor](/media/managedlab/24-ostoy-azuremonitor.png)
+![Monitor](media/managedlab/24-ostoy-azuremonitor.png)
 
 Click Logs in the left menu. Click the "Get started" button if that screen shows up.
 
-![container logs](/media/managedlab/29-ostoy-logs.png)
+![container logs](media/managedlab/29-ostoy-logs.png)
 
 If you are asked to select a scope select the Log Analytics workspace you created
 
@@ -83,11 +83,11 @@ Change the time range to be "Last 30 Minutes".
 
 Then click the "Run" button at the top.
 
-![container logs](/media/managedlab/30-ostoy-logs.png)
+![container logs](media/managedlab/30-ostoy-logs.png)
 
 In the bottom pane you will see the results of the application logs returned.  You might need to sort, but you should see the two lines we outputted to *stdout* and *stderr*. 
 
-![container logs](/media/managedlab/31-ostoy-logout.png)
+![container logs](media/managedlab/31-ostoy-logout.png)
 
 If the logs are particularly chatty then you can paste the following query to see your message.
 
@@ -105,15 +105,15 @@ ContainerLog
 
 Click on "Containers" in the left menu under **Insights**.
 
-![Containers](/media/managedlab/25-ostoy-monitorcontainers.png)
+![Containers](media/managedlab/25-ostoy-monitorcontainers.png)
 
 You might need to click on the "Monitored clusters" tab. Click on your cluster that is integrated with Azure Monitor. 
 
-![Cluster](/media/managedlab/26-ostoy-monitorcluster.png)
+![Cluster](media/managedlab/26-ostoy-monitorcluster.png)
 
 You will see metrics for your cluster such as resource consumption over time and pod counts.  Feel free to explore the metrics here.  
 
-![Metrics](/media/managedlab/27-ostoy-metrics.png)
+![Metrics](media/managedlab/27-ostoy-metrics.png)
 
 For example, if you want to see how much resources our OSTOY pods are using click on the "Containers" tab.
 
@@ -121,6 +121,6 @@ Enter "ostoy" into the search box near the top left.
 
 You will see the 2 pods we have, one for the front-end and one for the microservice and the relevant metric.  Feel free to select other options to see min, max or other percentile usages of the pods.  You can also change to see memory consumption
 
-![container metrics](/media/managedlab/28-ostoy-metrics.png)
+![container metrics](media/managedlab/28-ostoy-metrics.png)
 
 {% endcollapsible %}
