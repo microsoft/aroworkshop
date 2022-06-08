@@ -22,6 +22,14 @@ jobs:
       run: |
         sed -i "s/#COMMIT_ID#/${{ env.GITHUB_SHA_SHORT }}/g" _includes/nav.html
         
+    # Use GitHub Actions' cache to shorten build times and decrease load on servers
+    - uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+          
     - name: Jekyll build
       uses:  lemonarc/jekyll-action@1.0.0
         
