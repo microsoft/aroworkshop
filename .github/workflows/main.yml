@@ -2,7 +2,7 @@ name: Build and deploy
 
 on:
   push:
-    branches: [ master, staging ]
+    branches: [ master, staging, migrate-github-pages ]
 
 jobs:
   build-and-deploy:
