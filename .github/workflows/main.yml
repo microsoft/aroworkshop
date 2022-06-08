@@ -23,11 +23,7 @@ jobs:
         sed -i "s/#COMMIT_ID#/${{ env.GITHUB_SHA_SHORT }}/g" _includes/nav.html
         
     - name: Jekyll build
-      #uses: jerryjvl/jekyll-build-action@v1
-      run: |
-        mkdir _site
-        mkdir .jekyll-cache
-        jekyll build --future
+      uses: jerryjvl/jekyll-build-action@v1
         
     - name: Deploy to GitHub Pages
       if: success()
