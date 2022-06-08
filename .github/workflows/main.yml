@@ -22,5 +22,11 @@ jobs:
       run: |
         sed -i "s/#COMMIT_ID#/${{ env.GITHUB_SHA_SHORT }}/g" _includes/nav.html
         
-    - name: Build & Deploy to GitHub Pages
-      uses: BryanSchuetz/jekyll-deploy-gh-pages@master
+    - name: Jekyll Actions
+      uses: helaili/jekyll-action@2.3.1
+      with:
+        # The target branch name the site gets pushed to
+        # target_branch: # optional
+        # The relative path where the site gets pushed to
+        target_path: /_site
+      
