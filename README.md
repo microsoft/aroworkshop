@@ -9,16 +9,6 @@ This is the repository for the Azure Red Hat OpenShift Workshop website.
 - The website is statically built using Jekyll and you’ll find the different pages inside the `_entries` folder
 - The build pipeline builds uses GitHub Actions to publish to the `gh-pages` branch which gets published to [microsoft.github.io/aroworkshop/](https://microsoft.github.io/aroworkshop/)
 
-## Companion repositories
-
-The application consists of 3 components:
-
-| Component                                           | Link                                                              |
-|-----------------------------------------------------|-------------------------------------------------------------------|
-| A public facing web frontend `rating-web`          | [GitHub repo](https://github.com/microsoft/rating-web)         |
-| A public facing API `rating-api`                   | [GitHub repo](https://github.com/microsoft/rating-api)         |
-| A MongoDB with pre-loaded data                      |                 |
-
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
