@@ -23,13 +23,13 @@ jobs:
         sed -i "s/#COMMIT_ID#/${{ env.GITHUB_SHA_SHORT }}/g" _includes/nav.html
         
     - name: Jekyll build
-      uses: jerryjvl/jekyll-build-action@v1
+      uses:  lemonarc/jekyll-action@1.0.0
         
     - name: Deploy to GitHub Pages
       if: success()
       uses: crazy-max/ghaction-github-pages@v3
       with:
         target_branch: gh-pages
-        build_dir: _site
+        build_dir: ./_site/
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
