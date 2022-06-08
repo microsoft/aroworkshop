@@ -29,15 +29,7 @@ jobs:
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
         restore-keys: |
           ${{ runner.os }}-gems-
-          
-    - name: Jekyll build
-      uses:  lemonarc/jekyll-action@1.0.0
-        
-    - name: Deploy to GitHub Pages
-      if: success()
-      uses: crazy-max/ghaction-github-pages@v3
-      with:
-        target_branch: gh-pages
-        build_dir: ./build
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     
+    - uses: helaili/jekyll-action@v2
+      with: 
+        token: ${{ secrets.GITHUB_TOKEN }}
