@@ -9,13 +9,13 @@ In this section we will execute a simple example of using persistent storage by 
 
 {% collapsible %}
 
-Inside the OpenShift web UI click on *Storage > Persistent Volume Claims* in the left menu. You will then see a list of all persistent volume claims that our application has made.  In this case there is just one called "ostoy-pvc".  If you click on it you will also see other pertinent information such as whether it is bound or not, size, access mode and creation time.  
+Inside the OpenShift web console click on *Storage > Persistent Volume Claims* in the left menu. You will then see a list of all persistent volume claims that our application has made.  In this case there is just one called "ostoy-pvc".  If you click on it you will also see other pertinent information such as whether it is bound or not, size, access mode and creation time.  
 
-In this case the mode is RWO (Read-Write-Once) which means that the volume can only be mounted to one node, but the pod(s) can both read and write to that volume.  The [default in ARO](https://docs.microsoft.com/en-us/azure/openshift/openshift-faq#can-we-choose-any-persistent-storage-solution-like-ocs) is for Persistent Volumes to be backed by Azure Disk, but it is possible to choose Azure Files so that you can use the RWX (Read-Write-Many) access mode.  [See here for more info on access modes](https://docs.openshift.com/aro/4/storage/understanding-persistent-storage.html#pv-access-modes_understanding-persistent-storage)
+In this case the mode is RWO (Read-Write-Once) which means that the volume can only be mounted to one node, but the pod(s) can both read and write to that volume.  The [default in ARO](https://docs.microsoft.com/en-us/azure/openshift/openshift-faq#can-we-choose-any-persistent-storage-solution--like-ocs) is for Persistent Volumes to be backed by Azure Disk, but it is possible to [use Azure Files](https://docs.openshift.com/container-platform/4.10/storage/persistent_storage/persistent-storage-azure-file.html) so that you can use the RWX (Read-Write-Many) access mode.  See here for more info on [access modes](https://docs.openshift.com/container-platform/4.10/storage/understanding-persistent-storage.html#pv-access-modes_understanding-persistent-storage).
 
-In the OSToy app click on *Persistent Storage* in the left menu.  In the "Filename" area enter a filename for the file you will create. (e.g.: "test-pv.txt")
+In the OSToy app click on *Persistent Storage* in the left menu.  In the "Filename" area enter a filename for the file you will create (e.g., "test-pv.txt"). Use the ".txt" extension so you can easily open it in the browser.
 
-Underneath that, in the "File Contents" box, enter text to be stored in the file. (e.g.: "Azure Red Hat OpenShift is the greatest thing since sliced bread!" or "test" :) ).  Then click "Create file".
+Underneath that, in the "File contents" box, enter text to be stored in the file. (e.g., "Azure Red Hat OpenShift is the greatest thing since sliced bread!"). Then click "Create file".
 
 ![Create File](media/managedlab/17-ostoy-createfile.png)
 
@@ -27,13 +27,13 @@ We now want to kill the pod and ensure that the new pod that spins up will be ab
 
 Click on the "Crash pod" button.  (You can enter a message if you'd like).
 
-Click on *Persistent Storage* in the left menu
+Click on *Persistent Storage* in the left menu.
 
 You will see the file you created is still there and you can open it to view its contents to confirm.
 
 ![Crash Message](media/managedlab/19-ostoy-existingfile.png)
 
-Now let's confirm that it's actually there by using the CLI and checking if it is available to the container.  If you remember we [mounted the directory](yaml/ostoy-fe-deployment.yaml#L50) `/var/demo_files` to our PVC.  So get the name of your frontend pod
+Now let's confirm that it's actually there by using the CLI and checking if it is available to the container.  If you remember we [mounted the directory](https://github.com/microsoft/aroworkshop/blob/master/yaml/ostoy-fe-deployment.yaml#L50) `/var/demo_files` to our PVC.  So get the name of your frontend pod:
 
 `oc get pods`
 
@@ -56,12 +56,13 @@ ostoy-frontend-5fc8d486dc-wsw24       1/1       Running   0          18m
 ostoy-microservice-6cf764974f-hx4qm   1/1       Running   0          18m
 
 $ oc rsh ostoy-frontend-5fc8d486dc-wsw24
+
 / $ cd /var/demo_files/
 
 /var/demo_files $ ls
 lost+found   test-pv.txt
 
-/var/demo_files $ cat test-pv.txt 
+/var/demo_files $ cat test-pv.txt
 Azure Red Hat OpenShift is the greatest thing since sliced bread!
 ```
 

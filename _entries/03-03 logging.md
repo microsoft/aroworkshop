@@ -21,7 +21,7 @@ Click in the message box for "Log Message (stderr)" and write any message you wa
 
 Go to the CLI and enter the following command to retrieve the name of your frontend pod which we will use to view the pod logs:
 
-```sh
+```
 $ oc get pods -o name
 pod/ostoy-frontend-679cb85695-5cn7x
 pod/ostoy-microservice-86b4c6f559-p594d
@@ -29,7 +29,7 @@ pod/ostoy-microservice-86b4c6f559-p594d
 
 So the pod name in this case is **ostoy-frontend-679cb85695-5cn7x**.  Then run `oc logs ostoy-frontend-679cb85695-5cn7x` and you should see your messages:
 
-```sh
+```
 $ oc logs ostoy-frontend-679cb85695-5cn7x
 [...]
 ostoy-frontend-679cb85695-5cn7x: server starting on port 8080
@@ -58,7 +58,7 @@ One can use the native Azure service, Azure Monitor, to view and keep applicatio
 
 - A [Log Analytics workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/design-logs-deployment) (see [here](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) if you need to create one)
 
-Then follow the steps to [Enable Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat4-setup#integrate-with-an-existing-workspace) for our cluster. 
+Then follow the steps to [Enable Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat4-setup#integrate-with-an-existing-workspace) for our cluster.
 > **Note:** Although not required, it is recommended to create a Log Analytics workspace prior to integrating with Azure Monitor.  It would make it easier to keep track of our logs.
 
 This lab assumes you have successfully set up Azure Monitor with your cluster based upon the above referenced document.
@@ -85,7 +85,7 @@ Then click the "Run" button at the top.
 
 ![container logs](media/managedlab/30-ostoy-logs.png)
 
-In the bottom pane you will see the results of the application logs returned.  You might need to sort, but you should see the two lines we outputted to *stdout* and *stderr*. 
+In the bottom pane you will see the results of the application logs returned.  You might need to sort, but you should see the two lines we outputted to *stdout* and *stderr*.
 
 ![container logs](media/managedlab/31-ostoy-logout.png)
 
@@ -107,7 +107,7 @@ Click on "Containers" in the left menu under **Insights**.
 
 ![Containers](media/managedlab/25-ostoy-monitorcontainers.png)
 
-You might need to click on the "Monitored clusters" tab. Click on your cluster that is integrated with Azure Monitor. 
+You might need to click on the "Monitored clusters" tab. Click on your cluster that is integrated with Azure Monitor.
 
 ![Cluster](media/managedlab/26-ostoy-monitorcluster.png)
 

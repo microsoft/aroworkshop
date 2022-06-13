@@ -19,14 +19,13 @@ Click Display Token
 
 Copy the command under where it says "Log in with this token". Then go to your terminal and paste that command and press enter. You will see a similar confirmation message if you successfully logged in.
 
-```sh
-$oc login --token=iQ-USIs2vTdl_7TD1xSMIPaFxJ6RD6AAAAAAAAAAAAA --server=https://api.abcd1234.westus2.aroapp.io:6443
-Logged into "https://api.abcd1234.westus2.aroapp.io:6443" as "0kashi" using the token provided.
+```
+$ oc login --token=sha256~qWBXdQ_X_4wWZor0XZO00ZZXXXXXXXXXXXX --server=https://api.abcs1234.westus.aroapp.io:6443
+Logged into "https://api.abcd1234.westus.aroapp.io:6443" as "kube:admin" using the token provided.
 
-You have access to 85 projects, the list has been suppressed. You can list all projects with 'oc projects'
+You have access to 67 projects, the list has been suppressed. You can list all projects with 'oc projects'
 
 Using project "default".
-
 ```
 
 {% endcollapsible %}
@@ -43,20 +42,13 @@ Use the following command
 
 You should receive the following response
 
-```sh
+```
 $ oc new-project ostoy
 Now using project "ostoy" on server "https://api.abcd1234.westus2.aroapp.io:6443".
-
-You can add applications to this project with the 'new-app' command. For example, try:
-
-    oc new-app ruby~https://github.com/sclorg/ruby-ex.git
-
-to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
-
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+[...]
 ```
 
-Equivalently you can also create this new project using the web UI by selecting *Home > Projects* on the left menu, then clicking on "Create Project" button on the left.
+Equivalently you can also create this new project using the web console by selecting *Home > Projects* on the left menu, then clicking on "Create Project" button on the right.
 
 ![UI Create Project](media/managedlab/6-ostoy-newproj.png)
 
@@ -64,11 +56,11 @@ Equivalently you can also create this new project using the web UI by selecting 
 
 ### View the YAML deployment objects
 
-View the Kubernetes deployment object yamls.  If you wish you can download them from the following locations to your Azure Cloud Shell, in a directory of your choosing (just remember where you placed them for the next step). Or just use the direct link in the next step.
+View the Kubernetes deployment object yamls.  If you wish you can download them from the following locations to your Azure Cloud Shell, or to your local machine in a directory of your choosing (just remember where you placed them for the next step). Or just use the direct link in the next steps.
 
 {% collapsible %}
 
-Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits to separating these out into individual yaml files.
+Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits (ease of maintenance and less risk) to separating these out into individual yaml files.
 
 [ostoy-fe-deployment.yaml](https://github.com/microsoft/aroworkshop/blob/master/yaml/ostoy-fe-deployment.yaml)
 
@@ -78,16 +70,16 @@ Feel free to open them up and take a look at what we will be deploying. For simp
 
 ### Deploy backend microservice
 
-The microservice application serves internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.
+The microservice serves internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.
 
 {% collapsible %}
 
-In your command line deploy the microservice using the following command:
+In your terminal deploy the microservice using the following command:
 
 `oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-microservice-deployment.yaml`
 
 You should see the following response:
-```sh
+```
 $ oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-microservice-deployment.yaml
 deployment.apps/ostoy-microservice created
 service/ostoy-microservice-svc created
@@ -97,7 +89,7 @@ service/ostoy-microservice-svc created
 
 ### Deploy the front-end service
 
-The frontend deployment contains the node.js frontend for our application along with a few other Kubernetes objects to illustrate examples.
+This deployment contains the node.js frontend for our application along with a few other Kubernetes objects.
 
 {% collapsible %}
 
@@ -110,13 +102,13 @@ The frontend deployment contains the node.js frontend for our application along 
 - Configmaps
 - Secrets
 
-In your command line deploy the frontend along with creating all objects mentioned above by entering:
+In your terminal deploy the frontend along with creating all objects mentioned above by entering:
 
 `oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-fe-deployment.yaml`
 
 You should see all objects created successfully
 
-```sh
+```
 $ oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-fe-deployment.yaml
 persistentvolumeclaim/ostoy-pvc created
 deployment.apps/ostoy-frontend created
@@ -132,13 +124,15 @@ secret/ostoy-secret created
 
 ### Get route
 
-Get the route so that we can access the application via `oc get route`
+Get the route so that we can access the application via:
+
+ `oc get route`
 
 {% collapsible %}
 
 You should see the following response:
 
-```sh
+```
 NAME           HOST/PORT                                                      PATH      SERVICES              PORT      TERMINATION   WILDCARD
 ostoy-route   ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io             ostoy-frontend-svc   <all>                   None
 ```
