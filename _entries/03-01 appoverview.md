@@ -42,7 +42,7 @@ OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenS
 6. **ENV Variables:** Shows the environment variables available to the application.
 7. **Auto Scaling:** Explore the Horizontal Pod Autoscaler to see how increased loads are handled.
 8. **Networking:** Tools to illustrate networking within the application.
-9. Shows some more information about the application.
+9. **About:** Shows some more information about the application.
 
 ![Home Page](media/managedlab/10-ostoy-homepage-1.png)
 

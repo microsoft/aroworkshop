@@ -5,7 +5,7 @@ title: Configuration
 parent-id: lab-clusterapp
 ---
 
-In this section we'll take a look at how OSToy can be configured using [ConfigMaps](https://docs.openshift.com/container-platform/3.11/dev_guide/configmaps.html), [Secrets](https://docs.openshift.com/container-platform/3.11/dev_guide/secrets.html), and [Environment Variables](https://docs.openshift.com/container-platform/3.11/dev_guide/environment_variables.html).  This section won't go into details explaining each (the links above are for that), but will show you how they are exposed to the application.  
+In this section we'll take a look at how OSToy can be configured using [ConfigMaps](https://docs.openshift.com/container-platform/4.10/nodes/pods/nodes-pods-configmaps.html), [Secrets](https://docs.openshift.com/container-platform/4.10/cicd/builds/creating-build-inputs.html#builds-input-secrets-configmaps_creating-build-inputs), and [Environment Variables](https://docs.openshift.com/container-platform/3.11/dev_guide/environment_variables.html).  This section won't go into details explaining each (the links above are for that), but will show you how they are exposed to the application.  
 
 ### Configuration using ConfigMaps
 
@@ -17,7 +17,7 @@ Click on *Config Maps* in the left menu.
 
 This will display the contents of the configmap available to the OSToy application.  We defined this in the `ostoy-fe-deployment.yaml` here:
 
-```sh
+```
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -30,7 +30,7 @@ data:
 
 ### Configuration using Secrets
 
-Kubernetes Secret objects allow you to store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys. Putting this information in a secret is safer and more flexible than putting it, verbatim, into a Pod definition or a container image.
+Kubernetes Secret objects allow you to store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys. Putting this information in a secret is safer and more flexible than putting it, verbatim, into a pod definition or a container image.
 
 {% collapsible %}
 
@@ -38,7 +38,7 @@ Click on *Secrets* in the left menu.
 
 This will display the contents of the secrets available to the OSToy application.  We defined this in the `ostoy-fe-deployment.yaml` here:
 
-```sh
+```
 apiVersion: v1
 kind: Secret
 metadata:
@@ -60,7 +60,7 @@ Click on *ENV Variables* in the left menu.
 
 This will display the environment variables available to the OSToy application.  We added three as defined in the deployment spec of `ostoy-fe-deployment.yaml` here:
 
-```sh
+```
   env:
   - name: ENV_TOY_CONFIGMAP
     valueFrom:
