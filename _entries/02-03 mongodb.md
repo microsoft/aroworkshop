@@ -12,7 +12,12 @@ Azure Red Hat OpenShift allows you to deploy a container image from Docker hub e
 
 Deploy the MongoDB database:
 ```sh
-oc new-app bitnami/mongodb -e MONGODB_USERNAME=ratingsuser -e MONGODB_PASSWORD=ratingspassword -e MONGODB_DATABASE=ratingsdb -e MONGODB_ROOT_USER=root -e MONGODB_ROOT_PASSWORD=ratingspassword
+oc new-app bitnami/mongodb \
+  -e MONGODB_USERNAME=ratingsuser \
+  -e MONGODB_PASSWORD=ratingspassword \
+  -e MONGODB_DATABASE=ratingsdb \
+  -e MONGODB_ROOT_USER=root \
+  -e MONGODB_ROOT_PASSWORD=ratingspassword
 ```
 
 If you now head back to the web console, and switch to the **workshop** project, you should see a new deployment for mongoDB.
