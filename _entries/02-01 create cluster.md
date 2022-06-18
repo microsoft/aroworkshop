@@ -128,8 +128,7 @@ Next, you will create a virtual network containing two empty subnets.
     --resource-group $RESOURCEGROUP \
     --vnet-name aro-vnet \
     --name master-subnet \
-    --address-prefixes 10.0.0.0/23 \
-    --service-endpoints Microsoft.ContainerRegistry
+    --address-prefixes 10.0.0.0/23 
     ```
 
 4. **Add an empty subnet for the worker nodes.**
@@ -139,8 +138,7 @@ Next, you will create a virtual network containing two empty subnets.
     --resource-group $RESOURCEGROUP \
     --vnet-name aro-vnet \
     --name worker-subnet \
-    --address-prefixes 10.0.2.0/23 \
-    --service-endpoints Microsoft.ContainerRegistry
+    --address-prefixes 10.0.2.0/23 
     ```
 
 5. **[Disable subnet private endpoint policies](https://docs.microsoft.com/azure/private-link/disable-private-link-service-network-policy) on the master subnet.** This is required to be able to connect and manage the cluster.
