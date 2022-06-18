@@ -35,6 +35,11 @@ Once you're logged into the Web Console, click on the username on the top right,
 
 ![Copy login command](media/login-command.png)
 
+On the following page click on **Display Token** and copy the ```oc login``` line.
+
+![Display Token Link](media/oc-display-token-link.png)
+![Copy Login Token](media/oc-copy-login-token.png)
+
 Open the [Azure Cloud Shell](https://shell.azure.com) and paste the login command. You should be able to connect to the cluster.
 
 ![Login through the cloud shell](media/oc-login-cloudshell.png)

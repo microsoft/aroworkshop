@@ -8,21 +8,11 @@ parent-id: lab-ratingapp
 ### Create mongoDB from template
 
 {% collapsible %}
-Azure Red Hat OpenShift provides a container image and template to make creating a new MongoDB database service easy. The template provides parameter fields to define all the mandatory environment variables (user, password, database name, etc) with predefined defaults including auto-generation of password values. It will also define both a deployment configuration and a service.
+Azure Red Hat OpenShift allows you to deploy a container image from Docker hub easily and we will deploy a MongoDB database service this way. The mandatory environment variables (user, password, database name etc.) can be passed in the ``oc new-app`` command line
 
-Load up the ``mongodb-persistent-template`` template into the ``openshift`` namespace.
+Deploy the MongoDB database:
 ```sh
-oc create -n openshift -f https://raw.githubusercontent.com/openshift/origin/4ea9e6c5961eb815c200df933eee30c48a5c9166/examples/db-templates/mongodb-persistent-template.json
-```
-
-Create a mongoDB deployment using the `mongodb-persistent` template. You're passing in the values to be replaced (username, password and database) which generates a YAML/JSON file. You then pipe it to the `oc create` command.
-
-```sh
-oc process openshift//mongodb-persistent \
-    -p MONGODB_USER=ratingsuser \
-    -p MONGODB_PASSWORD=ratingspassword \
-    -p MONGODB_DATABASE=ratingsdb \
-    -p MONGODB_ADMIN_PASSWORD=ratingspassword | oc create -f -
+oc new-app bitnami/mongodb -e MONGODB_USERNAME=ratingsuser -e MONGODB_PASSWORD=ratingspassword -e MONGODB_DATABASE=ratingsdb -e MONGODB_ROOT_USER=root -e MONGODB_ROOT_PASSWORD=ratingspassword
 ```
 
 If you now head back to the web console, and switch to the **workshop** project, you should see a new deployment for mongoDB.
@@ -64,6 +54,3 @@ You can also retrieve this from the web console. You'll need this hostname to co
 ![MongoDB service in the Web Console](media/mongo-svc-webconsole.png)
 
 {% endcollapsible %}
-
-> **Resources**
-> * [ARO Documentation - Templates](https://docs.openshift.com/aro/4/openshift_images/using-templates.html)
