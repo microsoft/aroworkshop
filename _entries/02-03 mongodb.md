@@ -5,7 +5,7 @@ title: Deploy MongoDB
 parent-id: lab-ratingapp
 ---
 
-### Create mongoDB from template
+### Create mongoDB from Docker hub
 
 {% collapsible %}
 Azure Red Hat OpenShift allows you to deploy a container image from Docker hub easily and we will deploy a MongoDB database service this way. The mandatory environment variables (user, password, database name etc.) can be passed in the ``oc new-app`` command line
