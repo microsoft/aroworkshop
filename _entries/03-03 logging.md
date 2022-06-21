@@ -42,85 +42,38 @@ You should see both the *stdout* and *stderr* messages.
 
 {% endcollapsible %}
 
-### View logs using Azure Monitor Integration
+### View metrics and logs by integrating with Azure Arc
 
 {% collapsible %}
 
-One can use the native Azure service, Azure Monitor, to view and keep application logs along with metrics. In order to complete this integration you will need to follow the documentation [here](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat4-setup) and particularly the prerequisites.  The prerequisites are:
+You can use Azure services for metrics and logging by enabling your ARO cluster with Azure Arc. The instructions for setting this up can be found at the following locations, in order. These are prerequisites for this part of the lab.
+1. [Connect an existing cluster to Azure Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli)
+1. [Azure Monitor Container Insights for Azure Arc-enabled Kubernetes clusters](https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-enable-arc-enabled-clusters?toc=%2Fazure%2Fazure-arc%2Fkubernetes%2Ftoc.json&bc=%2Fazure%2Fazure-arc%2Fkubernetes%2Fbreadcrumb%2Ftoc.json)
 
-- The Azure CLI version 2.0.72 or later
+> Note: These also have some small prerequisites. Make sure to read those too. Also, when it asks for the "Cluster Name" for the CLI commands, it will most likely be the name of the Arc enabled cluster name and NOT the name of your ARO cluster.
 
-- The Helm 3 CLI tool
+Once you have completed the above steps, if you are not already in Container Insights, then type "Azure Arc" in the search bar from the Home screen and select "Kubernetes - Azure Arc".
 
-- Bash version 4
+![arckubernetes](media/managedlab/36-searcharc.png)
 
-- The Kubectl command-line tool
+Select the Arc connected cluster you just created, then select "Insights".
 
-- A [Log Analytics workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/design-logs-deployment) (see [here](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) if you need to create one)
+![arcclusterselect](media/managedlab/37-arcselect.png)
 
-Then follow the steps to [Enable Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat4-setup#integrate-with-an-existing-workspace) for our cluster.
-> **Note:** Although not required, it is recommended to create a Log Analytics workspace prior to integrating with Azure Monitor.  It would make it easier to keep track of our logs.
+You will see a page with all sorts of metrics for the cluster.
 
-This lab assumes you have successfully set up Azure Monitor with your cluster based upon the above referenced document.
+![clustermetrics](media/managedlab/38-clustermetrics.png)
 
-Once the steps to connect Azure Monitor to an existing cluster were successfully completed, access the [Azure portal](https://portal.azure.com)
+>Note: Please feel free to come back to this section after the "Autoscaling" section and see how you can use Container Insights to view metrics. You may need to add a filter by "namespace" to see the pods from our application.
 
-Click on "Monitor" under the left hamburger menu.
+To see the log messages we output to *stdout* and *stderr*, click on "Logs" in the left menu, then the "Container Logs" query. Finally, click "Load to editor" for the pre-created query "Find a value in Container Logs Table"
 
-![Monitor](media/managedlab/24-ostoy-azuremonitor.png)
+![containerlogs](media/managedlab/39-containerlogs.png)
 
-Click Logs in the left menu. Click the "Get started" button if that screen shows up.
+This will populate a query that requires a parameter to search for. Let's look for our error entry. Type "stderr" in the location for `FindString`, then click run.  You should see one line returned that contains the message you inputted above. You can also click the twist for more information.
 
-![container logs](media/managedlab/29-ostoy-logs.png)
+![getmessage](media/managedlab/40-getlogmessage.png)
 
-If you are asked to select a scope select the Log Analytics workspace you created
-
-Expand "ContainerInsights".
-
-Double click "ContainerLog".
-
-Change the time range to be "Last 30 Minutes".
-
-Then click the "Run" button at the top.
-
-![container logs](media/managedlab/30-ostoy-logs.png)
-
-In the bottom pane you will see the results of the application logs returned.  You might need to sort, but you should see the two lines we outputted to *stdout* and *stderr*.
-
-![container logs](media/managedlab/31-ostoy-logout.png)
-
-If the logs are particularly chatty then you can paste the following query to see your message.
-
-```
-ContainerLog
-| where LogEntry contains "<Your Message>"
-```
-
-{% endcollapsible %}
-
-
-### View Metrics using Azure Monitor Integration
-
-{% collapsible %}
-
-Click on "Containers" in the left menu under **Insights**.
-
-![Containers](media/managedlab/25-ostoy-monitorcontainers.png)
-
-You might need to click on the "Monitored clusters" tab. Click on your cluster that is integrated with Azure Monitor.
-
-![Cluster](media/managedlab/26-ostoy-monitorcluster.png)
-
-You will see metrics for your cluster such as resource consumption over time and pod counts.  Feel free to explore the metrics here.  
-
-![Metrics](media/managedlab/27-ostoy-metrics.png)
-
-For example, if you want to see how much resources our OSTOY pods are using click on the "Containers" tab.
-
-Enter "ostoy" into the search box near the top left.
-
-You will see the 2 pods we have, one for the front-end and one for the microservice and the relevant metric.  Feel free to select other options to see min, max or other percentile usages of the pods.  You can also change to see memory consumption
-
-![container metrics](media/managedlab/28-ostoy-metrics.png)
+Feel free to spend a few minutes exploring logs with the pre-created queries or try your own to see how robust the service is.
 
 {% endcollapsible %}
