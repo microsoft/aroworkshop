@@ -63,7 +63,7 @@ ostoy-frontend-679cb85695-5cn7x       1/1       Running   0          1h
 ostoy-microservice-86b4c6f559-p594d   1/1       Running   0          1h
 ```
 
-Let's change our microservice definition yaml to reflect that we want 3 pods instead of the one we see. Download the [ostoy-microservice-deployment.yaml](/yaml/ostoy-microservice-deployment.yaml) and save it on your local machine.
+Let's change our microservice definition yaml to reflect that we want 3 pods instead of the one we see. Download the [ostoy-microservice-deployment.yaml](yaml/ostoy-microservice-deployment.yaml) and save it on your local machine.
 
 Open the file using your favorite editor. Ex: `vi ostoy-microservice-deployment.yaml`.
 
