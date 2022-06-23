@@ -22,7 +22,7 @@ OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenS
 
 - write messages to the log (stdout / stderr)
 - intentionally crash the application to view self-healing
-- toggle a liveliness probe and monitor OpenShift behavior
+- toggle a liveness probe and monitor OpenShift behavior
 - read config maps, secrets, and env variables
 - if connected to shared storage, read and write files
 - check network connectivity, intra-cluster DNS, and intra-communication with an included microservice

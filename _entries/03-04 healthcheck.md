@@ -5,7 +5,7 @@ title: Exploring Health Checks
 parent-id: lab-clusterapp
 ---
 
-In this section we will intentionally crash our pods as well as make a pod non-responsive to the liveness probes and see how Kubernetes behaves.  We will first intentionally crash our pod and see that Kubernetes will self-heal by immediately spinning it back up. Then we will trigger the health check by stopping the response on the `/health` endpoint in our app. After three consecutive failures, Kubernetes should kill the pod and then recreate it.
+In this section we will intentionally crash our pods and also make a pod non-responsive to the liveness probes and see how Kubernetes behaves.  We will first intentionally crash our pod and see that Kubernetes will self-heal by immediately spinning it back up. Then we will trigger the health check by stopping the response on the `/health` endpoint in our app. After three consecutive failures, Kubernetes should kill the pod and then recreate it.
 
 {% collapsible %}
 
@@ -21,9 +21,9 @@ Go to the browser tab that has your OSToy app, click on *Home* in the left menu,
 
 ![Crash Message](media/managedlab/12-ostoy-crashmsg.png)
 
-Quickly switch to the tab with the deployment showing in the web console. You will see that the pod is red, meaning it is down but should quickly come back up and show blue.  It does happen quickly so you might miss it.
+Quickly switch to the tab with the deployment showing in the web console. You will see that the pod turns yellowish, meaning it is down but should quickly come back up and show blue.  It does happen quickly so you might miss it.
 
-![Pod Crash](media/managedlab/13-ostoy-podcrash.png)
+![Pod Crash](media/managedlab/13-ostoy-podcrash.gif)
 
 You can also check in the pod events and further verify that the container has crashed and been restarted.
 
