@@ -40,87 +40,45 @@ stderr: Oh no! Error!
 
 You should see both the *stdout* and *stderr* messages.
 
-{% endcollapsible %}
+Try to see them from within the OpenShift Web Console as well. Make sure you are in the "ostoy" project. In the left menu click *Workloads > Pods > \<frontend-pod-name>*.  Then click the "Logs" sub-tab.
 
-### View logs using Azure Monitor Integration
-
-{% collapsible %}
-
-One can use the native Azure service, Azure Monitor, to view and keep application logs along with metrics. In order to complete this integration you will need to follow the documentation [here](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat4-setup) and particularly the prerequisites.  The prerequisites are:
-
-- The Azure CLI version 2.0.72 or later
-
-- The Helm 3 CLI tool
-
-- Bash version 4
-
-- The Kubectl command-line tool
-
-- A [Log Analytics workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/design-logs-deployment) (see [here](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace) if you need to create one)
-
-Then follow the steps to [Enable Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-azure-redhat4-setup#integrate-with-an-existing-workspace) for our cluster.
-> **Note:** Although not required, it is recommended to create a Log Analytics workspace prior to integrating with Azure Monitor.  It would make it easier to keep track of our logs.
-
-This lab assumes you have successfully set up Azure Monitor with your cluster based upon the above referenced document.
-
-Once the steps to connect Azure Monitor to an existing cluster were successfully completed, access the [Azure portal](https://portal.azure.com)
-
-Click on "Monitor" under the left hamburger menu.
-
-![Monitor](media/managedlab/24-ostoy-azuremonitor.png)
-
-Click Logs in the left menu. Click the "Get started" button if that screen shows up.
-
-![container logs](media/managedlab/29-ostoy-logs.png)
-
-If you are asked to select a scope select the Log Analytics workspace you created
-
-Expand "ContainerInsights".
-
-Double click "ContainerLog".
-
-Change the time range to be "Last 30 Minutes".
-
-Then click the "Run" button at the top.
-
-![container logs](media/managedlab/30-ostoy-logs.png)
-
-In the bottom pane you will see the results of the application logs returned.  You might need to sort, but you should see the two lines we outputted to *stdout* and *stderr*.
-
-![container logs](media/managedlab/31-ostoy-logout.png)
-
-If the logs are particularly chatty then you can paste the following query to see your message.
-
-```
-ContainerLog
-| where LogEntry contains "<Your Message>"
-```
+![web-pods](media/managedlab/9-ostoy-wclogs.png)
 
 {% endcollapsible %}
 
-
-### View Metrics using Azure Monitor Integration
+### View metrics and logs by integrating with Azure Arc
 
 {% collapsible %}
 
-Click on "Containers" in the left menu under **Insights**.
+You can use Azure services for metrics and logging by enabling your ARO cluster with Azure Arc. The instructions for setting this up can be found at the following locations. Perform them in the following order. These are prerequisites for this part of the lab.
 
-![Containers](media/managedlab/25-ostoy-monitorcontainers.png)
+1. [Connect an existing cluster to Azure Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli)
+1. [Azure Monitor Container Insights for Azure Arc-enabled Kubernetes clusters](https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-enable-arc-enabled-clusters?toc=%2Fazure%2Fazure-arc%2Fkubernetes%2Ftoc.json&bc=%2Fazure%2Fazure-arc%2Fkubernetes%2Fbreadcrumb%2Ftoc.json)
 
-You might need to click on the "Monitored clusters" tab. Click on your cluster that is integrated with Azure Monitor.
+> Note: These also have some small prerequisites. Make sure to read those too. Also, when it asks for the "Cluster Name" for the CLI commands, it will most likely be the name of the Arc enabled cluster name and NOT the name of your ARO cluster.
 
-![Cluster](media/managedlab/26-ostoy-monitorcluster.png)
+Once you have completed the above steps, if you are not already in Container Insights, then type "Azure Arc" in the search bar from the Home screen and select "Kubernetes - Azure Arc".
 
-You will see metrics for your cluster such as resource consumption over time and pod counts.  Feel free to explore the metrics here.  
+![arckubernetes](media/managedlab/36-searcharc.png)
 
-![Metrics](media/managedlab/27-ostoy-metrics.png)
+Select the Arc connected cluster you just created, then select "Insights".
 
-For example, if you want to see how much resources our OSTOY pods are using click on the "Containers" tab.
+![arcclusterselect](media/managedlab/37-arcselect.png)
 
-Enter "ostoy" into the search box near the top left.
+You will see a page with all sorts of metrics for the cluster.
 
-You will see the 2 pods we have, one for the front-end and one for the microservice and the relevant metric.  Feel free to select other options to see min, max or other percentile usages of the pods.  You can also change to see memory consumption
+![clustermetrics](media/managedlab/38-clustermetrics.png)
 
-![container metrics](media/managedlab/28-ostoy-metrics.png)
+>Note: Please feel free to come back to this section after the "Autoscaling" section and see how you can use Container Insights to view metrics. You may need to add a filter by "namespace" to see the pods from our application.
+
+To see the log messages we output to *stdout* and *stderr*, click on "Logs" in the left menu, then the "Container Logs" query. Finally, click "Load to editor" for the pre-created query called "Find a value in Container Logs Table".
+
+![containerlogs](media/managedlab/39-containerlogs.png)
+
+This will populate a query that requires a parameter to search for. Let's look for our error entry. Type "stderr" in the location for `FindString`, then click run.  You should see one line returned that contains the message you inputted earlier. You can also click the twist for more information.
+
+![getmessage](media/managedlab/40-getlogmessage.png)
+
+Feel free to spend a few minutes exploring logs with the pre-created queries or try your own to see how robust the service is.
 
 {% endcollapsible %}

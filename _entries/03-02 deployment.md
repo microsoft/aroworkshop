@@ -13,9 +13,7 @@ If not logged in via the CLI, click on the dropdown arrow next to your name in t
 
 ![CLI Login](media/managedlab/7-ostoy-login.png)
 
-A new tab will open and select the authentication method you are using
-
-Click Display Token
+A new tab will open click "Display Token"
 
 Copy the command under where it says "Log in with this token". Then go to your terminal and paste that command and press enter. You will see a similar confirmation message if you successfully logged in.
 
@@ -48,7 +46,7 @@ Now using project "ostoy" on server "https://api.abcd1234.westus2.aroapp.io:6443
 [...]
 ```
 
-Equivalently you can also create this new project using the web console by selecting *Home > Projects* on the left menu, then clicking on "Create Project" button on the right.
+Equivalently you can also create this new project using the web console by selecting *Home > Projects* on the left menu, then clicking on the "Create Project" button on the right.
 
 ![UI Create Project](media/managedlab/6-ostoy-newproj.png)
 
@@ -56,11 +54,11 @@ Equivalently you can also create this new project using the web console by selec
 
 ### View the YAML deployment objects
 
-View the Kubernetes deployment object yamls.  If you wish you can download them from the following locations to your Azure Cloud Shell, or to your local machine in a directory of your choosing (just remember where you placed them for the next step). Or just use the direct link in the next steps.
+View the Kubernetes deployment object YAMLs.  If you wish you can download them from the following locations to your Azure Cloud Shell, to your local machine, or just use the direct link in the next steps.
 
 {% collapsible %}
 
-Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" yaml file.  Though in reality there are benefits (ease of maintenance and less risk) to separating these out into individual yaml files.
+Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" YAML file.  Though in reality there are benefits (ease of maintenance and less risk) to separating these out into individual files.
 
 [ostoy-fe-deployment.yaml](https://github.com/microsoft/aroworkshop/blob/master/yaml/ostoy-fe-deployment.yaml)
 
@@ -102,7 +100,7 @@ This deployment contains the node.js frontend for our application along with a f
 - Configmaps
 - Secrets
 
-In your terminal deploy the frontend along with creating all objects mentioned above by entering:
+Deploy the frontend along with creating all objects mentioned above by entering:
 
 `oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-fe-deployment.yaml`
 
