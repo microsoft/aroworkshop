@@ -69,9 +69,9 @@ You will see a page with all sorts of metrics for the cluster.
 
 ![clustermetrics](media/managedlab/38-clustermetrics.png)
 
->Note: Please feel free to come back to this section after the "Autoscaling" section and see how you can use Container Insights to view metrics. You may need to add a filter by "namespace" to see the pods from our application.
+>Note: Please feel free to come back to this section after the "Pod Autoscaling" section and see how you can use Container Insights to view metrics. You may need to add a filter by "namespace" to see the pods from our application.
 
-To see the log messages we output to *stdout* and *stderr*, click on "Logs" in the left menu, then the "Container Logs" query. Finally, click "Load to editor" for the pre-created query called "Find a value in Container Logs Table".
+To see the log messages we outputted to *stdout* and *stderr*, click on "Logs" in the left menu, then the "Container Logs" query. Finally, click "Load to editor" for the pre-created query called "Find a value in Container Logs Table".
 
 ![containerlogs](media/managedlab/39-containerlogs.png)
 
