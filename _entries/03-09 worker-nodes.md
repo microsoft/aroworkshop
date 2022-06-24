@@ -112,11 +112,11 @@ az aro show \
    --query "consoleProfile.url" -o tsv
 ```
 
-Expand "Compute" in the left menu and then click on "MachineSet"
+Expand "Compute" in the left menu and then click on "MachineSets"
 
 ![machinesets-console](media/managedlab/41-wc-machinesets.png)
 
-In the main pane you will see the same information about the machinesets from the command line.  Now click on the "three dots" at the end of the line for the machine set that you scaled up to "2". Select "Edit machine count" and decrease it to "1". Click save.
+In the main pane you will see the same information about the machine sets from the command line.  Now click on the "three dots" at the end of the line for the machine set that you scaled up to "2". Select "Edit machine count" and decrease it to "1". Click save.
 
 ![machinesets-edit](media/managedlab/42-edit-machinesets.png)
 
@@ -291,8 +291,6 @@ ok0620-rq5tl-worker-westus23-hzggb   Running    Standard_D4s_v3   westus2   3   
 <!--
 ### Adding node labels
 
-{% collapsible %}
-
 To add a node label it is recommended to set the label in the machine set. While you can directly add a label the node, this is not recommended since nodes could be overwritten and then the label would disappear.  Once the machine set is modified to contain the desired label any new machines created from that set would have the newly added labels.  This means that existing machines (nodes) will not get the label.  Therefore, to make sure all nodes have the label, you should scale the machine set down to zero and then scale the machine set back up.
 
 
@@ -318,5 +316,4 @@ You can see that the label is now there.
 
 ![checklabel](media/managedlab/45-machine-label.png)
 
-
-{% endcollapsible %} -->
+-->
