@@ -2,14 +2,10 @@
 sectionid: createcluster
 sectionclass: h2
 title: Create cluster
-parent-id: lab-ratingapp
+parent-id: intro
 ---
 
-### Create, access, and manage an Azure Red Hat OpenShift 4 Cluster
-
 We will now create our own cluster.
-
-## Before you begin
 
 If you choose to install and use the CLI locally, this tutorial requires that you are running the Azure CLI version 2.6.0 or later. Run `az --version` to find the version. If you need to install or upgrade, see [Install Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest).
 
@@ -191,9 +187,7 @@ az aro create \
 
 {% endcollapsible %}
 
-## Connect to the cluster
-
-You can log into the cluster using the `kubeadmin` user.  
+## Get kubeadmin credentials
 
 {% collapsible %}
 
@@ -214,6 +208,22 @@ The following example output shows the password will be in `kubeadminPassword`.
 }
 ```
 
-Save these secrets, you are going to use them to connect to the Web Portal
+Save these secrets, you are going to use them to connect to the web console.
+
+{% endcollapsible %}
+
+## Get web console address
+
+{% collapsible %}
+
+Each Azure Red Hat OpenShift cluster has a public hostname that hosts the OpenShift Web Console.
+
+You can use command `az aro list` to list the clusters in your current Azure subscription.
+
+```sh
+az aro list -o table
+```
+
+The cluster web console's URL will be listed. You will need this for the next section.
 
 {% endcollapsible %}
