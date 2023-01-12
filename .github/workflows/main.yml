@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 'Checkout the latest code'
-      uses: actions/checkout@v2      
+      uses: actions/checkout@v3.3.0
       
     - name: 'Inject slug/short variables'
-      uses: rlespinasse/github-slug-action@v2.x
+      uses: rlespinasse/github-slug-action@v4.4.0
         
     - name: 'Update site with run number'
       run: |
@@ -24,7 +24,7 @@ jobs:
         
     # Use GitHub Actions' cache to shorten build times and decrease load on servers
     - name: 'Cache gems'
-      uses: actions/cache@v2
+      uses: actions/cache@v3.2.3
       with:
         path: vendor/bundle
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
@@ -32,6 +32,6 @@ jobs:
           ${{ runner.os }}-gems-
           
     - name: 'Build and publish Jekyll to GitHub Pages'
-      uses: helaili/jekyll-action@v2
+      uses: helaili/jekyll-action@v2.4
       with: 
        token: ${{ secrets.GITHUB_TOKEN }}
