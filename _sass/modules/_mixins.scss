@@ -26,7 +26,7 @@
     position: relative;
     width: $containerwidth;
     height: 0;
-    padding: (($ratioheight / $ratiowidth) * $containerwidth) 0 0 0;
+    padding: (calc($ratioheight / $ratiowidth) * $containerwidth) 0 0 0;
 }
 // @include paddinghack(width, ratiowidth, ratioheight)
 
