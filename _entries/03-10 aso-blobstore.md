@@ -31,7 +31,7 @@ To make the process clearer, here is an overview of the procedure we are going t
 
 Below is an updated application diagram of what this will look like after completing this section.
 
-![newarch](/media/managedlab/49-newarch.png)
+![newarch](media/managedlab/49-newarch.png)
 
 
 ## Access the cluster
