@@ -11,7 +11,7 @@ parent-id: lab-clusterapp
 - OSToy front-end container image: <https://quay.io/repository/ostoylab/ostoy-frontend?tab=tags>
 - OSToy microservice container image: <https://quay.io/repository/ostoylab/ostoy-microservice?tab=tags>
 - Deployment Definition YAMLs:
-  - [ostoy-fe-deployment.yaml](https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-fe-deployment.yaml)
+  - [ostoy-frontend-deployment.yaml](https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-frontend-deployment.yaml)
   - [ostoy-microservice-deployment.yaml](https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-microservice-deployment.yaml)
 
 > **Note** In order to simplify the deployment of the app (which you will do next) we have included all the objects needed in the above YAMLs as "all-in-one" YAMLs.  In reality though, an enterprise would most likely want to have a different yaml file for each Kubernetes object.
@@ -27,6 +27,7 @@ OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenS
 - if connected to shared storage, read and write files
 - check network connectivity, intra-cluster DNS, and intra-communication with an included microservice
 - increase the load to view automatic scaling of the pods to handle the load (via the Horizontal Pod Autoscaler)
+- connect to an Azure Blob Storage container to read and write objects (if Blob Storage already present)
 
 ### OSToy Application Diagram
 
@@ -42,7 +43,8 @@ OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenS
 6. **ENV Variables:** Shows the environment variables available to the application.
 7. **Auto Scaling:** Explore the Horizontal Pod Autoscaler to see how increased loads are handled.
 8. **Networking:** Tools to illustrate networking within the application.
-9. **About:** Shows some more information about the application.
+9. **ASO - Blob Storage:** Integrate with Azure Blob Storage to read and write objects to a container.
+10. **About:** Shows some more information about the application.
 
 ![Home Page](media/managedlab/10-ostoy-homepage-1.png)
 

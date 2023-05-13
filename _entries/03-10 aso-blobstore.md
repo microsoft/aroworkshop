@@ -5,13 +5,24 @@ title: Azure Service Operator - Blob Store
 parent-id: lab-clusterapp
 ---
 
+# Integrating with Azure services
+
+So far, our OSToy application has functioned independently without relying on any external services. While this may be nice for a workshop environment, it's not exactly representative of real-world applications. Many applications require external services like databases, object stores, or messaging services.
+
+In this section, we will learn how to integrate our OSToy application with other Azure services, specifically Azure Blob Storage and Key Vault. By the end of this section, our application will be able to securely create and read objects from Blob Storage.
+
+To achieve this, we will use the Azure Service Operator (ASO) to create the necessary services for our application directly from Kubernetes. We will also utilize Key Vault to securely store the connection secret required for accessing the Blob Storage container. We will create a Kubernetes secret to retrieve this secret from Key Vault, enabling our application to access the Blob Storage container using the secret.
+
+To demonstrate this integration, we will use OSToy to create a basic text file and save it in Blob Storage. Finally, we will confirm that the file was successfully added and can be read from Blob Storage.
+
 ## Azure Service Operator (ASO)
 
 The [Azure Service Operator](https://azure.github.io/azure-service-operator/) (ASO) allows you to create and use Azure services directly from
 Kubernetes. You can deploy your applications, including any required Azure services directly within the Kubernetes framework using a familiar structure to declaratively define and create Azure services like Storage Blob or CosmosDB databases.
 
-In order to illustrate the use of the ASO on ARO, we will walk through a simple example of creating an Azure Blob Storage container, connecting to it with OSToy, upload a file to it, and view the file in our application. Interestingly, this part of the workshop will also use Azure Key Vault to store secrets that the application can use to access Azure services.  We will store the secret needed to access the Blob Storage in Azure Key Vault and then mount the secret from there into our cluster for the OSToy application to use.  
+## Key Vault
 
+Azure Key Vault is a cloud-based service provided by Microsoft Azure that allows you to securely store and manage cryptographic keys, secrets, and certificates used by your applications and services.
 
 ### Why should you use Key Vault to store secrets?
 Using a secret store like Azure Key Vault allows you to take advantage of a number of benefits.
@@ -19,15 +30,15 @@ Using a secret store like Azure Key Vault allows you to take advantage of a numb
 1. Centralization - You are able to keep all your organizations secrets in one location.
 1. Security - Features like access control, monitoring, encryption and audit are already baked in.
 1. Rotation - Decoupling the secret from your cluster makes it much easier to rotate secrets since you only have to update it in Key Vault and the Kubernetes secret in the cluster
-    will reference that external secret store.
+    will reference that external secret store. This also allows for separation of duties as someone else can manage these resources.
 
-### Section overview
+## Section overview
 
-To make the process clearer, here is an overview of the procedure we are going to follow. There are three main "parts".
+To provide a clearer understanding of the process, the procedure we will be following consists of three primary parts.
 
-1. **Install the Azure Service Operator** - This allows you to create/delete blob storage through the use of a Kubernetes Custom Resource.  Install the controller which will also create the required namespace and the service account and then create the required resources.
+1. **Install the Azure Service Operator** - This allows you to create/delete Azure services (in our case, Blob Storage) through the use of a Kubernetes Custom Resource. Install the controller which will also create the required namespace and the service account and then create the required resources.
 1. **Setup Key Vault** - Perform required prerequisites (ex: install CSI drivers), create a Key Vault instance, add the connection string.
-1. **Application access** - configuring the application to access the stored connection string in Key Vault and thus enable the application to access the Blob Storage location.
+1. **Application access** - Configuring the application to access the stored connection string in Key Vault and thus enable the application to access the Blob Storage location.
 
 Below is an updated application diagram of what this will look like after completing this section.
 
@@ -64,7 +75,7 @@ Operator can create resources and that access can be granted to Key Vault.
     export SERVICE_PRINCIPAL_CLIENT_SECRET="$(az ad sp create-for-rbac -n aro-lab-sp-${MY_UUID} --role contributor --scopes /subscriptions/$AZURE_SUBSCRIPTION_ID --query 'password' -o tsv)"
     ```
 
-1. Get the service principal Client Id
+1. Get the service principal Client Id.
 
     ```
     export SERVICE_PRINCIPAL_CLIENT_ID="$(az ad sp list --display-name aro-lab-sp-${MY_UUID} --query '[0].appId' -o tsv)"
@@ -81,10 +92,10 @@ Operator can create resources and that access can be granted to Key Vault.
 ### Install the Azure Service Operator
 
 1. Set up ASO
-    1. We first need to install Cert Manager.  Run the following:
+    1. We first need to install Cert Manager.  Run the following.
 
         ```
-        oc apply -f https://github.com/jetstack/cert-manager/releases/download/v1.11.1/cert-manager.yaml
+        oc apply -f https://github.com/jetstack/cert-manager/releases/download/v1.8.2/cert-manager.yaml
         ```
 
     1.  Confirm that the cert-manager pods have started successfully before continuing.
@@ -92,10 +103,10 @@ Operator can create resources and that access can be granted to Key Vault.
         ```
         oc get pods -n cert-manager
         ```
+        
         You will see a response like:
 
         ```
-        $ oc get pods -n cert-manager
         NAME                                       READY   STATUS    RESTARTS   AGE
         cert-manager-677874db78-t6wgn              1/1     Running   0          1m
         cert-manager-cainjector-6c5bf7b759-l722b   1/1     Running   0          1m
@@ -108,13 +119,13 @@ Operator can create resources and that access can be granted to Key Vault.
         helm repo add aso2 https://raw.githubusercontent.com/Azure/azure-service-operator/main/v2/charts
         ```
 
-    1. Update the Helm repository
+    1. Update the Helm repository.
 
         ```
         helm repo update
         ```
 
-    1. Install the ASO from Helm
+    1. Install the ASO.
 
         ```
         helm upgrade --install --devel aso2 aso2/azure-service-operator \
@@ -126,7 +137,7 @@ Operator can create resources and that access can be granted to Key Vault.
         --set azureClientSecret=$SERVICE_PRINCIPAL_CLIENT_SECRET
         ```
 
-     1. Ensure the pods are running successfully.  This could take about 2 minutes.
+     1. Ensure that the pods are running successfully.  This could take about 2 minutes.
 
         ```
         oc get pods -n azureserviceoperator-system
@@ -135,15 +146,13 @@ Operator can create resources and that access can be granted to Key Vault.
         You will see a response like:
 
         ```
-        $ oc get pods -n azureserviceoperator-system
-            NAME                                                      READY   STATUS    RESTARTS   AGE
-            azureserviceoperator-controller-manager-5b4bfc59df-lfpqf   2/2     Running   0          24s
+        NAME                                                      READY   STATUS    RESTARTS   AGE
+        azureserviceoperator-controller-manager-5b4bfc59df-lfpqf   2/2     Running   0          24s
         ```
 
 ## Create Storage Accounts and containers using the ASO
 
-Now we need to create a Storage Account and for our blob storage to use with OSToy.  We could create this using the CLI or the Azure Portal, but wouldn't it be nice if we could
-do so using standard Kubernetes objects. We could define the all the resources our application needs in once place.  We will create each resource separately below.
+Now we need to create a Storage Account for our Blob Storage, to use with OSToy. We could create this using the CLI or the Azure Portal, but wouldn't it be nice if we could do so using standard Kubernetes objects? We could have defined the all these resources in once place (like in the deployment manifest), but for the purpose of gaining experience we will create each resource separately below.
 
 1.  Create a new OpenShift project for our OSToy app (even if you already have one from earlier).
 
@@ -233,7 +242,7 @@ do so using standard Kubernetes objects. We could define the all the resources o
     az storage container list --auth-mode login --account-name ostoystorage${MY_UUID} --query '[].name' -o tsv
     ```
 
-1. Obtain the connection string of the Storage Account for use in the next section. The `--name` parameter is the name of the Storage Account we created using the ASO.
+1. Obtain the connection string of the Storage Account for use in the next section. The connection string contains all the information required to connect to the storage account. This should be guarded and securely stored. The `--name` parameter is the name of the Storage Account we created using the ASO.
 
     ```
     export CONNECTION_STRING=$(az storage account show-connection-string --name ostoystorage${MY_UUID} --resource-group ${PROJECT_NAME}-rg -o tsv)
@@ -241,18 +250,19 @@ do so using standard Kubernetes objects. We could define the all the resources o
 
 The storage account is now set up for use with our application.
 
-
 ## Install Kubernetes Secret Store CSI
 
-In this part we will create a Key Vault location to store the connection string to our Storage account. Our application will use this to connect to the container we created to display the contents, create new files, as well as display the contents of the files.  We will securely mount this as a secret in a secure volume mount within our application.  Our application will then read that to access.  ADD HERE THE BENEFITS AS WELL AS WI coming.
+In this part we will create a Key Vault location to store the connection string to our Storage account. Our application will use this to connect to the Blob Storage container we created, enabling it to display the contents, create new files, as well as display the contents of the files. We will mount this as a secret in a secure volume mount within our application. Our application will then read that to access the Blob storage.
 
-1. To simplify the process for the workshop, there is a script provided that will do the prerequisite work in order to use Key Vault stored secrets.  If you are curious please feel free to read the script, otherwise just run it. This should take about 1-2 minutes to complete.
+1. To simplify the process for the workshop, a script is provided that will do the prerequisite work in order to use Key Vault stored secrets.  If you are curious, please feel free to read the script, otherwise just run it. This should take about 1-2 minutes to complete.
 
     ```
     curl https://raw.githubusercontent.com/microsoft/aroworkshop/master/resources/setup-csi.sh | bash
     ```
 
     Or, if you'd rather not live on the edge, feel free to download it first.
+
+    > Note: You could also connect your cluster to Azure ARC and use the [KeyVault extension](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-akv-secrets-provider)
 
 1. Create an Azure Key Vault in the resource group we created using the ASO above.
 
@@ -272,7 +282,7 @@ In this part we will create a Key Vault location to store the connection string 
     az keyvault set-policy -n $KEYVAULT_NAME --secret-permissions get --spn $SERVICE_PRINCIPAL_CLIENT_ID
     ```
 
-1. Create a secret for Kubernetes to use to access the Key Vault.
+1. Create a secret for Kubernetes to use to access the Key Vault. When this command is executed, the Service Principal's credentials are stored in the `secrets-store-creds` Secret object, where it can be used by the Secret Store CSI driver to authenticate with Azure Key Vault and retrieve secrets when needed.
 
     ```
     oc create secret generic secrets-store-creds \
@@ -281,13 +291,13 @@ In this part we will create a Key Vault location to store the connection string 
     --from-literal clientsecret=$SERVICE_PRINCIPAL_CLIENT_SECRET
     ```
 
-1. Create a label for the secret. This prevents the CSI driver from creating multiple Kubernetes secrets for the same external secret in Azure Key Vault.
+1. Create a label for the secret. By default, the secret store provider has filtered watch enabled on secrets. You can allow it to find the secret in the default configuration by adding this label to the secret.
 
     ```
     oc -n $PROJECT_NAME label secret secrets-store-creds secrets-store.csi.k8s.io/used=true
     ```
 
-1. Create the Secret Provider Class to give access to this secret.
+1. Create the Secret Provider Class to give access to this secret. To learn more about the fields in this class see [Secret Provider Class](https://learn.microsoft.com/en-us/azure/aks/hybrid/secrets-store-csi-driver#create-and-apply-your-own-secretproviderclass-object) object.
 
     ```
     cat <<EOF | oc apply -f -
@@ -315,19 +325,21 @@ In this part we will create a Key Vault location to store the connection string 
 
 ## Create a custom Security Context Constraint (SCC)
 
-1. Create a new SCC that allows our OSToy app to use the Secrets CSI driver.  The SCC that is run by default, `restricted`, does not allow it. So in this custom SCC we are explicitly allowing access to CSI.  Feel free to view the file first.
+SCCs are outside the scope of this workshop. Though, in short, OpenShift SCCs are a mechanism for controlling the actions and resources that a pod or container can access in an OpenShift cluster. SCCs can be used to enforce security policies at the pod or container level, which helps to improve the overall security of an OpenShift cluster. For more details please see [Managing security context constraints](https://docs.openshift.com/container-platform/latest/authentication/managing-security-context-constraints.html).
+
+1. Create a new SCC that will allow our OSToy app to use the Secrets Store Provider CSI driver. The SCC that is used by default, `restricted`, does not allow it. So in this custom SCC we are explicitly allowing access to CSI. If you are curious feel free to view the file first, the last line in specific.
 
     ```
     oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoyscc.yaml
     ```
 
-1. Create a Service Account for the application to run.
+1. Create a Service Account for the application.
 
     ```
     oc create sa ostoy-sa -n $PROJECT_NAME
     ```
 
-1. Grant permissions to the Service Account
+1. Grant permissions to the Service Account using the custom SCC we just created.
 
     ```
     oc adm policy add-scc-to-user ostoyscc system:serviceaccount:${PROJECT_NAME}:ostoy-sa
@@ -347,14 +359,14 @@ In this part we will create a Key Vault location to store the connection string 
     curl https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-frontend-deployment.yaml | sed 's/#//g' | oc apply -n $PROJECT_NAME -f -
     ```
 
-## See the bucket contents through OSToy
+## See the storage contents through OSToy
 
-After about a minute we can use our app to see the contents of our blob storage container.
+After about a minute we can use our app to see the contents of our Blob storage container.
 
 1. Get the route for the newly deployed application.
 
     ```
-    oc get route ostoy-route -o jsonpath='{.spec.host}{"\n"}'
+    oc get route ostoy-route -n $PROJECT_NAME -o jsonpath='{.spec.host}{"\n"}'
     ```
 
 1. Open a new browser tab and enter the route from above. Ensure that it is using `http://` and not `https://`.

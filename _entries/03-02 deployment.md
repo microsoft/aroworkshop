@@ -52,9 +52,9 @@ Equivalently you can also create this new project using the web console by selec
 
 {% endcollapsible %}
 
-### View the YAML deployment objects
+### View the YAML deployment manifest
 
-View the Kubernetes deployment object YAMLs.  If you wish you can download them from the following locations to your Azure Cloud Shell, to your local machine, or just use the direct link in the next steps.
+View the Kubernetes deployment manifest.  If you wish you can download them from the following locations to your Azure Cloud Shell, to your local machine, or just use the direct link in the next steps.
 
 {% collapsible %}
 
@@ -135,7 +135,7 @@ NAME           HOST/PORT                                                      PA
 ostoy-route   ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io             ostoy-frontend-svc   <all>                   None
 ```
 
-Copy `ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io` above and paste it into your browser and press enter.  You should see the homepage of our application.
+Copy `ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io` above and paste it into your browser and press enter.  You should see the homepage of our application. Ensure that it is **http://** and not **https://**
 
 ![Home Page](media/managedlab/10-ostoy-homepage.png)
 
