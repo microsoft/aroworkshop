@@ -15,7 +15,7 @@ ConfigMaps allow you to decouple configuration artifacts from container image co
 
 Click on *Config Maps* in the left menu.
 
-This will display the contents of the configmap available to the OSToy application.  We defined this in the `ostoy-fe-deployment.yaml` here:
+This will display the contents of the configmap available to the OSToy application.  We defined this in the `ostoy-frontend-deployment.yaml` here:
 
 ```
 kind: ConfigMap
@@ -36,7 +36,7 @@ Kubernetes Secret objects allow you to store and manage sensitive information, s
 
 Click on *Secrets* in the left menu.
 
-This will display the contents of the secrets available to the OSToy application.  We defined this in the `ostoy-fe-deployment.yaml` here:
+This will display the contents of the secrets available to the OSToy application.  We defined this in the `ostoy-frontend-deployment.yaml` here:
 
 ```
 apiVersion: v1
@@ -58,7 +58,7 @@ Using environment variables is an easy way to change application behavior withou
 
 Click on *ENV Variables* in the left menu.
 
-This will display the environment variables available to the OSToy application.  We added three as defined in the deployment spec of `ostoy-fe-deployment.yaml` here:
+This will display the environment variables available to the OSToy application.  We added four as defined in the deployment spec of `ostoy-frontend-deployment.yaml` here:
 
 ```
   env:
@@ -74,8 +74,12 @@ This will display the environment variables available to the OSToy application. 
         key: ENV_TOY_SECRET
   - name: MICROSERVICE_NAME
     value: OSTOY_MICROSERVICE_SVC
+  - name: NAMESPACE
+  valueFrom:
+    fieldRef:
+      fieldPath: metadata.namespace
 ```
 
-The last one, `MICROSERVICE_NAME` is used for the intra-cluster communications between pods for this application.  The application looks for this environment variable to know how to access the microservice in order to get the colors.
+The third one, `MICROSERVICE_NAME` is used for the intra-cluster communications between pods for this application.  The application looks for this environment variable to know how to access the microservice in order to get the colors.
 
 {% endcollapsible %}

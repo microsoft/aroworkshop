@@ -1,0 +1,139 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ostoy-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ostoy-frontend
+  labels:
+    app: ostoy
+spec:
+  selector:
+    matchLabels:
+      app: ostoy-frontend
+  strategy:
+    type: Recreate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ostoy-frontend
+    spec:
+      #serviceAccount: ostoy-sa
+      containers:
+      - name: ostoy-frontend
+        image: quay.io/ostoylab/ostoy-frontend:1.6.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: ostoy-port
+          containerPort: 8080
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        volumeMounts:
+        - name: configvol
+          mountPath: /var/config
+        - name: secretvol
+          mountPath: /var/secret
+        - name: datavol
+          mountPath: /var/demo_files
+        #- name: secrets-store-inline
+        #  mountPath: "/mnt/secrets-store"
+        #  readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        env:
+        - name: ENV_TOY_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: ostoy-secret-env
+              key: ENV_TOY_SECRET
+        - name: MICROSERVICE_NAME
+          value: OSTOY_MICROSERVICE_SVC
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+      volumes:
+        - name: configvol
+          configMap:
+            name: ostoy-configmap-files
+        - name: secretvol
+          secret:
+            defaultMode: 420
+            secretName: ostoy-secret
+        - name: datavol
+          persistentVolumeClaim:
+            claimName: ostoy-pvc
+        #- name: secrets-store-inline
+        #  csi:
+        #    driver: secrets-store.csi.k8s.io
+        #    readOnly: true
+        #    volumeAttributes:
+        #      secretProviderClass: "azure-kvname"
+        #    nodePublishSecretRef:
+        #      name: secrets-store-creds
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ostoy-frontend-svc
+  labels:
+    app: ostoy-frontend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: ostoy-port
+      protocol: TCP
+      name: ostoy
+  selector:
+    app: ostoy-frontend
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: ostoy-route
+spec:
+  to:
+    kind: Service
+    name: ostoy-frontend-svc
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ostoy-secret-env
+type: Opaque
+data:
+  ENV_TOY_SECRET: VGhpcyBpcyBhIHRlc3Q=
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ostoy-configmap-files
+data:
+  config.json:  '{ "default": "123" }'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ostoy-secret
+data:
+  secret.txt: VVNFUk5BTUU9bXlfdXNlcgpQQVNTV09SRD1AT3RCbCVYQXAhIzYzMlk1RndDQE1UUWsKU01UUD1sb2NhbGhvc3QKU01UUF9QT1JUPTI1
+type: Opaque

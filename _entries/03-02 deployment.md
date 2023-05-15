@@ -34,11 +34,11 @@ Create a new project called "OSToy" in your cluster.
 
 {% collapsible %}
 
-Use the following command
+Use the following command:
 
 `oc new-project ostoy`
 
-You should receive the following response
+You should receive the following response:
 
 ```
 $ oc new-project ostoy
@@ -52,15 +52,15 @@ Equivalently you can also create this new project using the web console by selec
 
 {% endcollapsible %}
 
-### View the YAML deployment objects
+### View the YAML deployment manifest
 
-View the Kubernetes deployment object YAMLs.  If you wish you can download them from the following locations to your Azure Cloud Shell, to your local machine, or just use the direct link in the next steps.
+View the Kubernetes deployment manifest.  If you wish you can download them from the following locations to your Azure Cloud Shell, to your local machine, or just use the direct link in the next steps.
 
 {% collapsible %}
 
 Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one "all-in-one" YAML file.  Though in reality there are benefits (ease of maintenance and less risk) to separating these out into individual files.
 
-[ostoy-fe-deployment.yaml](https://github.com/microsoft/aroworkshop/blob/master/yaml/ostoy-fe-deployment.yaml)
+[ostoy-frontend-deployment.yaml](https://github.com/microsoft/aroworkshop/blob/master/yaml/ostoy-frontend-deployment.yaml)
 
 [ostoy-microservice-deployment.yaml](https://github.com/microsoft/aroworkshop/blob/master/yaml/ostoy-microservice-deployment.yaml)
 
@@ -91,7 +91,7 @@ This deployment contains the node.js frontend for our application along with a f
 
 {% collapsible %}
 
- If you open the *ostoy-fe-deployment.yaml* you will see we are defining:
+ If you open the *ostoy-frontend-deployment.yaml* you will see we are defining:
 
 - Persistent Volume Claim
 - Deployment Object
@@ -102,12 +102,12 @@ This deployment contains the node.js frontend for our application along with a f
 
 Deploy the frontend along with creating all objects mentioned above by entering:
 
-`oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-fe-deployment.yaml`
+`oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-frontend-deployment.yaml`
 
 You should see all objects created successfully
 
 ```
-$ oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-fe-deployment.yaml
+$ oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-frontend-deployment.yaml
 persistentvolumeclaim/ostoy-pvc created
 deployment.apps/ostoy-frontend created
 service/ostoy-frontend-svc created
@@ -135,7 +135,7 @@ NAME           HOST/PORT                                                      PA
 ostoy-route   ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io             ostoy-frontend-svc   <all>                   None
 ```
 
-Copy `ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io` above and paste it into your browser and press enter.  You should see the homepage of our application.
+Copy `ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io` above and paste it into your browser and press enter.  You should see the homepage of our application. Ensure that it is **http://** and not **https://**
 
 ![Home Page](media/managedlab/10-ostoy-homepage.png)
 
