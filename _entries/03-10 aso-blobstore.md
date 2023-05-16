@@ -1,5 +1,5 @@
 ---
-sectionid: lab2-nodes
+sectionid: lab2-aso
 sectionclass: h2
 title: Azure Service Operator - Blob Store
 parent-id: lab-clusterapp
