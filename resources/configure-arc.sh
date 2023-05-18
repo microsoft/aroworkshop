@@ -5,6 +5,12 @@ set -e
 RESOURCE_GROUP=openenv-$GUID
 CLUSTER_NAME=aro-cluster-$GUID
 
+# Install HELM which is needed for the lab.
+wget -q -P ${HOME} https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/helm/latest/helm-linux-amd64
+sudo mv ${HOME}/helm-linux-amd64 /usr/bin/helm
+sudo chown root:root /usr/bin/helm
+sudo chmod 775 /usr/bin/helm
+
 az extension add --name connectedk8s > /dev/null 2>&1
 az extension add --upgrade -n k8s-extension > /dev/null 2>&1
 
