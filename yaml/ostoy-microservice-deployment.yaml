@@ -16,6 +16,14 @@ spec:
       spec:
         containers:
         - name: ostoy-microservice
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+              - ALL
           image: quay.io/ostoylab/ostoy-microservice:1.5.0
           imagePullPolicy: IfNotPresent
           ports:
