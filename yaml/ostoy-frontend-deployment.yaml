@@ -30,14 +30,6 @@ spec:
       #serviceAccount: ostoy-sa
       containers:
       - name: ostoy-frontend
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          seccompProfile:
-            type: RuntimeDefault
-          capabilities:
-            drop:
-            - ALL
         image: quay.io/ostoylab/ostoy-frontend:1.6.0
         imagePullPolicy: IfNotPresent
         ports:
