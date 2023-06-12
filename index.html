@@ -1,0 +1,3454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<title>Azure Red Hat OpenShift Workshop</title>
+<meta name="viewport" content="width=device-width">
+<meta name="author" content="Microsoft">
+<link rel="stylesheet" href="css/main.css">
+<link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:500,600' rel='stylesheet' type='text/css'>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/github-markdown.css">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    $('a').each(function(i, oldHref){
+      if(oldHref.href.includes("docs.microsoft.com") || oldHref.href.includes("azure.microsoft.com")) {
+        if(oldHref.href.includes("?"))
+          $(this).attr('href',oldHref + "&wt.mc_id=aroworkshop");
+        else
+          $(this).attr('href',oldHref + "?wt.mc_id=aroworkshop");
+      }
+    });
+  });
+
+  </script>
+</head>
+
+<body>
+    <style> html{display:none;} </style>
+    <script>
+       if(self == top) {
+           document.documentElement.style.display = 'block'; 
+       } else {
+           top.location = self.location; 
+       }
+    </script>
+
+    <div class="container">
+        <div class="overview">
+            <span class="toggle">close</span>
+            <header class="header">
+  <img alt="Microsoft Azure" style="width: 140px; vertical-align: middle" src="img/msazure_logo.png"/>
+  <img alt="Red Hat OpenShift" style="width: 100px; vertical-align: middle" src="img/redhat-openshift.png"/>
+</header>
+            <ul id="nav">
+    
+    
+    <li  class="parent current">
+        <a href="#intro">Azure Red Hat OpenShift Workshop</a>
+        
+            <ul>
+                
+                
+                    <li >
+                        <a href="#prereq">Prerequisites</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#createcluster">Create cluster</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#loginconsole">Connect to the cluster</a>
+                        
+                    </li>
+                
+            </ul>
+        
+    </li>
+    
+    <li  class="parent">
+        <a href="#lab-ratingapp">Lab 1 - Go Microservices</a>
+        
+            <ul>
+                
+                
+                    <li >
+                        <a href="#appoverview">Application Overview</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#createproject">Create Project</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#mongodb">Deploy MongoDB</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#ratingsapi">Deploy Ratings API</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#ratingsweb">Deploy Ratings frontend</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#networkpolicy">Create Network Policy</a>
+                        
+                    </li>
+                
+            </ul>
+        
+    </li>
+    
+    <li  class="parent">
+        <a href="#lab-clusterapp">Lab 2 - ARO Internals</a>
+        
+            <ul>
+                
+                
+                    <li >
+                        <a href="#lab2-appoverview">Application Overview</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#lab2-app-deployment">Application Deployment</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#lab2-logging">Logging and Metrics</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#lab2-heathcheck">Exploring Health Checks</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#lab2-storage">Persistent Storage</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#lab2-config">Configuration</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#lab2-network">Networking and Scaling</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#lab2-HPA">Pod Autoscaling</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#lab2-nodes">Managing Worker Nodes</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#lab2-aso">Azure Service Operator - Blob Store</a>
+                        
+                    </li>
+                
+            </ul>
+        
+    </li>
+    
+    <li  class="parent">
+        <a href="#concepts">Concepts</a>
+        
+            <ul>
+                
+                
+                    <li >
+                        <a href="#s2i">Source-To-Image (S2I)</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#routes">Routes</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#imagestreams">ImageStreams</a>
+                        
+                    </li>
+                
+                    <li >
+                        <a href="#builds">Builds</a>
+                        
+                    </li>
+                
+            </ul>
+        
+    </li>
+    
+    <li  class="parent">
+        <a href="#contributors">Contributors</a>
+        
+            <ul>
+                
+                
+            </ul>
+        
+    </li>
+    
+    <li>
+      <a class="parent" href="https://privacy.microsoft.com">Privacy &amp; cookies</a>
+    </li>
+</ul>
+<div id="github-actions">
+  <a class="github-button" href="https://github.com/microsoft/aroworkshop" data-show-count="true" data-icon="octicon-star" aria-label="Star microsoft/aroworkshop on GitHub">Star</a>
+  <a class="github-button" href="https://github.com/microsoft/aroworkshop/fork" data-show-count="true" data-icon="octicon-repo-forked" aria-label="Fork microsoft/aroworkshop on GitHub">Fork</a>
+  <a class="github-button" href="https://github.com/microsoft/aroworkshop/issues" data-show-count="true" data-icon="octicon-issue-opened"aria-label="Issue microsoft/aroworkshop on GitHub">Issue</a>
+  <p class="build">master-5247711327 - <a class="commit" href="https://github.com/microsoft/aroworkshop/commit/dc4488a">dc4488a</a></p>
+</div>
+
+<p id="copyright-notice">
+    Azure® is a registered trademark of Microsoft Corporation. Red Hat, Red Hat Enterprise Linux, the Shadowman logo, and OpenShift, are trademarks of Red Hat, Inc.
+</p>
+        </div>
+
+        <div id="consent-container"></div>
+        
+        <div class="content">
+            <span class="toggle">menu</span>
+            <article class="markdown-body">
+                
+
+    
+        <section id="intro" class="h1">
+            
+                    
+                    <h1 class="nocount">Azure Red Hat OpenShift Workshop</h1>
+                    
+                
+
+            <p><a href="https://azure.microsoft.com/en-us/services/openshift/">Azure Red Hat OpenShift</a> is a fully managed Red Hat OpenShift service in Azure that is jointly engineered and supported by Microsoft and Red Hat. In this lab, you’ll go through a set of tasks that will help you understand some of the concepts of deploying and securing container based applications on top of Azure Red Hat OpenShift.</p>
+
+<p>You can use this guide as an OpenShift tutorial and as study material to help you get started to learn OpenShift.</p>
+
+<p>Some of the things you’ll be going through:</p>
+
+<ul>
+  <li>Creating a <a href="https://docs.openshift.com/aro/4/applications/projects/working-with-projects.html">project</a> on the Azure Red Hat OpenShift Web Console</li>
+  <li>Deploying a MongoDB container that uses Azure Disks for <a href="https://docs.openshift.com/aro/4/storage/understanding-persistent-storage.html">persistent storage</a></li>
+  <li>Deploying a Node JS API and frontend app from Git Hub using <a href="https://docs.openshift.com/aro/4/openshift_images/create-images.html">Source-To-Image (S2I)</a></li>
+  <li>Exposing the web application frontend using <a href="https://docs.openshift.com/aro/4/networking/routes/route-configuration.html">Routes</a></li>
+  <li>Creating a <a href="https://docs.openshift.com/aro/4/networking/network_policy/about-network-policy.html">network policy</a> to control communication between the different tiers in the application</li>
+</ul>
+
+<p>You’ll be doing the majority of the labs using the OpenShift CLI, but you can also accomplish them using the Azure Red Hat OpenShift web console.</p>
+
+        </section>
+    
+
+    
+        <section id="prereq" class="h2">
+            
+                    <h2>Prerequisites</h2>
+                
+
+            <h3 id="azure-subscription-and-azure-red-hat-openshift-environment">Azure subscription and Azure Red Hat OpenShift environment</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>If you have been provided with a Microsoft Hands-on Labs environment for this workshop through a registration link and an activation code, please continue to registration and activate the lab.</p>
+
+<p><img src="media/managedlab/0-registration.png" alt="Registration" /></p>
+
+<p>After you complete the registration, click Launch Lab</p>
+
+<p><img src="media/managedlab/1-launchlab.png" alt="Launch lab" /></p>
+
+<p>The Azure subscription and associated lab credentials will be provisioned. This will take a few moments. This process will also provision an Azure Red Hat OpenShift cluster.</p>
+
+<p><img src="media/managedlab/2-preparinglab.png" alt="Preparing lab" /></p>
+
+<p>Once the environment is provisioned, a screen with all the appropriate lab credentials will be presented. Additionally, you’ll have your Azure Red Hat OpenShift cluster endpoint. The credentials will also be emailed to the email address entered at registration.</p>
+
+<p><img src="media/managedlab/3-credentials.png" alt="Credentials" /></p>
+
+<p>You can now skip the <strong>Create cluster</strong> section and jump to <a href="#createproject">create project</a>.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="tools">Tools</h3>
+
+<h4 id="azure-cloud-shell">Azure Cloud Shell</h4>
+
+<p>You can use the Azure Cloud Shell accessible at <a href="https://shell.azure.com">https://shell.azure.com</a> once you login with an Azure subscription.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Head over to <a href="https://shell.azure.com">https://shell.azure.com</a> and sign in with your Azure Subscription details.</p>
+
+<p>Select <strong>Bash</strong> as your shell.</p>
+
+<p><img src="media/cloudshell/0-bash.png" alt="Select Bash" /></p>
+
+<p>Select <strong>Show advanced settings</strong></p>
+
+<p><img src="media/cloudshell/1-mountstorage-advanced.png" alt="Select show advanced settings" /></p>
+
+<p>Set the <strong>Storage account</strong> and <strong>File share</strong> names to your resource group name (all lowercase, without any special characters). Leave other settings unchanged, then hit <strong>Create storage</strong></p>
+
+<p><img src="media/cloudshell/2-storageaccount-fileshare.png" alt="Azure Cloud Shell" /></p>
+
+<p>You should now have access to the Azure Cloud Shell</p>
+
+<p><img src="media/cloudshell/3-cloudshell.png" alt="Set the storage account and fileshare names" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h4 id="openshift-cli-oc">OpenShift CLI (oc)</h4>
+
+<p>You’ll need to download the <strong>latest OpenShift CLI (oc)</strong> client tools for OpenShift 4. You can follow the steps below on the Azure Cloud Shell.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<blockquote>
+  <p><strong>Note</strong> You’ll need to change the link below to the latest link you get from the page.
+<img src="media/github-oc-release.png" alt="GitHub release links" /></p>
+</blockquote>
+
+<p>Please run following commands on Azure Cloud Shell to download and setup the OpenShift client.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> ~
+curl https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz <span class="o">&gt;</span> openshift-client-linux.tar.gz
+
+<span class="nb">mkdir </span>openshift
+
+<span class="nb">tar</span> <span class="nt">-zxvf</span> openshift-client-linux.tar.gz <span class="nt">-C</span> openshift
+
+<span class="nb">echo</span> <span class="s1">'export PATH=$PATH:~/openshift'</span> <span class="o">&gt;&gt;</span> ~/.bashrc <span class="o">&amp;&amp;</span> <span class="nb">source</span> ~/.bashrc
+
+</code></pre></div></div>
+
+<p>The OpenShift CLI (oc) is now installed.</p>
+
+<p>In case you want to work from your own operating system, here are the links to the different versions of CLI:</p>
+
+<ul>
+  <li>https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-windows.zip</li>
+  <li>https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz</li>
+  <li>https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-mac.tar.gz</li>
+</ul>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h4 id="github-account">GitHub Account</h4>
+<p>You’ll need a personal GitHub account. You can sign up for free <a href="https://github.com/join">here</a>.</p>
+
+        </section>
+    
+
+    
+        <section id="createcluster" class="h2">
+            
+                    <h2>Create cluster</h2>
+                
+
+            <p>We will now create our own cluster.</p>
+
+<p>If you choose to install and use the CLI locally, this tutorial requires that you are running the Azure CLI version 2.6.0 or later. Run <code class="language-plaintext highlighter-rouge">az --version</code> to find the version. If you need to install or upgrade, see <a href="https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest">Install Azure CLI</a>.</p>
+
+<p>Azure Red Hat OpenShift requires a minimum of 40 cores to create and run an OpenShift cluster. The default Azure resource quota for a new Azure subscription does not meet this requirement. To request an increase in your resource limit, see <a href="https://docs.microsoft.com/azure/azure-portal/supportability/per-vm-quota-requests">Standard quota: Increase limits by VM series</a>.</p>
+
+<h3 id="verify-your-permissions">Verify your permissions</h3>
+
+<p>To create an Azure Red Hat OpenShift cluster, verify the following permissions on your Azure subscription, Azure Active Directory user, or service principal:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Permissions</th>
+      <th style="text-align: center">Resource Group which contains the VNet</th>
+      <th style="text-align: center">User executing <code class="language-plaintext highlighter-rouge">az aro create</code></th>
+      <th style="text-align: center">Service Principal passed as <code class="language-plaintext highlighter-rouge">–client-id</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>User Access Administrator</strong></td>
+      <td style="text-align: center">X</td>
+      <td style="text-align: center">X</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td><strong>Contributor</strong></td>
+      <td style="text-align: center">X</td>
+      <td style="text-align: center">X</td>
+      <td style="text-align: center">X</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="register-the-resource-providers">Register the resource providers</h3>
+
+<p>Next, you need to register the following resource providers in your subscription.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<ol>
+  <li>
+    <p>Register the <code class="language-plaintext highlighter-rouge">Microsoft.RedHatOpenShift</code> resource provider:</p>
+
+    <pre><code class="language-azurecli-interactive"> az provider register -n Microsoft.RedHatOpenShift --wait
+</code></pre>
+  </li>
+  <li>
+    <p>Register the <code class="language-plaintext highlighter-rouge">Microsoft.Compute</code> resource provider:</p>
+
+    <pre><code class="language-azurecli-interactive"> az provider register -n Microsoft.Compute --wait
+</code></pre>
+  </li>
+  <li>
+    <p>Register the <code class="language-plaintext highlighter-rouge">Microsoft.Storage</code> resource provider:</p>
+
+    <pre><code class="language-azurecli-interactive"> az provider register -n Microsoft.Storage --wait
+</code></pre>
+  </li>
+</ol>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="create-a-virtual-network-containing-two-empty-subnets">Create a virtual network containing two empty subnets</h3>
+
+<p>Next, you will create a virtual network containing two empty subnets.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<ol>
+  <li>
+    <p><strong>Set the following variables.</strong></p>
+
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">LOCATION=eastus                 #</span><span class="w"> </span>the location of your cluster
+<span class="gp">RESOURCEGROUP=aro-rg            #</span><span class="w"> </span>the name of the resource group where you want to create your cluster
+<span class="gp">CLUSTER=cluster                 #</span><span class="w"> </span>the name of your cluster
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Create a resource group</strong></p>
+
+    <p>An Azure resource group is a logical group in which Azure resources are deployed and managed. When you create a resource group, you are asked to specify a location. This location is where resource group metadata is stored, it is also where your resources run in Azure if you don’t specify another region during resource creation. Create a resource group using the [az group create][az-group-create] command.</p>
+
+    <pre><code class="language-azurecli-interactive"> az group create --name $RESOURCEGROUP --location $LOCATION
+</code></pre>
+
+    <p>The following example output shows the resource group created successfully:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/subscriptions/&lt;guid&gt;/resourceGroups/aro-rg"</span><span class="p">,</span><span class="w">
+ </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eastus"</span><span class="p">,</span><span class="w">
+ </span><span class="nl">"managedBy"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+ </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aro-rg"</span><span class="p">,</span><span class="w">
+ </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"provisioningState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Succeeded"</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+ </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Create a virtual network.</strong></p>
+
+    <p>Azure Red Hat OpenShift clusters running OpenShift 4 require a virtual network with two empty subnets, for the master and worker nodes.</p>
+
+    <p>Create a new virtual network in the same resource group you created earlier.</p>
+
+    <pre><code class="language-azurecli-interactive"> az network vnet create \
+ --resource-group $RESOURCEGROUP \
+ --name aro-vnet \
+ --address-prefixes 10.0.0.0/22
+</code></pre>
+
+    <p>The following example output shows the virtual network created successfully:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="nl">"newVNet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"addressSpace"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"addressPrefixes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="s2">"10.0.0.0/22"</span><span class="w">
+     </span><span class="p">]</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/subscriptions/&lt;guid&gt;/resourceGroups/aro-rg/providers/Microsoft.Network/virtualNetworks/aro-vnet"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eastus"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aro-vnet"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"provisioningState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Succeeded"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"resourceGroup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aro-rg"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Network/virtualNetworks"</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Add an empty subnet for the master nodes.</strong></p>
+
+    <pre><code class="language-azurecli-interactive"> az network vnet subnet create \
+ --resource-group $RESOURCEGROUP \
+ --vnet-name aro-vnet \
+ --name master-subnet \
+ --address-prefixes 10.0.0.0/23 
+</code></pre>
+  </li>
+  <li>
+    <p><strong>Add an empty subnet for the worker nodes.</strong></p>
+
+    <pre><code class="language-azurecli-interactive"> az network vnet subnet create \
+ --resource-group $RESOURCEGROUP \
+ --vnet-name aro-vnet \
+ --name worker-subnet \
+ --address-prefixes 10.0.2.0/23 
+</code></pre>
+  </li>
+  <li>
+    <p><strong><a href="https://docs.microsoft.com/azure/private-link/disable-private-link-service-network-policy">Disable subnet private endpoint policies</a> on the master subnet.</strong> This is required to be able to connect and manage the cluster.</p>
+
+    <pre><code class="language-azurecli-interactive"> az network vnet subnet update \
+ --name master-subnet \
+ --resource-group $RESOURCEGROUP \
+ --vnet-name aro-vnet \
+ --disable-private-link-service-network-policies true
+</code></pre>
+  </li>
+</ol>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="get-a-red-hat-pull-secret">Get a Red Hat pull secret</h3>
+
+<p>A Red Hat pull secret enables your cluster to access Red Hat container registries along with additional content. This step is required to be able to pull Red Hat images.</p>
+
+<p>Obtain your pull secret by navigating to <a href="https://cloud.redhat.com/openshift/install/azure/aro-provisioned">https://cloud.redhat.com/openshift/install/azure/aro-provisioned</a> and clicking <strong>Download pull secret</strong>. You will need to log in to your Red Hat account or create a new Red Hat account with your business email and accept the terms and conditions.</p>
+
+<blockquote>
+  <p><strong>Note</strong> You can upload that file to Azure Cloud Shell by dragging and dropping the file into the window.</p>
+</blockquote>
+
+<p><img src="media/redhat-pullsecret.png" alt="Download pull secret" /></p>
+
+<h2 id="create-the-cluster">Create the cluster</h2>
+
+<p>Run the following command to create a cluster. When running the <code class="language-plaintext highlighter-rouge">az aro create</code> command, you can reference your pull secret using the –pull-secret @pull-secret.txt parameter. Execute <code class="language-plaintext highlighter-rouge">az aro create</code> from the directory where you stored your <code class="language-plaintext highlighter-rouge">pull-secret.txt</code> file. Otherwise, replace <code class="language-plaintext highlighter-rouge">@pull-secret.txt</code> with <code class="language-plaintext highlighter-rouge">@&lt;path-to-my-pull-secret-file&gt;</code>.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<pre><code class="language-azurecli-interactive">az aro create \
+--resource-group $RESOURCEGROUP \
+--name $CLUSTER \
+--vnet aro-vnet \
+--master-subnet master-subnet \
+--worker-subnet worker-subnet \
+--pull-secret @pull-secret.txt
+# --domain foo.example.com # [OPTIONAL] custom domain
+</code></pre>
+
+<blockquote>
+  <p><strong>Note</strong>
+It normally takes about 35 minutes to create a cluster. If you’re running this from the Azure Cloud Shell and it timeouts, you can reconnect again and review the progress using <code class="language-plaintext highlighter-rouge">az aro list --query "[].{resource:resourceGroup, name:name, provisioningState:provisioningState}" -o table</code>.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Important</strong>
+If you choose to specify a custom domain, for example <strong>foo.example.com</strong>, the OpenShift console will be available at a URL such as <code class="language-plaintext highlighter-rouge">https://console-openshift-console.apps.foo.example.com</code>, instead of the built-in domain <code class="language-plaintext highlighter-rouge">https://console-openshift-console.apps.&lt;random&gt;.&lt;location&gt;.aroapp.io</code>.</p>
+
+  <p>By default, OpenShift uses self-signed certificates for all of the routes created on <code class="language-plaintext highlighter-rouge">*.apps.&lt;random&gt;.&lt;location&gt;.aroapp.io</code>.  If you choose to use custom DNS after connecting to the cluster, you will need to follow the OpenShift documentation to <a href="https://docs.openshift.com/container-platform/4.3/authentication/certificates/replacing-default-ingress-certificate.html">configure a custom CA for your ingress controller</a> and a <a href="https://docs.openshift.com/container-platform/4.3/authentication/certificates/api-server.html">custom CA for your API server</a>.</p>
+
+</blockquote>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h2 id="get-kubeadmin-credentials">Get kubeadmin credentials</h2>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Run the following command to find the password for the <code class="language-plaintext highlighter-rouge">kubeadmin</code> user.</p>
+
+<pre><code class="language-azurecli-interactive">az aro list-credentials \
+  --name $CLUSTER \
+  --resource-group $RESOURCEGROUP
+</code></pre>
+
+<p>The following example output shows the password will be in <code class="language-plaintext highlighter-rouge">kubeadminPassword</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"kubeadminPassword"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;generated password&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"kubeadminUsername"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kubeadmin"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Save these secrets, you are going to use them to connect to the web console.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h2 id="get-web-console-address">Get web console address</h2>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Each Azure Red Hat OpenShift cluster has a public hostname that hosts the OpenShift Web Console.</p>
+
+<p>You can use command <code class="language-plaintext highlighter-rouge">az aro list</code> to list the clusters in your current Azure subscription.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az aro list <span class="nt">-o</span> table
+</code></pre></div></div>
+
+<p>The cluster web console’s URL will be listed. You will need this for the next section.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="loginconsole" class="h2">
+            
+                    <h2>Connect to the cluster</h2>
+                
+
+            <p>This section assumes you have been given cluster credentials by your lab administrator, or that you have created a cluster in the previous section. You should have;</p>
+
+<ul>
+  <li>Web Console URL</li>
+  <li>A username (eg: <code class="language-plaintext highlighter-rouge">kubeadmin</code>, <code class="language-plaintext highlighter-rouge">student01</code>)</li>
+  <li>A password</li>
+</ul>
+
+<h3 id="login-to-the-web-console">Login to the web console</h3>
+
+<p>Open the Web Console URL in your web browser, and login with the credentials you have. After logging in, you should be able to see the Azure Red Hat OpenShift Web Console.</p>
+
+<p><img src="media/openshift-webconsole.png" alt="Azure Red Hat OpenShift Web Console" /></p>
+
+<h3 id="choose-an-option-to-use-the-oc-command">Choose an option to use the <code class="language-plaintext highlighter-rouge">oc</code> command</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>This workshop will make extensive use of the <code class="language-plaintext highlighter-rouge">oc</code> OpenShift Client to run commands. You can run this command line client in several different ways.</p>
+
+<ul>
+  <li><strong>Option 1)</strong> Use the “web terminal” built into the OpenShift Web Console. This is the easiest if you have already had a OpenShift cluster installed for you for this workshop.</li>
+  <li><strong>Option 2)</strong> Use the Azure Cloud Shell. This is the most natural option if you created the cluster yourself.</li>
+</ul>
+
+<h3 id="option-1---use-the-openshift-web-terminal-to-use-oc">Option 1 - Use the OpenShift web terminal to use <code class="language-plaintext highlighter-rouge">oc</code></h3>
+
+<p>To launch the web terminal, click the command line terminal icon ( <img src="media/web-terminal.png" alt="web terminal icon" /> ) on the upper right of the console. A web terminal instance is displayed in the Command line terminal pane. This instance is automatically logged in with your credentials.</p>
+
+<h3 id="option-2---use-the-azure-cloud-shell-to-use-oc">Option 2 - Use the Azure Cloud Shell to use <code class="language-plaintext highlighter-rouge">oc</code></h3>
+
+<blockquote>
+  <p><strong>Note</strong> Make sure you complete the <a href="#prereq">prerequisites</a> to install the OpenShift CLI on the Azure Cloud Shell.</p>
+</blockquote>
+
+<p>Once you’re logged into the Web Console, click on the username on the top right, then click <strong>Copy login command</strong>.</p>
+
+<p><img src="media/login-command.png" alt="Copy login command" /></p>
+
+<p>On the following page click on <strong>Display Token</strong> and copy the <code class="language-plaintext highlighter-rouge">oc login</code> line.</p>
+
+<p><img src="media/oc-display-token-link.png" alt="Display Token Link" />
+<img src="media/oc-copy-login-token.png" alt="Copy Login Token" /></p>
+
+<p>Open the <a href="https://shell.azure.com">Azure Cloud Shell</a> and paste the login command. You should be able to connect to the cluster.</p>
+
+<p><img src="media/oc-login-cloudshell.png" alt="Login through the cloud shell" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="lab-ratingapp" class="h1">
+            
+                    
+                    <h1 class="nocount">Lab 1 - Go Microservices</h1>
+                    
+                
+
+            <p>Now that you have your environment provisioned and the prerequisites fulfilled, it is time to start working on the labs.</p>
+
+        </section>
+    
+
+    
+        <section id="appoverview" class="h2">
+            
+                    <h2>Application Overview</h2>
+                
+
+            <p>You will be deploying a ratings application on Azure Red Hat OpenShift.</p>
+
+<p><img src="media/app-overview.png" alt="Application diagram" /></p>
+
+<p>The application consists of 3 components:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A public facing API <code class="language-plaintext highlighter-rouge">rating-api</code></td>
+      <td><a href="https://github.com/MicrosoftDocs/mslearn-aks-workshop-ratings-api">GitHub repo</a></td>
+    </tr>
+    <tr>
+      <td>A public facing web frontend <code class="language-plaintext highlighter-rouge">rating-web</code></td>
+      <td><a href="https://github.com/MicrosoftDocs/mslearn-aks-workshop-ratings-web">GitHub repo</a></td>
+    </tr>
+    <tr>
+      <td>A MongoDB with pre-loaded data</td>
+      <td><a href="https://github.com/MicrosoftDocs/mslearn-aks-workshop-ratings-api/raw/master/data.tar.gz">Data</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Once you’re done, you’ll have an experience similar to the below.</p>
+
+<p><img src="media/app-overview-1.png" alt="Application" />
+<img src="media/app-overview-2.png" alt="Application" />
+<img src="media/app-overview-3.png" alt="Application" /></p>
+
+        </section>
+    
+
+    
+        <section id="createproject" class="h2">
+            
+                    <h2>Create Project</h2>
+                
+
+            <h3 id="create-a-project">Create a project</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>A project allows a community of users to organize and manage their content in isolation from other communities. A project has a 1-to-1 mapping with a standard Kubernetes namespace.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc new-project workshop
+</code></pre></div></div>
+
+<p><img src="media/oc-newproject.png" alt="Create new project" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<blockquote>
+  <p><strong>Resources</strong></p>
+  <ul>
+    <li><a href="https://docs.openshift.com/aro/4/cli_reference/openshift_cli/getting-started-cli.html">ARO Documentation - Getting started with the CLI</a></li>
+    <li><a href="https://docs.openshift.com/aro/4/applications/projects/working-with-projects.html">ARO Documentation - Projects</a></li>
+  </ul>
+</blockquote>
+
+        </section>
+    
+
+    
+        <section id="mongodb" class="h2">
+            
+                    <h2>Deploy MongoDB</h2>
+                
+
+            <h3 id="create-mongodb-from-docker-hub">Create mongoDB from Docker hub</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Azure Red Hat OpenShift allows you to deploy a container image from Docker hub easily and we will deploy a MongoDB database service this way. The mandatory environment variables (user, password, database name etc.) can be passed in the <code class="language-plaintext highlighter-rouge">oc new-app</code> command line</p>
+
+<p>Deploy the MongoDB database:</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc new-app bitnami/mongodb <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">MONGODB_USERNAME</span><span class="o">=</span>ratingsuser <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">MONGODB_PASSWORD</span><span class="o">=</span>ratingspassword <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">MONGODB_DATABASE</span><span class="o">=</span>ratingsdb <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">MONGODB_ROOT_USER</span><span class="o">=</span>root <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">MONGODB_ROOT_PASSWORD</span><span class="o">=</span>ratingspassword
+</code></pre></div></div>
+
+<p>If you now head back to the web console, and switch to the <strong>workshop</strong> project, you should see a new deployment for mongoDB.</p>
+
+<p><img src="media/mongodb-overview.png" alt="MongoDB deployment" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="verify-if-the-mongodb-pod-was-created-successfully">Verify if the mongoDB pod was created successfully</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Run the <code class="language-plaintext highlighter-rouge">oc get all</code> command to view the status of the new application and verify if the deployment of the mongoDB template was successful.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc get all
+</code></pre></div></div>
+
+<p><img src="media/oc-status-mongodb.png" alt="oc status" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="retrieve-mongodb-service-hostname">Retrieve mongoDB service hostname</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Find the mongoDB service.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc get svc mongodb
+</code></pre></div></div>
+
+<p><img src="media/oc-get-svc-mongo.png" alt="oc get svc" /></p>
+
+<p>The service will be accessible at the following DNS name: <code class="language-plaintext highlighter-rouge">mongodb.workshop.svc.cluster.local</code> which is formed of <code class="language-plaintext highlighter-rouge">[service name].[project name].svc.cluster.local</code>. This resolves only within the cluster.</p>
+
+<p>You can also retrieve this from the web console. You’ll need this hostname to configure the <code class="language-plaintext highlighter-rouge">rating-api</code>.</p>
+
+<p><img src="media/mongo-svc-webconsole.png" alt="MongoDB service in the Web Console" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="ratingsapi" class="h2">
+            
+                    <h2>Deploy Ratings API</h2>
+                
+
+            <p>The <code class="language-plaintext highlighter-rouge">rating-api</code> is a NodeJS application that connects to mongoDB to retrieve and rate items. Below are some of the details that you’ll need to deploy this.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">rating-api</code> on GitHub: <a href="https://github.com/MicrosoftDocs/mslearn-aks-workshop-ratings-api">https://github.com/MicrosoftDocs/mslearn-aks-workshop-ratings-api</a></li>
+  <li>The container exposes port 8080</li>
+  <li>MongoDB connection is configured using an environment variable called <code class="language-plaintext highlighter-rouge">MONGODB_URI</code></li>
+</ul>
+
+<h3 id="fork-the-application-to-your-own-github-repository">Fork the application to your own GitHub repository</h3>
+
+<p>To be able to setup CI/CD webhooks, you’ll need to fork the application into your personal GitHub repository.</p>
+
+<p><a class="github-button" href="https://github.com/MicrosoftDocs/mslearn-aks-workshop-ratings-api/fork" data-icon="octicon-repo-forked" data-size="large" aria-label="Fork MicrosoftDocs/mslearn-aks-workshop-ratings-api on GitHub">Fork</a></p>
+
+<h3 id="use-the-openshift-cli-to-deploy-the-rating-api">Use the OpenShift CLI to deploy the <code class="language-plaintext highlighter-rouge">rating-api</code></h3>
+
+<blockquote>
+  <p><strong>Note</strong> You’re going to be using <a href="#source-to-image-s2i">source-to-image (S2I)</a> as a build strategy.</p>
+</blockquote>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc new-app https://github.com/&lt;your GitHub username&gt;/mslearn-aks-workshop-ratings-api <span class="nt">--strategy</span><span class="o">=</span><span class="nb">source</span> <span class="nt">--name</span><span class="o">=</span>rating-api
+</code></pre></div></div>
+
+<p><img src="media/oc-newapp-ratingapi.png" alt="Create rating-api using oc cli" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="configure-the-required-environment-variables">Configure the required environment variables</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Create the <code class="language-plaintext highlighter-rouge">MONGODB_URI</code> environment variable. This URI should look like <code class="language-plaintext highlighter-rouge">mongodb://[username]:[password]@[endpoint]:27017/ratingsdb</code>. You’ll need to replace the <code class="language-plaintext highlighter-rouge">[usernaame]</code> and <code class="language-plaintext highlighter-rouge">[password]</code> with the ones you used when creating the database. You’ll also need to replace the <code class="language-plaintext highlighter-rouge">[endpoint]</code> with the hostname acquired in the previous step</p>
+
+<p>Hit <strong>Save</strong> when done.</p>
+
+<p><img src="media/rating-api-envvars.png" alt="Create a MONGODB_URI environment variable" /></p>
+
+<p>It can also be done with CLI</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc set env deploy/rating-api MONGODB_URI=mongodb://ratingsuser:ratingspassword@mongodb.workshop.svc.cluster.local:27017/ratingsdb
+</code></pre></div></div>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="verify-that-the-service-is-running">Verify that the service is running</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>If you navigate to the logs of the <code class="language-plaintext highlighter-rouge">rating-api</code> deployment, you should see a log message confirming the code can successfully connect to the mongoDB.
+For that, in the deployment’s details screen, click on <em>Pods</em> tab, then on one of the pods</p>
+
+<p><img src="media/rating-api-working.png" alt="Verify mongoDB connection" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="retrieve-rating-api-service-hostname">Retrieve <code class="language-plaintext highlighter-rouge">rating-api</code> service hostname</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Find the <code class="language-plaintext highlighter-rouge">rating-api</code> service.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc get svc rating-api
+</code></pre></div></div>
+
+<p>The service will be accessible at the following DNS name over port 8080: <code class="language-plaintext highlighter-rouge">rating-api.workshop.svc.cluster.local:8080</code> which is formed of <code class="language-plaintext highlighter-rouge">[service name].[project name].svc.cluster.local</code>. This resolves only within the cluster.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="setup-github-webhook">Setup GitHub webhook</h3>
+
+<p>To trigger S2I builds when you push code into your GitHib repo, you’ll need to setup the GitHub webhook.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Retrieve the GitHub webhook trigger secret. You’ll need use this secret in the GitHub webhook URL.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc get bc/rating-api <span class="nt">-o</span><span class="o">=</span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.triggers..github.secret}'</span>
+</code></pre></div></div>
+
+<p>You’ll get back something similar to the below. Make note the secret key in the red box as you’ll need it in a few steps.</p>
+
+<p><img src="media/rating-api-github-secret.png" alt="Rating API GitHub trigger secret" /></p>
+
+<p>Retrieve the GitHub webhook trigger URL from the build configuration.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc describe bc/rating-api
+</code></pre></div></div>
+
+<p><img src="media/rating-api-github-webhook-url.png" alt="Rating API GitHub trigger url" /></p>
+
+<p>Replace the <code class="language-plaintext highlighter-rouge">&lt;secret&gt;</code> placeholder with the secret you retrieved in the previous step to have a URL similar to <code class="language-plaintext highlighter-rouge">https://api.otyvsnz3.eastus.aroapp.io:6443/apis/build.openshift.io/v1/namespaces/workshop/buildconfigs/rating-api/webhooks/SECRETSTRING/github</code>. You’ll use this URL to setup the webhook on your GitHub repository.</p>
+
+<p>In your GitHub repository, select <strong>Add Webhook</strong> from <strong>Settings</strong> → <strong>Webhooks</strong>.</p>
+
+<p>Paste the URL output (similar to above) into the Payload URL field.</p>
+
+<p>Change the Content Type from GitHub’s default <strong>application/x-www-form-urlencoded</strong> to <strong>application/json</strong>.</p>
+
+<p>Click <strong>Add webhook</strong>.</p>
+
+<p><img src="media/rating-api-github-addwebhook.png" alt="GitHub add webhook" /></p>
+
+<p>You should see a message from GitHub stating that your webhook was successfully configured.</p>
+
+<p>Now, whenever you push a change to your GitHub repository, a new build will automatically start, and upon a successful build a new deployment will start.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<blockquote>
+  <p><strong>Resources</strong></p>
+  <ul>
+    <li><a href="https://docs.openshift.com/aro/4/builds/triggering-builds-build-hooks.html">ARO Documentation - Triggering builds</a></li>
+  </ul>
+</blockquote>
+
+        </section>
+    
+
+    
+        <section id="ratingsweb" class="h2">
+            
+                    <h2>Deploy Ratings frontend</h2>
+                
+
+            <p>The <code class="language-plaintext highlighter-rouge">rating-web</code> is a NodeJS application that connects to the <code class="language-plaintext highlighter-rouge">rating-api</code>. Below are some of the details that you’ll need to deploy this.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">rating-web</code> on GitHub: <a href="https://github.com/MicrosoftDocs/mslearn-aks-workshop-ratings-web">https://github.com/MicrosoftDocs/mslearn-aks-workshop-ratings-web</a></li>
+  <li>The rating-web frontend Dockerfile needs modification to the image to run on ARO 4.x versions</li>
+  <li>The container exposes port 8080</li>
+  <li>The web app connects to the API over the internal cluster DNS, using a proxy through an environment variable named <code class="language-plaintext highlighter-rouge">API</code></li>
+</ul>
+
+<h3 id="fork-the-application-to-your-own-github-repository">Fork the application to your own GitHub repository</h3>
+
+<p>To be able to setup CI/CD webhooks, you’ll need to fork the application into your personal GitHub repository.</p>
+
+<p><a class="github-button" href="https://github.com/MicrosoftDocs/mslearn-aks-workshop-ratings-web/fork" data-icon="octicon-repo-forked" data-size="large" aria-label="Fork MicrosoftDocs/mslearn-aks-workshop-ratings-web on GitHub">Fork</a></p>
+
+<h3 id="modify-dockerfile-in-your-repository">Modify Dockerfile in your repository</h3>
+
+<blockquote>
+  <p><strong>Note</strong> The Dockerfile needs to be modified to use the correct node.js image to build correctly.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Note</strong> The <code class="language-plaintext highlighter-rouge">git</code> commands shown below have been run in a local shell pre-authenticated against the GitHub repository</p>
+</blockquote>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<ol>
+  <li>Clone the Git repository locally and change to repo directory</li>
+</ol>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/&lt;your GitHub username&gt;/mslearn-aks-workshop-ratings-web.git
+<span class="nb">cd </span>mslearn-aks-workshop-ratings-web
+</code></pre></div></div>
+
+<ol>
+  <li>Download updated Dockerfile and Footer.vue files</li>
+</ol>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/sajitsasi/rating-web/master/Dockerfile <span class="nt">-O</span> ./Dockerfile
+wget https://raw.githubusercontent.com/sajitsasi/rating-web/master/src/components/Footer.vue <span class="nt">-O</span> ./src/components/Footer.vue
+</code></pre></div></div>
+
+<p><img src="media/clone_and_update.png" alt="Clone and update files" /></p>
+
+<ol>
+  <li>Verify, stage, commit and push changes to your local repository</li>
+</ol>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+git add <span class="nb">.</span>
+git commit <span class="nt">-m</span> <span class="s2">"Modified Dockerfile and Footer.vue"</span>
+git push
+</code></pre></div></div>
+
+<p><img src="media/git-push.png" alt="Push changes to repository" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="use-the-openshift-cli-to-deploy-the-rating-web">Use the OpenShift CLI to deploy the <code class="language-plaintext highlighter-rouge">rating-web</code></h3>
+
+<blockquote>
+  <p><strong>Note</strong> You’re going to be using <a href="#source-to-image-s2i">source-to-image (S2I)</a> as a build strategy.</p>
+</blockquote>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc new-app https://github.com/&lt;your GitHub username&gt;/mslearn-aks-workshop-ratings-web <span class="nt">--strategy</span><span class="o">=</span>docker <span class="nt">--name</span><span class="o">=</span>rating-web
+</code></pre></div></div>
+
+<p>The build will take between 5-10 minutes</p>
+
+<p><img src="media/oc-newapp-ratingweb.png" alt="Create rating-web using oc cli" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="configure-the-required-environment-variables">Configure the required environment variables</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Create the <code class="language-plaintext highlighter-rouge">API</code> environment variable for <code class="language-plaintext highlighter-rouge">rating-web</code> Deployment Config. The value of this variable is going to be the hostname/port of the <code class="language-plaintext highlighter-rouge">rating-api</code> service.</p>
+
+<p>Instead of setting the environment variable through the Azure Red Hat OpenShift Web Console, you can set it through the OpenShift CLI.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc <span class="nb">set env </span>deploy rating-web <span class="nv">API</span><span class="o">=</span>http://rating-api:8080
+
+</code></pre></div></div>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="expose-the-rating-web-service-using-a-route">Expose the <code class="language-plaintext highlighter-rouge">rating-web</code> service using a Route</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Expose the service.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc expose svc/rating-web
+</code></pre></div></div>
+
+<p>Find out the created route hostname</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc get route rating-web
+</code></pre></div></div>
+
+<p>You should get a response similar to the below.</p>
+
+<p><img src="media/oc-get-route.png" alt="Retrieve the created route" /></p>
+
+<p>Notice the fully qualified domain name (FQDN) is comprised of the application name and project name by default. The remainder of the FQDN, the subdomain, is your Azure Red Hat OpenShift cluster specific apps subdomain.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="try-the-service">Try the service</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Open the hostname in your browser, you should see the rating app page. Play around, submit a few votes and check the leaderboard.</p>
+
+<p><img src="media/rating-web-homepage.png" alt="rating-web homepage" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="setup-github-webhook">Setup GitHub webhook</h3>
+
+<p>To trigger S2I builds when you push code into your GitHib repo, you’ll need to setup the GitHub webhook.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Retrieve the GitHub webhook trigger secret. You’ll need use this secret in the GitHub webhook URL.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc get bc/rating-web <span class="nt">-o</span><span class="o">=</span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.triggers..github.secret}'</span>
+</code></pre></div></div>
+
+<p>You’ll get back something similar to the below. Make note the secret key in the red box as you’ll need it in a few steps.</p>
+
+<p><img src="media/rating-web-github-secret.png" alt="Rating Web GitHub trigger secret" /></p>
+
+<p>Retrieve the GitHub webhook trigger URL from the build configuration.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc describe bc/rating-web
+</code></pre></div></div>
+
+<p><img src="media/rating-web-github-webhook-url.png" alt="Rating Web GitHub trigger url" /></p>
+
+<p>Replace the <code class="language-plaintext highlighter-rouge">&lt;secret&gt;</code> placeholder with the secret you retrieved in the previous step to have a URL similar to <code class="language-plaintext highlighter-rouge">https://api.otyvsnz3.eastus.aroapp.io:6443/apis/build.openshift.io/v1/namespaces/workshop/buildconfigs/rating-web/webhooks/SECRETSTRING/github</code>. You’ll use this URL to setup the webhook on your GitHub repository.</p>
+
+<p>In your GitHub repository, select <strong>Add Webhook</strong> from <strong>Settings</strong> → <strong>Webhooks</strong>.</p>
+
+<p>Paste the URL output (similar to above) into the Payload URL field.</p>
+
+<p>Change the Content Type from GitHub’s default <strong>application/x-www-form-urlencoded</strong> to <strong>application/json</strong>.</p>
+
+<p>Click <strong>Add webhook</strong>.</p>
+
+<p><img src="media/rating-web-github-addwebhook.png" alt="GitHub add webhook" /></p>
+
+<p>You should see a message from GitHub stating that your webhook was successfully configured.</p>
+
+<p>Now, whenever you push a change to your GitHub repository, a new build will automatically start, and upon a successful build a new deployment will start.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="make-a-change-to-the-website-app-and-see-the-rolling-update">Make a change to the website app and see the rolling update</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Go to the <code class="language-plaintext highlighter-rouge">https://github.com/&lt;your GitHub username&gt;/rating-web/blob/master/src/App.vue</code> file in your repository on GitHub.</p>
+
+<p>Edit the file, and change the <code class="language-plaintext highlighter-rouge">background-color: #999;</code> line to be <code class="language-plaintext highlighter-rouge">background-color: #0071c5</code>.</p>
+
+<p>Commit the changes to the file into the <code class="language-plaintext highlighter-rouge">master</code> branch.</p>
+
+<p><img src="media/rating-web-editcolor.png" alt="GitHub edit app" /></p>
+
+<p>Immediately, go to the <strong>Builds</strong> tab in the OpenShift Web Console. You’ll see a new build queued up which was triggered by the push. Once this is done, it will trigger a new deployment and you should see the new website color updated.</p>
+
+<p><img src="media/rating-web-cicd-build.png" alt="Webhook build" /></p>
+
+<p><img src="media/rating-web-newcolor.png" alt="New rating website" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<blockquote>
+  <p><strong>Resources</strong></p>
+  <ul>
+    <li><a href="https://docs.openshift.com/aro/4/builds/triggering-builds-build-hooks.html">ARO Documentation - Triggering builds</a></li>
+  </ul>
+</blockquote>
+
+        </section>
+    
+
+    
+        <section id="networkpolicy" class="h2">
+            
+                    <h2>Create Network Policy</h2>
+                
+
+            <p>Now that you have the application working, it is time to apply some security hardening. You’ll use <a href="https://docs.openshift.com/aro/4/networking/network_policy/about-network-policy.html">network policies</a> to restrict communication to the <code class="language-plaintext highlighter-rouge">rating-api</code>.</p>
+
+<h3 id="switch-to-the-cluster-console">Switch to the Cluster Console</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Switch to the Administrator console.
+<img src="media/switch-to-admin-console.png" alt="Switch to the Administrator console" /></p>
+
+<p>Make sure you’re in the <strong>workshop</strong> project, expand <strong>Networking</strong> and click <strong>Create Network Policy</strong>.
+<img src="media/cluster-console.png" alt="Cluster console page" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="create-network-policy">Create network policy</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>You will create a policy that applies to any pod matching the <code class="language-plaintext highlighter-rouge">app=rating-api</code> label. The policy will allow ingress only from pods matching the <code class="language-plaintext highlighter-rouge">app=rating-web</code> label.</p>
+
+<p>Use the YAML below in the editor, and make sure you’re targeting the <strong>workshop</strong> project.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">networking.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">NetworkPolicy</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">api-allow-from-web</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">workshop</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">podSelector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">rating-api</span>
+  <span class="na">ingress</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">from</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">podSelector</span><span class="pi">:</span>
+            <span class="na">matchLabels</span><span class="pi">:</span>
+              <span class="na">app</span><span class="pi">:</span> <span class="s">rating-web</span>
+</code></pre></div></div>
+
+<p><img src="media/create-networkpolicy.png" alt="Create network policy" /></p>
+
+<p>Click <strong>Create</strong>.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<blockquote>
+  <p><strong>Resources</strong></p>
+  <ul>
+    <li><a href="https://docs.openshift.com/aro/4/networking/network_policy/creating-network-policy.html">ARO Documentation - Managing Networking with Network Policy</a></li>
+  </ul>
+</blockquote>
+
+        </section>
+    
+
+    
+        <section id="lab-clusterapp" class="h1">
+            
+                    
+                    <h1 class="nocount">Lab 2 - ARO Internals</h1>
+                    
+                
+
+            
+
+        </section>
+    
+
+    
+        <section id="lab2-appoverview" class="h2">
+            
+                    <h2>Application Overview</h2>
+                
+
+            <h3 id="resources">Resources</h3>
+
+<ul>
+  <li>The source code for this app is available here: <a href="https://github.com/openshift-cs/ostoy">https://github.com/openshift-cs/ostoy</a></li>
+  <li>OSToy front-end container image: <a href="https://quay.io/repository/ostoylab/ostoy-frontend?tab=tags">https://quay.io/repository/ostoylab/ostoy-frontend?tab=tags</a></li>
+  <li>OSToy microservice container image: <a href="https://quay.io/repository/ostoylab/ostoy-microservice?tab=tags">https://quay.io/repository/ostoylab/ostoy-microservice?tab=tags</a></li>
+  <li>Deployment Definition YAMLs:
+    <ul>
+      <li><a href="https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-frontend-deployment.yaml">ostoy-frontend-deployment.yaml</a></li>
+      <li><a href="https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-microservice-deployment.yaml">ostoy-microservice-deployment.yaml</a></li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><strong>Note</strong> In order to simplify the deployment of the app (which you will do next) we have included all the objects needed in the above YAMLs as “all-in-one” YAMLs.  In reality though, an enterprise would most likely want to have a different yaml file for each Kubernetes object.</p>
+</blockquote>
+
+<h3 id="about-ostoy">About OSToy</h3>
+
+<p>OSToy is a simple Node.js application that we will deploy to Azure Red Hat OpenShift. It is used to help us explore the functionality of Kubernetes. This application has a user interface which you can:</p>
+
+<ul>
+  <li>write messages to the log (stdout / stderr)</li>
+  <li>intentionally crash the application to view self-healing</li>
+  <li>toggle a liveness probe and monitor OpenShift behavior</li>
+  <li>read config maps, secrets, and env variables</li>
+  <li>if connected to shared storage, read and write files</li>
+  <li>check network connectivity, intra-cluster DNS, and intra-communication with an included microservice</li>
+  <li>increase the load to view automatic scaling of the pods to handle the load (via the Horizontal Pod Autoscaler)</li>
+  <li>connect to an Azure Blob Storage container to read and write objects (if Blob Storage already present)</li>
+</ul>
+
+<h3 id="ostoy-application-diagram">OSToy Application Diagram</h3>
+
+<p><img src="media/managedlab/4-ostoy-arch.png" alt="OSToy Diagram" /></p>
+
+<h3 id="familiarization-with-the-application-ui">Familiarization with the Application UI</h3>
+
+<ol>
+  <li>Shows the pod name that served your browser the page.</li>
+  <li><strong>Home:</strong> The main page of the application where you can perform some of the functions listed which we will explore.</li>
+  <li><strong>Persistent Storage:</strong>  Allows us to write data to the persistent volume bound to this application.</li>
+  <li><strong>Config Maps:</strong>  Shows the contents of configmaps available to the application and the key:value pairs.</li>
+  <li><strong>Secrets:</strong> Shows the contents of secrets available to the application and the key:value pairs.</li>
+  <li><strong>ENV Variables:</strong> Shows the environment variables available to the application.</li>
+  <li><strong>Auto Scaling:</strong> Explore the Horizontal Pod Autoscaler to see how increased loads are handled.</li>
+  <li><strong>Networking:</strong> Tools to illustrate networking within the application.</li>
+  <li><strong>ASO - Blob Storage:</strong> Integrate with Azure Blob Storage to read and write objects to a container.</li>
+  <li><strong>About:</strong> Shows some more information about the application.</li>
+</ol>
+
+<p><img src="media/managedlab/10-ostoy-homepage-1.png" alt="Home Page" /></p>
+
+<h3 id="learn-more-about-the-application">Learn more about the application</h3>
+
+<p>To learn more, click on the “About” menu item on the left once we deploy the app.</p>
+
+<p><img src="media/managedlab/5-ostoy-about.png" alt="ostoy About" /></p>
+
+        </section>
+    
+
+    
+        <section id="lab2-app-deployment" class="h2">
+            
+                    <h2>Application Deployment</h2>
+                
+
+            <h3 id="retrieve-login-command">Retrieve login command</h3>
+
+<p>If not logged in via the CLI, click on the dropdown arrow next to your name in the top-right and select <em>Copy Login Command</em>.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p><img src="media/managedlab/7-ostoy-login.png" alt="CLI Login" /></p>
+
+<p>A new tab will open click “Display Token”</p>
+
+<p>Copy the command under where it says “Log in with this token”. Then go to your terminal and paste that command and press enter. You will see a similar confirmation message if you successfully logged in.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc login --token=sha256~qWBXdQ_X_4wWZor0XZO00ZZXXXXXXXXXXXX --server=https://api.abcs1234.westus.aroapp.io:6443
+Logged into "https://api.abcd1234.westus.aroapp.io:6443" as "kube:admin" using the token provided.
+
+You have access to 67 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+</code></pre></div></div>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="create-new-project">Create new project</h3>
+
+<p>Create a new project called “OSToy” in your cluster.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Use the following command:</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc new-project ostoy</code></p>
+
+<p>You should receive the following response:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc new-project ostoy
+Now using project "ostoy" on server "https://api.abcd1234.westus2.aroapp.io:6443".
+[...]
+</code></pre></div></div>
+
+<p>Equivalently you can also create this new project using the web console by selecting <em>Home &gt; Projects</em> on the left menu, then clicking on the “Create Project” button on the right.</p>
+
+<p><img src="media/managedlab/6-ostoy-newproj.png" alt="UI Create Project" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="view-the-yaml-deployment-manifest">View the YAML deployment manifest</h3>
+
+<p>View the Kubernetes deployment manifest.  If you wish you can download them from the following locations to your Azure Cloud Shell, to your local machine, or just use the direct link in the next steps.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Feel free to open them up and take a look at what we will be deploying. For simplicity of this lab we have placed all the Kubernetes objects we are deploying in one “all-in-one” YAML file.  Though in reality there are benefits (ease of maintenance and less risk) to separating these out into individual files.</p>
+
+<p><a href="https://github.com/microsoft/aroworkshop/blob/master/yaml/ostoy-frontend-deployment.yaml">ostoy-frontend-deployment.yaml</a></p>
+
+<p><a href="https://github.com/microsoft/aroworkshop/blob/master/yaml/ostoy-microservice-deployment.yaml">ostoy-microservice-deployment.yaml</a></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="deploy-backend-microservice">Deploy backend microservice</h3>
+
+<p>The microservice serves internal web requests and returns a JSON object containing the current hostname and a randomly generated color string.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>In your terminal deploy the microservice using the following command:</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-microservice-deployment.yaml</code></p>
+
+<p>You should see the following response:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-microservice-deployment.yaml
+deployment.apps/ostoy-microservice created
+service/ostoy-microservice-svc created
+</code></pre></div></div>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="deploy-the-front-end-service">Deploy the front-end service</h3>
+
+<p>This deployment contains the node.js frontend for our application along with a few other Kubernetes objects.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>If you open the <em>ostoy-frontend-deployment.yaml</em> you will see we are defining:</p>
+
+<ul>
+  <li>Persistent Volume Claim</li>
+  <li>Deployment Object</li>
+  <li>Service</li>
+  <li>Route</li>
+  <li>Configmaps</li>
+  <li>Secrets</li>
+</ul>
+
+<p>Deploy the frontend along with creating all objects mentioned above by entering:</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-frontend-deployment.yaml</code></p>
+
+<p>You should see all objects created successfully</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-frontend-deployment.yaml
+persistentvolumeclaim/ostoy-pvc created
+deployment.apps/ostoy-frontend created
+service/ostoy-frontend-svc created
+route.route.openshift.io/ostoy-route created
+configmap/ostoy-configmap-env created
+secret/ostoy-secret-env created
+configmap/ostoy-configmap-files created
+secret/ostoy-secret created
+</code></pre></div></div>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="get-route">Get route</h3>
+
+<p>Get the route so that we can access the application via:</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc get route</code></p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>You should see the following response:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME           HOST/PORT                                                      PATH      SERVICES              PORT      TERMINATION   WILDCARD
+ostoy-route   ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io             ostoy-frontend-svc   &lt;all&gt;                   None
+</code></pre></div></div>
+
+<p>Copy <code class="language-plaintext highlighter-rouge">ostoy-route-ostoy.apps.abcd1234.westus2.aroapp.io</code> above and paste it into your browser and press enter.  You should see the homepage of our application. Ensure that it is <strong>http://</strong> and not <strong>https://</strong></p>
+
+<p><img src="media/managedlab/10-ostoy-homepage.png" alt="Home Page" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="lab2-logging" class="h2">
+            
+                    <h2>Logging and Metrics</h2>
+                
+
+            <p>Assuming you can access the application via the Route provided and are still logged into the CLI (please go back to part 2 if you need to do any of those) we’ll start to use this application.  As stated earlier, this application will allow you to “push the buttons” of OpenShift and see how it works.  We will do this to test the logs.</p>
+
+<p>Click on the <em>Home</em> menu item and then click in the message box for “Log Message (stdout)” and write any message you want to output to the <em>stdout</em> stream.  You can try “<strong>All is well!</strong>”.  Then click “Send Message”.</p>
+
+<p><img src="media/managedlab/8-ostoy-stdout.png" alt="Logging stdout" /></p>
+
+<p>Click in the message box for “Log Message (stderr)” and write any message you want to output to the <em>stderr</em> stream. You can try “<strong>Oh no! Error!</strong>”.  Then click “Send Message”.</p>
+
+<p><img src="media/managedlab/9-ostoy-stderr.png" alt="Logging stderr" /></p>
+
+<h3 id="view-logs-directly-from-the-pod">View logs directly from the pod</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Go to the CLI and enter the following command to retrieve the name of your frontend pod which we will use to view the pod logs:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get pods -o name
+pod/ostoy-frontend-679cb85695-5cn7x
+pod/ostoy-microservice-86b4c6f559-p594d
+</code></pre></div></div>
+
+<p>So the pod name in this case is <strong>ostoy-frontend-679cb85695-5cn7x</strong>.  Then run <code class="language-plaintext highlighter-rouge">oc logs ostoy-frontend-679cb85695-5cn7x</code> and you should see your messages:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc logs ostoy-frontend-679cb85695-5cn7x
+[...]
+ostoy-frontend-679cb85695-5cn7x: server starting on port 8080
+Redirecting to /home
+stdout: All is well!
+stderr: Oh no! Error!
+</code></pre></div></div>
+
+<p>You should see both the <em>stdout</em> and <em>stderr</em> messages.</p>
+
+<p>Try to see them from within the OpenShift Web Console as well. Make sure you are in the “ostoy” project. In the left menu click <em>Workloads &gt; Pods &gt; &lt;frontend-pod-name&gt;</em>.  Then click the “Logs” sub-tab.</p>
+
+<p><img src="media/managedlab/9-ostoy-wclogs.png" alt="web-pods" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="view-metrics-and-logs-by-integrating-with-azure-arc">View metrics and logs by integrating with Azure Arc</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>You can use Azure services for metrics and logging by enabling your ARO cluster with Azure Arc. The instructions for setting this up can be found at the following locations. Perform them in the following order. These are prerequisites for this part of the lab.</p>
+
+<ol>
+  <li><a href="https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli">Connect an existing cluster to Azure Arc</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-enable-arc-enabled-clusters?toc=%2Fazure%2Fazure-arc%2Fkubernetes%2Ftoc.json&amp;bc=%2Fazure%2Fazure-arc%2Fkubernetes%2Fbreadcrumb%2Ftoc.json">Azure Monitor Container Insights for Azure Arc-enabled Kubernetes clusters</a></li>
+</ol>
+
+<blockquote>
+  <p>Note: These also have some small prerequisites. Make sure to read those too. Also, when it asks for the “Cluster Name” for the CLI commands, it will most likely be the name of the Arc enabled cluster name and NOT the name of your ARO cluster.</p>
+</blockquote>
+
+<p>Once you have completed the above steps, if you are not already in Container Insights, then type “Azure Arc” in the search bar from the Home screen and select “Kubernetes - Azure Arc”.</p>
+
+<p><img src="media/managedlab/36-searcharc.png" alt="arckubernetes" /></p>
+
+<p>Select the Arc connected cluster you just created, then select “Insights”.</p>
+
+<p><img src="media/managedlab/37-arcselect.png" alt="arcclusterselect" /></p>
+
+<p>You will see a page with all sorts of metrics for the cluster.</p>
+
+<p><img src="media/managedlab/38-clustermetrics.png" alt="clustermetrics" /></p>
+
+<blockquote>
+  <p>Note: Please feel free to come back to this section after the “Pod Autoscaling” section and see how you can use Container Insights to view metrics. You may need to add a filter by “namespace” to see the pods from our application.</p>
+</blockquote>
+
+<p>To see the log messages we outputted to <em>stdout</em> and <em>stderr</em>, click on “Logs” in the left menu, then the “Container Logs” query. Finally, click “Load to editor” for the pre-created query called “Find a value in Container Logs Table”.</p>
+
+<p><img src="media/managedlab/39-containerlogs.png" alt="containerlogs" /></p>
+
+<p>This will populate a query that requires a parameter to search for. Let’s look for our error entry. Type “stderr” in the location for <code class="language-plaintext highlighter-rouge">FindString</code>, then click run.  You should see one line returned that contains the message you inputted earlier. You can also click the twist for more information.</p>
+
+<p><img src="media/managedlab/40-getlogmessage.png" alt="getmessage" /></p>
+
+<p>Feel free to spend a few minutes exploring logs with the pre-created queries or try your own to see how robust the service is.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="lab2-heathcheck" class="h2">
+            
+                    <h2>Exploring Health Checks</h2>
+                
+
+            <p>In this section we will intentionally crash our pods and also make a pod non-responsive to the liveness probes and see how Kubernetes behaves.  We will first intentionally crash our pod and see that Kubernetes will self-heal by immediately spinning it back up. Then we will trigger the health check by stopping the response on the <code class="language-plaintext highlighter-rouge">/health</code> endpoint in our app. After three consecutive failures, Kubernetes should kill the pod and then recreate it.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>It would be best to prepare by splitting your screen between the OpenShift Web Console and the OSToy application so that you can see the results of our actions immediately.</p>
+
+<p><img src="media/managedlab/23-ostoy-splitscreen.png" alt="Splitscreen" /></p>
+
+<p>But if your screen is too small or that just won’t work, then open the OSToy application in another tab so you can quickly switch to the OpenShift Web Console once you click the button. To get to this deployment in the OpenShift Web Console go to the left menu and click:</p>
+
+<p><em>Workloads &gt; Deployments &gt; “ostoy-frontend”</em></p>
+
+<p>Go to the browser tab that has your OSToy app, click on <em>Home</em> in the left menu, and enter a message in the “Crash Pod” tile (e.g., “This is goodbye!”) and press the “Crash Pod” button.  This will cause the pod to crash and Kubernetes should restart the pod. After you press the button you will see:</p>
+
+<p><img src="media/managedlab/12-ostoy-crashmsg.png" alt="Crash Message" /></p>
+
+<p>Quickly switch to the tab with the deployment showing in the web console. You will see that the pod turns yellowish, meaning it is down but should quickly come back up and show blue.  It does happen quickly so you might miss it.</p>
+
+<p><img src="media/managedlab/13-ostoy-podcrash.gif" alt="Pod Crash" /></p>
+
+<p>You can also check in the pod events and further verify that the container has crashed and been restarted.</p>
+
+<p>Click on <em>Pods &gt; [Pod Name] &gt; Events</em></p>
+
+<p><img src="media/managedlab/13.1-ostoy-fepod.png" alt="Pods" /></p>
+
+<p><img src="media/managedlab/14-ostoy-podevents.png" alt="Pod Events" /></p>
+
+<p>Keep the page from the pod events still open from the previous step.  Then in the OSToy app click on the “Toggle Health” button, in the “Toggle health status” tile.  You will see the “Current Health” switch to “I’m not feeling all that well”.</p>
+
+<p><img src="media/managedlab/15-ostoy-togglehealth.png" alt="Pod Events" /></p>
+
+<p>This will cause the app to stop responding with a “200 HTTP code”. After 3 such consecutive failures (“A”), Kubernetes will kill the pod (“B”) and restart it (“C”). Quickly switch back to the pod events tab and you will see that the liveness probe failed and the pod as being restarted.</p>
+
+<p><img src="media/managedlab/16-ostoy-podevents2.png" alt="Pod Events2" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="lab2-storage" class="h2">
+            
+                    <h2>Persistent Storage</h2>
+                
+
+            <p>In this section we will execute a simple example of using persistent storage by creating a file that will be stored on a persistent volume in our cluster and then confirm that it will “persist” across pod failures and recreation.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Inside the OpenShift web console click on <em>Storage &gt; Persistent Volume Claims</em> in the left menu. You will then see a list of all persistent volume claims that our application has made.  In this case there is just one called “ostoy-pvc”.  If you click on it you will also see other pertinent information such as whether it is bound or not, size, access mode and creation time.</p>
+
+<p>In this case the mode is RWO (Read-Write-Once) which means that the volume can only be mounted to one node, but the pod(s) can both read and write to that volume.  The <a href="https://docs.microsoft.com/en-us/azure/openshift/openshift-faq#can-we-choose-any-persistent-storage-solution--like-ocs">default in ARO</a> is for Persistent Volumes to be backed by Azure Disk, but it is possible to <a href="https://docs.openshift.com/container-platform/latest/storage/persistent_storage/persistent-storage-azure-file.html">use Azure Files</a> so that you can use the RWX (Read-Write-Many) access mode.  See here for more info on <a href="https://docs.openshift.com/container-platform/latest/storage/understanding-persistent-storage.html#pv-access-modes_understanding-persistent-storage">access modes</a>.</p>
+
+<p>In the OSToy app click on <em>Persistent Storage</em> in the left menu.  In the “Filename” area enter a filename for the file you will create (e.g., “test-pv.txt”). Use the “.txt” extension so you can easily open it in the browser.</p>
+
+<p>Underneath that, in the “File contents” box, enter text to be stored in the file. (e.g., “Azure Red Hat OpenShift is the greatest thing since sliced bread!”). Then click “Create file”.</p>
+
+<p><img src="media/managedlab/17-ostoy-createfile.png" alt="Create File" /></p>
+
+<p>You will then see the file you created appear above under “Existing files”.  Click on the file and you will see the filename and the contents you entered.</p>
+
+<p><img src="media/managedlab/18-ostoy-viewfile.png" alt="View File" /></p>
+
+<p>We now want to kill the pod and ensure that the new pod that spins up will be able to see the file we created. Exactly like we did in the previous section. Click on <em>Home</em> in the left menu.</p>
+
+<p>Click on the “Crash pod” button.  (You can enter a message if you’d like).</p>
+
+<p>Click on <em>Persistent Storage</em> in the left menu.</p>
+
+<p>You will see the file you created is still there and you can open it to view its contents to confirm.</p>
+
+<p><img src="media/managedlab/19-ostoy-existingfile.png" alt="Crash Message" /></p>
+
+<p>Now let’s confirm that it’s actually there by using the CLI and checking if it is available to the container.  If you remember we <a href="https://github.com/microsoft/aroworkshop/blob/master/yaml/ostoy-fe-deployment.yaml#L50">mounted the directory</a> <code class="language-plaintext highlighter-rouge">/var/demo_files</code> to our PVC.  So get the name of your frontend pod:</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc get pods</code></p>
+
+<p>then get an SSH session into the container</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc rsh &lt;pod name&gt;</code></p>
+
+<p>then <code class="language-plaintext highlighter-rouge">cd /var/demo_files</code></p>
+
+<p>if you enter <code class="language-plaintext highlighter-rouge">ls</code> you can see all the files you created.  Next, let’s open the file we created and see the contents</p>
+
+<p><code class="language-plaintext highlighter-rouge">cat test-pv.txt</code></p>
+
+<p>You should see the text you entered in the UI.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get pods
+NAME                                  READY     STATUS    RESTARTS   AGE
+ostoy-frontend-5fc8d486dc-wsw24       1/1       Running   0          18m
+ostoy-microservice-6cf764974f-hx4qm   1/1       Running   0          18m
+
+$ oc rsh ostoy-frontend-5fc8d486dc-wsw24
+
+/ $ cd /var/demo_files/
+
+/var/demo_files $ ls
+lost+found   test-pv.txt
+
+/var/demo_files $ cat test-pv.txt
+Azure Red Hat OpenShift is the greatest thing since sliced bread!
+</code></pre></div></div>
+
+<p>Then exit the SSH session by typing <code class="language-plaintext highlighter-rouge">exit</code>. You will then be in your CLI.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="lab2-config" class="h2">
+            
+                    <h2>Configuration</h2>
+                
+
+            <p>In this section we’ll take a look at how OSToy can be configured using <a href="https://docs.openshift.com/container-platform/latest/nodes/pods/nodes-pods-configmaps.html">ConfigMaps</a>, <a href="https://docs.openshift.com/container-platform/latest/cicd/builds/creating-build-inputs.html#builds-input-secrets-configmaps_creating-build-inputs">Secrets</a>, and <a href="https://docs.openshift.com/container-platform/3.11/dev_guide/environment_variables.html">Environment Variables</a>.  This section won’t go into details explaining each (the links above are for that), but will show you how they are exposed to the application.</p>
+
+<h3 id="configuration-using-configmaps">Configuration using ConfigMaps</h3>
+
+<p>ConfigMaps allow you to decouple configuration artifacts from container image content to keep containerized applications portable.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Click on <em>Config Maps</em> in the left menu.</p>
+
+<p>This will display the contents of the configmap available to the OSToy application.  We defined this in the <code class="language-plaintext highlighter-rouge">ostoy-frontend-deployment.yaml</code> here:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ostoy-configmap-files
+data:
+  config.json:  '{ "default": "123" }'
+</code></pre></div></div>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="configuration-using-secrets">Configuration using Secrets</h3>
+
+<p>Kubernetes Secret objects allow you to store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys. Putting this information in a secret is safer and more flexible than putting it, verbatim, into a pod definition or a container image.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Click on <em>Secrets</em> in the left menu.</p>
+
+<p>This will display the contents of the secrets available to the OSToy application.  We defined this in the <code class="language-plaintext highlighter-rouge">ostoy-frontend-deployment.yaml</code> here:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apiVersion: v1
+kind: Secret
+metadata:
+  name: ostoy-secret
+data:
+  secret.txt: VVNFUk5BTUU9bXlfdXNlcgpQQVNTV09SRD1AT3RCbCVYQXAhIzYzMlk1RndDQE1UUWsKU01UUD1sb2NhbGhvc3QKU01UUF9QT1JUPTI1
+type: Opaque
+</code></pre></div></div>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="configuration-using-environment-variables">Configuration using Environment Variables</h3>
+
+<p>Using environment variables is an easy way to change application behavior without requiring code changes. It allows different deployments of the same application to potentially behave differently based on the environment variables, and OpenShift makes it simple to set, view, and update environment variables for Pods/Deployments.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Click on <em>ENV Variables</em> in the left menu.</p>
+
+<p>This will display the environment variables available to the OSToy application.  We added four as defined in the deployment spec of <code class="language-plaintext highlighter-rouge">ostoy-frontend-deployment.yaml</code> here:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  env:
+  - name: ENV_TOY_CONFIGMAP
+    valueFrom:
+      configMapKeyRef:
+        name: ostoy-configmap-env
+        key: ENV_TOY_CONFIGMAP
+  - name: ENV_TOY_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: ostoy-secret-env
+        key: ENV_TOY_SECRET
+  - name: MICROSERVICE_NAME
+    value: OSTOY_MICROSERVICE_SVC
+  - name: NAMESPACE
+  valueFrom:
+    fieldRef:
+      fieldPath: metadata.namespace
+</code></pre></div></div>
+
+<p>The third one, <code class="language-plaintext highlighter-rouge">MICROSERVICE_NAME</code> is used for the intra-cluster communications between pods for this application.  The application looks for this environment variable to know how to access the microservice in order to get the colors.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="lab2-network" class="h2">
+            
+                    <h2>Networking and Scaling</h2>
+                
+
+            <p>In this section we’ll see how OSToy uses intra-cluster networking to separate functions by using microservices and visualize the scaling of pods.</p>
+
+<p>Let’s review how this application is set up…</p>
+
+<p><img src="media/managedlab/4-ostoy-arch.png" alt="OSToy Diagram" /></p>
+
+<p>As can be seen in the image above we have defined at least 2 separate pods, each with its own service.  One is the frontend web application (with a service and a publicly accessible route) and the other is the backend microservice with a service object created so that the frontend pod can communicate with the microservice (across the pods if more than one).  Therefore this microservice is not accessible from outside this cluster (or from other namespaces/projects, if configured, due to OpenShifts’ network policy, <a href="https://docs.openshift.com/container-platform/latest/networking/network_policy/about-network-policy.html#nw-networkpolicy-about_about-network-policy">ovs-networkpolicy</a>).  The sole purpose of this microservice is to serve internal web requests and return a JSON object containing the current hostname and a randomly generated color string.  This color string is used to display a box with that color displayed in the tile titled “Intra-cluster Communication”.</p>
+
+<h3 id="networking">Networking</h3>
+
+<p>Click on <em>Networking</em> in the left menu. Review the networking configuration.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>The right tile titled “Hostname Lookup” illustrates how the service name created for a pod can be used to translate into an internal ClusterIP address. Enter the name of the microservice following the format of <code class="language-plaintext highlighter-rouge">&lt;my-svc&gt;.&lt;my-namespace&gt;.svc.cluster.local</code> which we created in our <code class="language-plaintext highlighter-rouge">ostoy-microservice.yaml</code> as seen here:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apiVersion: v1
+kind: Service
+metadata:
+  name: ostoy-microservice-svc
+  labels:
+    app: ostoy-microservice
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: ostoy-microservice
+</code></pre></div></div>
+
+<p>In this case we will enter: <code class="language-plaintext highlighter-rouge">ostoy-microservice-svc.ostoy.svc.cluster.local</code></p>
+
+<p>We will see an IP address returned.  In our example it is <code class="language-plaintext highlighter-rouge">172.30.165.246</code>.  This is the intra-cluster IP address; only accessible from within the cluster.</p>
+
+<p><img src="media/managedlab/20-ostoy-dns.png" alt="ostoy DNS" /></p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="scaling">Scaling</h3>
+
+<p>OpenShift allows one to scale up/down the number of pods for each part of an application as needed.  This can be accomplished via changing our <em>replicaset/deployment</em> definition (declarative), by the command line (imperative), or via the web console (imperative). In our <em>deployment</em> definition (part of our <code class="language-plaintext highlighter-rouge">ostoy-frontend-deployment.yaml</code>) we stated that we only want one pod for our microservice to start with. This means that the Kubernetes Replication Controller will always strive to keep one pod alive. We can also define pod autoscaling using the <a href="https://docs.openshift.com/container-platform/latest/nodes/pods/nodes-pods-autoscaling.html">Horizontal Pod Autoscaler</a> (HPA) based on load to expand past what we defined. We will do this in a later section of this lab.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>If we look at the tile on the left we should see one box randomly changing colors.  This box displays the randomly generated color sent to the frontend by our microservice along with the pod name that sent it. Since we see only one box that means there is only one microservice pod.  We will now scale up our microservice pods and will see the number of boxes change.</p>
+
+<p>To confirm that we only have one pod running for our microservice, run the following command, or use the web console.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get pods
+NAME                                   READY     STATUS    RESTARTS   AGE
+ostoy-frontend-679cb85695-5cn7x       1/1       Running   0          1h
+ostoy-microservice-86b4c6f559-p594d   1/1       Running   0          1h
+</code></pre></div></div>
+
+<p>Let’s change our microservice definition yaml to reflect that we want 3 pods instead of the one we see. Download the <a href="yaml/ostoy-microservice-deployment.yaml">ostoy-microservice-deployment.yaml</a> and save it on your local machine.</p>
+
+<p>Open the file using your favorite editor. Ex: <code class="language-plaintext highlighter-rouge">vi ostoy-microservice-deployment.yaml</code>.</p>
+
+<p>Find the line that states <code class="language-plaintext highlighter-rouge">replicas: 1</code> and change that to <code class="language-plaintext highlighter-rouge">replicas: 3</code>. Then save and quit.</p>
+
+<p>It will look like this</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spec:
+    selector:
+      matchLabels:
+        app: ostoy-microservice
+    replicas: 3
+</code></pre></div></div>
+
+<p>Assuming you are still logged in via the CLI, execute the following command:</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc apply -f ostoy-microservice-deployment.yaml</code></p>
+
+<p>Confirm that there are now 3 pods via the CLI (<code class="language-plaintext highlighter-rouge">oc get pods</code>) or the web console (<em>Workloads &gt; Deployments &gt; ostoy-microservice</em>).</p>
+
+<p>See this visually by visiting the OSToy app and seeing how many boxes you now see.  It should be three.</p>
+
+<p><img src="media/managedlab/22-ostoy-colorspods.png" alt="UI Scale" /></p>
+
+<p>Now we will scale the pods down using the command line.  Execute the following command from the CLI:</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc scale deployment ostoy-microservice --replicas=2</code></p>
+
+<p>Confirm that there are indeed 2 pods, via the CLI (<code class="language-plaintext highlighter-rouge">oc get pods</code>) or the web console.</p>
+
+<p>See this visually by visiting the OSToy App and seeing how many boxes you now see.  It should be two.</p>
+
+<p>Lastly, let’s use the web console to scale back down to one pod.  Make sure you are in the project you created for this app (i.e., “ostoy”), in the left menu click <em>Workloads &gt; Deployments &gt; ostoy-microservice</em>.  On the left you will see a blue circle with the number 2 in the middle. Click on the down arrow to the right of that to scale the number of pods down to 1.</p>
+
+<p><img src="media/managedlab/21-ostoy-uiscale.png" alt="UI Scale" /></p>
+
+<p>See this visually by visiting the OSToy app and seeing how many boxes you now see.  It should be one.  You can also confirm this via the CLI or the web console.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="lab2-HPA" class="h2">
+            
+                    <h2>Pod Autoscaling</h2>
+                
+
+            <p>In this section we will explore how the <a href="https://docs.openshift.com/container-platform/latest/nodes/pods/nodes-pods-autoscaling.html">Horizontal Pod Autoscaler</a> (HPA) can be used and works within Kubernetes/OpenShift.</p>
+
+<p>As defined in the documentation:</p>
+<blockquote>
+  <p>[…] you can use a horizontal pod autoscaler (HPA) to specify how OpenShift Container Platform should automatically increase or decrease the scale of a replication controller or deployment configuration, based on metrics collected from the pods that belong to that replication controller or deployment configuration.</p>
+</blockquote>
+
+<p>In more simple words, “if there is a lot of work, make more pods”.</p>
+
+<p>We will create a HPA and then use OSToy to generate CPU intensive workloads.  We will then observe how the HPA will scale up the number of pods in order to handle the increased workloads.</p>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<h4 id="1-create-the-horizontal-pod-autoscaler">1. Create the Horizontal Pod Autoscaler</h4>
+
+<p>Run the following command to create the HPA. This will create an HPA that maintains between 1 and 10 replicas of the pods controlled by the <em>ostoy-microservice</em> deployment created. Roughly speaking, the HPA will increase and decrease the number of replicas (via the deployment) to maintain an average CPU utilization across all pods of 80% (since each pod requests 50 millicores, this means average CPU usage of 40 millicores).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc autoscale deployment/ostoy-microservice --cpu-percent=80 --min=1 --max=10
+</code></pre></div></div>
+
+<h4 id="2-view-the-current-number-of-pods">2. View the current number of pods</h4>
+
+<p>In the OSToy app in the left menu, click on “Autoscaling” to access this portion of the workshop.</p>
+
+<p><img src="media/managedlab/32-hpa-menu.png" alt="HPA Menu" /></p>
+
+<p>As was in the networking section you will see the total number of pods available for the microservice by counting the number of colored boxes.  In this case we have only one.  This can be verified through the web console or from the CLI.</p>
+
+<p><img src="media/managedlab/33-hpa-mainpage.png" alt="HPA Main" /></p>
+
+<p>You can use the following command to see the running microservice pods only:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc get pods --field-selector=status.phase=Running | grep microservice
+</code></pre></div></div>
+
+<h4 id="3-increase-the-load">3. Increase the load</h4>
+
+<p>Since we now only have one pod, let’s increase the workload that the pod needs to perform. Click the button in the card that says “increase the load”.  <strong>Please click only <em>ONCE</em>!</strong></p>
+
+<p>This will generate some CPU intensive calculations.  (If you are curious about what it is doing you can click <a href="https://github.com/openshift-cs/ostoy/blob/master/microservice/app.js#L32">here</a>).</p>
+
+<blockquote>
+  <p><strong>Note:</strong> The page may become slightly unresponsive.  This is normal; so be patient while the new pods spin up.</p>
+</blockquote>
+
+<h4 id="4-see-the-pods-scale-up">4. See the pods scale up</h4>
+
+<p>After about a minute the new pods will show up on the page (represented by the colored rectangles). Confirm that the pods did indeed scale up through the OpenShift Web Console or the CLI (you can use the command above).</p>
+
+<blockquote>
+  <p><strong>Note:</strong> The page may still lag a bit which is normal.</p>
+</blockquote>
+
+<p>You can see in this case it scaled up 2 more microservice pods (for a total of 3).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get pods --field-selector=status.phase=Running
+NAME                                READY   STATUS    RESTARTS       AGE
+ostoy-frontend-64c8668694-7pq6k     1/1     Running   3 (105m ago)   23h
+ostoy-microservice-cf8bfb4c-bkwx8   1/1     Running   0              104s
+ostoy-microservice-cf8bfb4c-j24f9   1/1     Running   0              23h
+ostoy-microservice-cf8bfb4c-xls2t   1/1     Running   0              104s
+</code></pre></div></div>
+
+<h4 id="5-review-resources-in-included-observability">5. Review resources in included observability</h4>
+
+<p>In the OpenShift web console left menu, click on <em>Observe &gt; Dashboards</em></p>
+
+<p>In the dashboard, select <em>Kubernetes / Compute Resources / Namespace (Pods)</em> and our namespace <em>ostoy</em>.</p>
+
+<p><img src="media/managedlab/34-hpametrics.png" alt="select_metrics" /></p>
+
+<p>Wait a few minutes and colorful graphs will appear showing resource usage across CPU and memory. The top graph will show recent CPU consumption per pod and the lower graph will indicate memory usage. Looking at this graph you can see how things developed. As soon as the load started to increase (A), two new pods started to spin up (B, C). The thickness of each graph is its CPU consumption indicating which pods handled more load. We also see that the load decreased (D), after which, the pods were spun back down.</p>
+
+<p><img src="media/managedlab/35-metrics.png" alt="select_metrics" /></p>
+
+<p>At this point feel free to go back to the <a href="#lab2-logging">logging section</a> to view this data through Container Insights for Azure Arc-enabled Kubernetes clusters.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="lab2-nodes" class="h2">
+            
+                    <h2>Managing Worker Nodes</h2>
+                
+
+            <p>There may be times when you need to change aspects of your worker nodes. Things like scaling, changing the type, adding labels or taints to name a few. Most of these things are done through the use of machine sets. A machine is a unit that describes the host for a node and a machine set is a group of machines. Think of a machine set as a “template” for the kinds of machines that make up the worker nodes of your cluster. Similar to how a replicaset is to pods. A machine set allows users to manage many machines as a single entity though it is contained to a specific availability zone. If you’d like to learn more see <a href="https://docs.openshift.com/container-platform/latest/machine_management/index.html">Overview of machine management</a></p>
+
+<h3 id="scaling-worker-nodes">Scaling worker nodes</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<h4 id="view-the-machine-sets-that-are-in-the-cluster">View the machine sets that are in the cluster</h4>
+<p>Let’s see which machine sets we have in our cluster.  If you are following this lab, you should only have three so far (one for each availability zone).</p>
+
+<p>From the terminal run:</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc get machinesets -n openshift-machine-api</code></p>
+
+<p>You will see a response like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get machinesets -n openshift-machine-api
+NAME                           DESIRED   CURRENT   READY   AVAILABLE   AGE
+ok0620-rq5tl-worker-westus21   1         1         1       1           72m
+ok0620-rq5tl-worker-westus22   1         1         1       1           72m
+ok0620-rq5tl-worker-westus23   1         1         1       1           72m
+</code></pre></div></div>
+<p>This is telling us that there is a machine set defined for each availability zone in westus2 and that each has one machine.</p>
+
+<h4 id="view-the-machines-that-are-in-the-cluster">View the machines that are in the cluster</h4>
+
+<p>Let’s see which machines (nodes) we have in our cluster.</p>
+
+<p>From the terminal run:</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc get machine -n openshift-machine-api</code></p>
+
+<p>You will see a response like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get machine -n openshift-machine-api
+NAME                                 PHASE     TYPE              REGION    ZONE   AGE
+ok0620-rq5tl-master-0                Running   Standard_D8s_v3   westus2   1      73m
+ok0620-rq5tl-master-1                Running   Standard_D8s_v3   westus2   2      73m
+ok0620-rq5tl-master-2                Running   Standard_D8s_v3   westus2   3      73m
+ok0620-rq5tl-worker-westus21-n6lcs   Running   Standard_D4s_v3   westus2   1      73m
+ok0620-rq5tl-worker-westus22-ggcmv   Running   Standard_D4s_v3   westus2   2      73m
+ok0620-rq5tl-worker-westus23-hzggb   Running   Standard_D4s_v3   westus2   3      73m
+</code></pre></div></div>
+
+<p>As you can see we have 3 master nodes, 3 worker nodes, the types of nodes, and which region/zone they are in.</p>
+
+<h4 id="scale-the-number-of-nodes-up-via-the-cli">Scale the number of nodes up via the CLI</h4>
+
+<p>Now that we know that we have 3 worker nodes, let’s scale the cluster up to have 4 worker nodes. We can accomplish this through the CLI or through the OpenShift Web Console. We’ll explore both.</p>
+
+<p>From the terminal run the following to imperatively scale up a machine set to 2 worker nodes for a total of 4. Remember that each machine set is tied to an availability zone so with 3 machine sets with 1 machine each, in order to get to a TOTAL of 4 nodes we need to select one of the machine sets to scale up to 2 machines.</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc scale --replicas=2 machineset &lt;machineset&gt; -n openshift-machine-api</code></p>
+
+<p>For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc scale --replicas=2 machineset ok0620-rq5tl-worker-westus23 -n openshift-machine-api
+machineset.machine.openshift.io/ok0620-rq5tl-worker-westus23 scaled
+</code></pre></div></div>
+
+<p>View the machine set</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc get machinesets -n openshift-machine-api</code></p>
+
+<p>You will now see that the desired number of machines in the machine set we scaled is “2”.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get machinesets -n openshift-machine-api
+NAME                           DESIRED   CURRENT   READY   AVAILABLE   AGE
+ok0620-rq5tl-worker-westus21   1         1         1       1           73m
+ok0620-rq5tl-worker-westus22   1         1         1       1           73m
+ok0620-rq5tl-worker-westus23   2         2         1       1           73m
+</code></pre></div></div>
+
+<p>If we check the machines in the clusters</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc get machine -n openshift-machine-api</code></p>
+
+<p>You will see that one is in the “Provisioned” phase (and in the zone of the machineset we scaled) and will shortly be in “running” phase.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get machine -n openshift-machine-api
+NAME                                 PHASE         TYPE              REGION    ZONE   AGE
+ok0620-rq5tl-master-0                Running       Standard_D8s_v3   westus2   1      74m
+ok0620-rq5tl-master-1                Running       Standard_D8s_v3   westus2   2      74m
+ok0620-rq5tl-master-2                Running       Standard_D8s_v3   westus2   3      74m
+ok0620-rq5tl-worker-westus21-n6lcs   Running       Standard_D4s_v3   westus2   1      74m
+ok0620-rq5tl-worker-westus22-ggcmv   Running       Standard_D4s_v3   westus2   2      74m
+ok0620-rq5tl-worker-westus23-5fhm5   Provisioned   Standard_D4s_v3   westus2   3      54s
+ok0620-rq5tl-worker-westus23-hzggb   Running       Standard_D4s_v3   westus2   3      74m
+</code></pre></div></div>
+
+<h4 id="scale-the-number-of-nodes-down-via-the-web-console">Scale the number of nodes down via the Web Console</h4>
+
+<p>Now let’s scale the cluster back down to a total of 3 worker nodes, but this time, from the web console. (If you need the URL or credentials in order to access it please go back to the relevant portion of Lab 1)</p>
+
+<p>Access your OpenShift web console from the relevant URL. If you need to find the URL you can run:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az aro show \
+   --name &lt;CLUSTER-NAME&gt; \
+   --resource-group &lt;RESOURCEGROUP&gt; \
+   --query "consoleProfile.url" -o tsv
+</code></pre></div></div>
+
+<p>Expand “Compute” in the left menu and then click on “MachineSets”</p>
+
+<p><img src="media/managedlab/41-wc-machinesets.png" alt="machinesets-console" /></p>
+
+<p>In the main pane you will see the same information about the machine sets from the command line.  Now click on the “three dots” at the end of the line for the machine set that you scaled up to “2”. Select “Edit machine count” and decrease it to “1”. Click save.</p>
+
+<p><img src="media/managedlab/42-edit-machinesets.png" alt="machinesets-edit" /></p>
+
+<p>This will now decrease that machine set to only have one machine in it.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="cluster-autoscaling">Cluster Autoscaling</h3>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>The cluster autoscaler adjusts the size of an OpenShift Container Platform cluster to meet its current deployment needs. The cluster autoscaler increases the size of the cluster when there are pods that fail to schedule on any of the current worker nodes due to insufficient resources or when another node is necessary to meet deployment needs. The cluster autoscaler does not increase the cluster resources beyond the limits that you specify. To learn more visit the documentation for <a href="https://docs.openshift.com/container-platform/latest/machine_management/applying-autoscaling.html">cluster autoscaling</a>.</p>
+
+<p>A ClusterAutoscaler must have at least 1 machine autoscaler in order for the cluster autoscaler to scale the machines. The cluster autoscaler uses the annotations on machine sets that the machine autoscaler sets to determine the resources that it can scale. If you define a cluster autoscaler without also defining machine autoscalers, the cluster autoscaler will never scale your cluster.</p>
+
+<h4 id="create-a-machine-autoscaler">Create a Machine Autoscaler</h4>
+
+<p>This can be accomplished via the Web Console or through the CLI with a YAML file for the custom resource definition. We’ll use the latter.</p>
+
+<p>Download the sample <a href="https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/machine-autoscaler.yaml">MachineAutoscaler resource definition</a> and open it in your favorite editor.</p>
+
+<p>For <code class="language-plaintext highlighter-rouge">metadata.name</code> give this machine autoscaler a name. Technically, this can be anything you want. But to make it easier to identify which machine set this machine autoscaler affects, specify or include the name of the machine set to scale. The machine set name takes the following form: &lt;clusterid&gt;-&lt;machineset&gt;-&lt;region-az&gt;.</p>
+
+<p>For <code class="language-plaintext highlighter-rouge">spec.ScaleTargetRef.name</code> enter the name of the exact MachineSet you want this to apply to. Below is an example of a completed file.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apiVersion: "autoscaling.openshift.io/v1beta1"
+kind: "MachineAutoscaler"
+metadata:
+  name: "ok0620-rq5tl-worker-westus21-autoscaler"
+  namespace: "openshift-machine-api"
+spec:
+  minReplicas: 1
+  maxReplicas: 7
+  scaleTargetRef:
+    apiVersion: machine.openshift.io/v1beta1
+    kind: MachineSet
+    name: ok0620-rq5tl-worker-westus21
+</code></pre></div></div>
+
+<p>Save your file.</p>
+
+<p>Then create the resource in the cluster. Assuming you kept the same filename:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc create -f machine-autoscaler.yaml
+machineautoscaler.autoscaling.openshift.io/ok0620-rq5tl-worker-westus21-mautoscaler created
+</code></pre></div></div>
+
+<p>You can also confirm this by checking the web console under “MachineAutoscalers” or by running:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get machineautoscaler -n openshift-machine-api
+NAME                           REF KIND     REF NAME                      MIN   MAX   AGE
+ok0620-rq5tl-worker-westus21   MachineSet   ok0620-rq5tl-worker-westus2   1     7     40s
+</code></pre></div></div>
+
+<h4 id="create-the-cluster-autoscaler">Create the Cluster Autoscaler</h4>
+
+<p>This is the sample <a href="https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/cluster-autoscaler.yaml">ClusterAutoscaler resource definition</a> for this lab.</p>
+
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/machine_management/applying-autoscaling.html#cluster-autoscaler-cr_applying-autoscaling">documentation</a> for a detailed explanation of each parameter. You shouldn’t need to edit this file.</p>
+
+<p>Create the resource in the cluster:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc create -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/cluster-autoscaler.yaml
+clusterautoscaler.autoscaling.openshift.io/default created
+</code></pre></div></div>
+
+<h4 id="test-the-cluster-autoscaler">Test the Cluster Autoscaler</h4>
+
+<p>Now we will test this out. Create a new project where we will define a job with a load that this cluster cannot handle. This should force the cluster to autoscale to handle the load.</p>
+
+<p>Create a new project called “autoscale-ex”:</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc new-project autoscale-ex</code></p>
+
+<p>Create the job</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc create -f https://raw.githubusercontent.com/openshift/training/master/assets/job-work-queue.yaml</code></p>
+
+<p>After a few seconds, run the following to see what pods have been created.</p>
+
+<p><code class="language-plaintext highlighter-rouge">oc get pods</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get pods
+NAME                     READY   STATUS              RESTARTS   AGE
+work-queue-28n9m-29qgj   1/1     Running             0          53s
+work-queue-28n9m-2c9rm   0/1     Pending             0          53s
+work-queue-28n9m-57vnc   0/1     Pending             0          53s
+work-queue-28n9m-5gz7t   0/1     Pending             0          53s
+work-queue-28n9m-5h4jv   0/1     Pending             0          53s
+work-queue-28n9m-6jz7v   0/1     Pending             0          53s
+work-queue-28n9m-6ptgh   0/1     Pending             0          53s
+work-queue-28n9m-78rr9   1/1     Running             0          53s
+work-queue-28n9m-898wn   0/1     ContainerCreating   0          53s
+work-queue-28n9m-8wpbt   0/1     Pending             0          53s
+work-queue-28n9m-9nm78   1/1     Running             0          53s
+work-queue-28n9m-9ntxc   1/1     Running             0          53s
+[...]
+</code></pre></div></div>
+
+<p>We see a lot of pods in a pending state.  This should trigger the cluster autoscaler to create more machines using the MachineAutoscaler we created. If we check on the MachineSets:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get machinesets -n openshift-machine-api
+NAME                           DESIRED   CURRENT   READY   AVAILABLE   AGE
+ok0620-rq5tl-worker-westus21   5         5         1       1           7h17m
+ok0620-rq5tl-worker-westus22   1         1         1       1           7h17m
+ok0620-rq5tl-worker-westus23   1         1         1       1           7h17m
+</code></pre></div></div>
+
+<p>We see that the cluster autoscaler has already scaled the machine set up to 5 in our example. Though it is still waiting for those machines to be ready.</p>
+
+<p>If we check on the machines we should see that 4 are in a “Provisioned” state (there was 1 already existing from before for a total of 5 in this machine set).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get machines -n openshift-machine-api
+NAME                                 PHASE         TYPE              REGION    ZONE   AGE
+ok0620-rq5tl-master-0                Running       Standard_D8s_v3   westus2   1      7h18m
+ok0620-rq5tl-master-1                Running       Standard_D8s_v3   westus2   2      7h18m
+ok0620-rq5tl-master-2                Running       Standard_D8s_v3   westus2   3      7h18m
+ok0620-rq5tl-worker-westus21-7hqgz   Provisioned   Standard_D4s_v3   westus2   1      72s
+ok0620-rq5tl-worker-westus21-7j22r   Provisioned   Standard_D4s_v3   westus2   1      73s
+ok0620-rq5tl-worker-westus21-7n7nf   Provisioned   Standard_D4s_v3   westus2   1      72s
+ok0620-rq5tl-worker-westus21-8m94b   Provisioned   Standard_D4s_v3   westus2   1      73s
+ok0620-rq5tl-worker-westus21-qnlfl   Running       Standard_D4s_v3   westus2   1      13m
+ok0620-rq5tl-worker-westus22-9dtk5   Running       Standard_D4s_v3   westus2   2      22m
+ok0620-rq5tl-worker-westus23-hzggb   Running       Standard_D4s_v3   westus2   3      7h15m
+</code></pre></div></div>
+
+<p>After a few minutes we should see all 5 are provisioned.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get machinesets -n openshift-machine-api
+NAME                           DESIRED   CURRENT   READY   AVAILABLE   AGE
+ok0620-rq5tl-worker-westus21   5         5         5       5           7h23m
+ok0620-rq5tl-worker-westus22   1         1         1       1           7h23m
+ok0620-rq5tl-worker-westus23   1         1         1       1           7h23m
+</code></pre></div></div>
+
+<p>If we now wait a few more minutes for the pods to complete, we should see the cluster autoscaler begin scale down the machine set and thus delete machines.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc get machinesets -n openshift-machine-api
+NAME                           DESIRED   CURRENT   READY   AVAILABLE   AGE
+ok0620-rq5tl-worker-westus21   4         4         4       4           7h27m
+ok0620-rq5tl-worker-westus22   1         1         1       1           7h27m
+ok0620-rq5tl-worker-westus23   1         1         1       1           7h27m
+
+
+$ oc get machines -n openshift-machine-api
+NAME                                 PHASE      TYPE              REGION    ZONE   AGE
+ok0620-rq5tl-master-0                Running    Standard_D8s_v3   westus2   1      7h28m
+ok0620-rq5tl-master-1                Running    Standard_D8s_v3   westus2   2      7h28m
+ok0620-rq5tl-master-2                Running    Standard_D8s_v3   westus2   3      7h28m
+ok0620-rq5tl-worker-westus21-7hqgz   Running    Standard_D4s_v3   westus2   1      10m
+ok0620-rq5tl-worker-westus21-7j22r   Running    Standard_D4s_v3   westus2   1      10m
+ok0620-rq5tl-worker-westus21-8m94b   Deleting   Standard_D4s_v3   westus2   1      10m
+ok0620-rq5tl-worker-westus21-qnlfl   Running    Standard_D4s_v3   westus2   1      22m
+ok0620-rq5tl-worker-westus22-9dtk5   Running    Standard_D4s_v3   westus2   2      32m
+ok0620-rq5tl-worker-westus23-hzggb   Running    Standard_D4s_v3   westus2   3      7h24m
+</code></pre></div></div>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h3 id="adding-node-labels">Adding node labels</h3>
+
+<p>To add a node label it is recommended to set the label in the machine set. While you can directly add a label the node, this is not recommended since nodes could be overwritten and then the label would disappear.  Once the machine set is modified to contain the desired label any new machines created from that set would have the newly added labels.  This means that existing machines (nodes) will not get the label.  Therefore, to make sure all nodes have the label, you should scale the machine set down to zero and then scale the machine set back up.</p>
+
+<h4 id="using-the-web-console">Using the web console</h4>
+
+<p>Select “MachineSets” from the left menu.  You will see the list of machinesets.</p>
+
+<p><img src="media/managedlab/43-machinesets.png" alt="webconsollemachineset" /></p>
+
+<p>We’ll select the first one “ok0620-rq5tl-worker-westus21”</p>
+
+<p>Click on the second tab “YAML”</p>
+
+<p>Click into the YAML and under <code class="language-plaintext highlighter-rouge">spec.template.spec.metadata</code> add “labels:” then under that add a key:value pair for the label you want.  In our example we can add a label “tier: frontend”. Click Save.</p>
+
+<p><img src="media/managedlab/44-edit-machinesets.png" alt="webconsollemachineset" /></p>
+
+<p>The already existing machine won’t get this label but any new machines will.  So to ensure that all machines get the label, we will scale down this machine set to zero, then once completed we will scale it back up as we did earlier.</p>
+
+<p>Click on the node that was just created.</p>
+
+<p>You can see that the label is now there.</p>
+
+<p><img src="media/managedlab/45-node-label.png" alt="checklabel" /></p>
+
+        </section>
+    
+
+    
+        <section id="lab2-aso" class="h2">
+            
+                    <h2>Azure Service Operator - Blob Store</h2>
+                
+
+            <h3 id="integrating-with-azure-services">Integrating with Azure services</h3>
+
+<p>So far, our OSToy application has functioned independently without relying on any external services. While this may be nice for a workshop environment, it’s not exactly representative of real-world applications. Many applications require external services like databases, object stores, or messaging services.</p>
+
+<p>In this section, we will learn how to integrate our OSToy application with other Azure services, specifically Azure Blob Storage and Key Vault. By the end of this section, our application will be able to securely create and read objects from Blob Storage.</p>
+
+<p>To achieve this, we will use the Azure Service Operator (ASO) to create the necessary services for our application directly from Kubernetes. We will also utilize Key Vault to securely store the connection secret required for accessing the Blob Storage container. We will create a Kubernetes secret to retrieve this secret from Key Vault, enabling our application to access the Blob Storage container using the secret.</p>
+
+<p>To demonstrate this integration, we will use OSToy to create a basic text file and save it in Blob Storage. Finally, we will confirm that the file was successfully added and can be read from Blob Storage.</p>
+
+<h4 id="azure-service-operator-aso">Azure Service Operator (ASO)</h4>
+
+<p>The <a href="https://azure.github.io/azure-service-operator/">Azure Service Operator</a> (ASO) allows you to create and use Azure services directly from
+Kubernetes. You can deploy your applications, including any required Azure services directly within the Kubernetes framework using a familiar structure to declaratively define and create Azure services like Storage Blob or CosmosDB databases.</p>
+
+<h4 id="key-vault">Key Vault</h4>
+
+<p>Azure Key Vault is a cloud-based service provided by Microsoft Azure that allows you to securely store and manage cryptographic keys, secrets, and certificates used by your applications and services.</p>
+
+<h5 id="why-should-you-use-key-vault-to-store-secrets">Why should you use Key Vault to store secrets?</h5>
+<p>Using a secret store like Azure Key Vault allows you to take advantage of a number of benefits.</p>
+<ol>
+  <li>Scalability - Using a secret store service is already designed to scale to handle a large number of secrets over placing them directly in the cluster.</li>
+  <li>Centralization - You are able to keep all your organizations secrets in one location.</li>
+  <li>Security - Features like access control, monitoring, encryption and audit are already baked in.</li>
+  <li>Rotation - Decoupling the secret from your cluster makes it much easier to rotate secrets since you only have to update it in Key Vault and the Kubernetes secret in the cluster
+ will reference that external secret store. This also allows for separation of duties as someone else can manage these resources.</li>
+</ol>
+
+<h4 id="section-overview">Section overview</h4>
+
+<p>To provide a clearer understanding of the process, the procedure we will be following consists of three primary parts.</p>
+
+<ol>
+  <li><strong>Install the Azure Service Operator</strong> - This allows you to create/delete Azure services (in our case, Blob Storage) through the use of a Kubernetes Custom Resource. Install the controller which will also create the required namespace and the service account and then create the required resources.</li>
+  <li><strong>Setup Key Vault</strong> - Perform required prerequisites (ex: install CSI drivers), create a Key Vault instance, add the connection string.</li>
+  <li><strong>Application access</strong> - Configuring the application to access the stored connection string in Key Vault and thus enable the application to access the Blob Storage location.</li>
+</ol>
+
+<p>Below is an updated application diagram of what this will look like after completing this section.</p>
+
+<p><img src="media/managedlab/49-newarch.png" alt="newarch" /></p>
+
+<h4 id="access-the-cluster">Access the cluster</h4>
+
+<ol>
+  <li>Login to the cluster using the <code class="language-plaintext highlighter-rouge">oc</code> CLI if you are not already logged in.</li>
+</ol>
+
+<h4 id="setup">Setup</h4>
+
+<h5 id="define-helper-variables">Define helper variables</h5>
+
+<ol>
+  <li>
+    <p>Set helper environment variables to facilitate execution of the commands in this section. Replace <code class="language-plaintext highlighter-rouge">&lt;REGION&gt;</code> with the Azure region you are deploying into (ex: <code class="language-plaintext highlighter-rouge">eastus</code> or <code class="language-plaintext highlighter-rouge">westus2</code>).</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> export AZURE_SUBSCRIPTION_ID=$(az account show --query "id" --output tsv)
+ export AZ_TENANT_ID=$(az account show -o tsv --query tenantId)
+ export MY_UUID=$(uuidgen | cut -d - -f 2 | tr '[:upper:]' '[:lower:]')
+ export PROJECT_NAME=ostoy-${MY_UUID}
+ export KEYVAULT_NAME=secret-store-${MY_UUID}
+ export REGION=&lt;REGION&gt;
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h5 id="create-a-service-principal">Create a service principal</h5>
+
+<p>If you don’t already have a Service Principal to use then we need to create one.  It is recommended to create one with <code class="language-plaintext highlighter-rouge">Contributor</code> level permissions for this workshop so that the Azure Service
+Operator can create resources and that access can be granted to Key Vault.</p>
+
+<ol>
+  <li>
+    <p>Create a service principal for use in the lab and store the client secret in an environment variable.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> export SERVICE_PRINCIPAL_CLIENT_SECRET="$(az ad sp create-for-rbac -n aro-lab-sp-${MY_UUID} --role contributor --scopes /subscriptions/$AZURE_SUBSCRIPTION_ID --query 'password' -o tsv)"
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Get the service principal Client Id.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> export SERVICE_PRINCIPAL_CLIENT_ID="$(az ad sp list --display-name aro-lab-sp-${MY_UUID} --query '[0].appId' -o tsv)"
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Install Helm if you don’t already have it. You can also check the <a href="https://helm.sh/docs/intro/install/">Official Helm site</a> for other install options.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h5 id="install-the-azure-service-operator">Install the Azure Service Operator</h5>
+
+<ol>
+  <li>Set up ASO
+    <ol>
+      <li>
+        <p>We first need to install Cert Manager.  Run the following.</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> oc apply -f https://github.com/jetstack/cert-manager/releases/download/v1.8.2/cert-manager.yaml
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Confirm that the cert-manager pods have started successfully before continuing.</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc get pods -n cert-manager
+</code></pre></div>        </div>
+
+        <p>You will see a response like:</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-677874db78-t6wgn              1/1     Running   0          1m
+cert-manager-cainjector-6c5bf7b759-l722b   1/1     Running   0          1m
+cert-manager-webhook-5685fdbc4b-rlbhz      1/1     Running   0          1m
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>We then need to add the latest Helm chart for the ASO.</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> helm repo add aso2 https://raw.githubusercontent.com/Azure/azure-service-operator/main/v2/charts
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Update the Helm repository.</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> helm repo update
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Install the ASO.</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> helm upgrade --install --devel aso2 aso2/azure-service-operator \
+ --create-namespace \
+ --namespace=azureserviceoperator-system \
+ --set azureSubscriptionID=$AZURE_SUBSCRIPTION_ID \
+ --set azureTenantID=$AZ_TENANT_ID \
+ --set azureClientID=$SERVICE_PRINCIPAL_CLIENT_ID \
+ --set azureClientSecret=$SERVICE_PRINCIPAL_CLIENT_SECRET
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Ensure that the pods are running successfully.  This could take about 2 minutes.</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc get pods -n azureserviceoperator-system
+</code></pre></div>        </div>
+
+        <p>You will see a response like:</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME                                                      READY   STATUS    RESTARTS   AGE
+azureserviceoperator-controller-manager-5b4bfc59df-lfpqf   2/2     Running   0          24s
+</code></pre></div>        </div>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<h4 id="create-storage-accounts-and-containers-using-the-aso">Create Storage Accounts and containers using the ASO</h4>
+
+<p>Now we need to create a Storage Account for our Blob Storage, to use with OSToy. We could create this using the CLI or the Azure Portal, but wouldn’t it be nice if we could do so using standard Kubernetes objects? We could have defined the all these resources in once place (like in the deployment manifest), but for the purpose of gaining experience we will create each resource separately below.</p>
+
+<ol>
+  <li>
+    <p>Create a new OpenShift project for our OSToy app (even if you already have one from earlier).</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oc new-project $PROJECT_NAME
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create a resource group.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat &lt;&lt; EOF | oc apply -f -
+ apiVersion: resources.azure.com/v1api20200601
+ kind: ResourceGroup
+ metadata:
+   name: ${PROJECT_NAME}-rg
+   namespace: $PROJECT_NAME
+ spec:
+   location: $REGION
+ EOF
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Confirm that the Resource Group was actually created. You will see the name returned. It may take a minute or two to appear.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group list --query '[].name' --output tsv | grep ${MY_UUID}
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create a Storage Account.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat &lt;&lt; EOF | oc apply -f -
+ apiVersion: storage.azure.com/v1api20210401
+ kind: StorageAccount
+ metadata:
+   name: ostoystorage${MY_UUID}
+   namespace: $PROJECT_NAME
+ spec:
+   location: $REGION
+   kind: BlobStorage
+   sku:
+     name: Standard_LRS
+   owner:
+     name: ${PROJECT_NAME}-rg
+   accessTier: Hot
+ EOF
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Confirm that it was created.  It may take a minute or two to appear.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az storage account list --query '[].name' --output tsv | grep ${MY_UUID}
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create a Blob service.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat &lt;&lt; EOF | oc apply -f -
+ apiVersion: storage.azure.com/v1api20210401
+ kind: StorageAccountsBlobService
+ metadata:
+   name: ostoystorage${MY_UUID}service
+   namespace: $PROJECT_NAME
+ spec:
+   owner:
+     name: ostoystorage${MY_UUID}
+ EOF
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create a container.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat &lt;&lt; EOF | oc apply -f -
+ apiVersion: storage.azure.com/v1api20210401
+ kind: StorageAccountsBlobServicesContainer
+ metadata:
+   name: ${PROJECT_NAME}-container
+   namespace: $PROJECT_NAME
+ spec:
+   owner:
+     name: ostoystorage${MY_UUID}service
+ EOF
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Confirm that the container was created.  It make take a minute or two to appear.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az storage container list --auth-mode login --account-name ostoystorage${MY_UUID} --query '[].name' -o tsv
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Obtain the connection string of the Storage Account for use in the next section. The connection string contains all the information required to connect to the storage account. This should be guarded and securely stored. The <code class="language-plaintext highlighter-rouge">--name</code> parameter is the name of the Storage Account we created using the ASO.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> export CONNECTION_STRING=$(az storage account show-connection-string --name ostoystorage${MY_UUID} --resource-group ${PROJECT_NAME}-rg -o tsv)
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>The storage account is now set up for use with our application.</p>
+
+<h4 id="install-kubernetes-secret-store-csi">Install Kubernetes Secret Store CSI</h4>
+
+<p>In this part we will create a Key Vault location to store the connection string to our Storage account. Our application will use this to connect to the Blob Storage container we created, enabling it to display the contents, create new files, as well as display the contents of the files. We will mount this as a secret in a secure volume mount within our application. Our application will then read that to access the Blob storage.</p>
+
+<ol>
+  <li>
+    <p>To simplify the process for the workshop, a script is provided that will do the prerequisite work in order to use Key Vault stored secrets.  If you are curious, please feel free to read the script, otherwise just run it. This should take about 1-2 minutes to complete.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> curl https://raw.githubusercontent.com/microsoft/aroworkshop/master/resources/setup-csi.sh | bash
+</code></pre></div>    </div>
+
+    <p>Or, if you’d rather not live on the edge, feel free to download it first.</p>
+
+    <blockquote>
+      <p>Note: Instead, you could connect your cluster to Azure ARC and use the <a href="https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-akv-secrets-provider">KeyVault extension</a></p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Create an Azure Key Vault in the resource group we created using the ASO above.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az keyvault create -n $KEYVAULT_NAME --resource-group ${PROJECT_NAME}-rg --location $REGION
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Store the connection string as a secret in Key Vault.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az keyvault secret set --vault-name $KEYVAULT_NAME --name connectionsecret --value $CONNECTION_STRING
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Set an Access Policy for the Service Principal. This allows the Service Principal to get secrets from the Key Vault instance.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az keyvault set-policy -n $KEYVAULT_NAME --secret-permissions get --spn $SERVICE_PRINCIPAL_CLIENT_ID
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create a secret for Kubernetes to use to access the Key Vault. When this command is executed, the Service Principal’s credentials are stored in the <code class="language-plaintext highlighter-rouge">secrets-store-creds</code> Secret object, where it can be used by the Secret Store CSI driver to authenticate with Azure Key Vault and retrieve secrets when needed.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> oc create secret generic secrets-store-creds \
+ -n $PROJECT_NAME \
+ --from-literal clientid=$SERVICE_PRINCIPAL_CLIENT_ID \
+ --from-literal clientsecret=$SERVICE_PRINCIPAL_CLIENT_SECRET
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create a label for the secret. By default, the secret store provider has filtered watch enabled on secrets. You can allow it to find the secret in the default configuration by adding this label to the secret.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> oc -n $PROJECT_NAME label secret secrets-store-creds secrets-store.csi.k8s.io/used=true
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create the Secret Provider Class to give access to this secret. To learn more about the fields in this class see <a href="https://learn.microsoft.com/en-us/azure/aks/hybrid/secrets-store-csi-driver#create-and-apply-your-own-secretproviderclass-object">Secret Provider Class</a> object.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat &lt;&lt;EOF | oc apply -f -
+ apiVersion: secrets-store.csi.x-k8s.io/v1
+ kind: SecretProviderClass
+ metadata:
+   name: azure-kvname
+   namespace: $PROJECT_NAME
+ spec:
+   provider: azure
+   parameters:
+     usePodIdentity: "false"
+     useVMManagedIdentity: "false"
+     userAssignedIdentityID: ""
+     keyvaultName: "${KEYVAULT_NAME}"
+     objects: |
+       array:
+         - |
+           objectName: connectionsecret
+           objectType: secret
+           objectVersion: ""
+     tenantId: "${AZ_TENANT_ID}"
+ EOF
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="create-a-custom-security-context-constraint-scc">Create a custom Security Context Constraint (SCC)</h4>
+
+<p>SCCs are outside the scope of this workshop. Though, in short, OpenShift SCCs are a mechanism for controlling the actions and resources that a pod or container can access in an OpenShift cluster. SCCs can be used to enforce security policies at the pod or container level, which helps to improve the overall security of an OpenShift cluster. For more details please see <a href="https://docs.openshift.com/container-platform/latest/authentication/managing-security-context-constraints.html">Managing security context constraints</a>.</p>
+
+<ol>
+  <li>
+    <p>Create a new SCC that will allow our OSToy app to use the Secrets Store Provider CSI driver. The SCC that is used by default, <code class="language-plaintext highlighter-rouge">restricted</code>, does not allow it. So in this custom SCC we are explicitly allowing access to CSI. If you are curious feel free to view the file first, the last line in specific.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> oc apply -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoyscc.yaml
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create a Service Account for the application.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> oc create sa ostoy-sa -n $PROJECT_NAME
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Grant permissions to the Service Account using the custom SCC we just created.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> oc adm policy add-scc-to-user ostoyscc system:serviceaccount:${PROJECT_NAME}:ostoy-sa
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="deploy-the-ostoy-application">Deploy the OSToy application</h4>
+
+<ol>
+  <li>
+    <p>Deploy the application.  First deploy the microservice.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> oc apply -n $PROJECT_NAME -f https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-microservice-deployment.yaml
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Run the following to deploy the frontend. This will automatically remove the comment symbols for the new lines that we need in order to use the secret.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> curl https://raw.githubusercontent.com/microsoft/aroworkshop/master/yaml/ostoy-frontend-deployment.yaml | sed 's/#//g' | oc apply -n $PROJECT_NAME -f -
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="see-the-storage-contents-through-ostoy">See the storage contents through OSToy</h4>
+
+<p>After about a minute we can use our app to see the contents of our Blob storage container.</p>
+
+<ol>
+  <li>
+    <p>Get the route for the newly deployed application.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> oc get route ostoy-route -n $PROJECT_NAME -o jsonpath='{.spec.host}{"\n"}'
+</code></pre></div>    </div>
+  </li>
+  <li>Open a new browser tab and enter the route from above. Ensure that it is using <code class="language-plaintext highlighter-rouge">http://</code> and not <code class="language-plaintext highlighter-rouge">https://</code>.</li>
+  <li>A new menu item will appear. Click on “ASO - Blob Storage” in the left menu in OSToy.</li>
+  <li>
+    <p>You will see a page that lists the contents of the bucket, which at this point should be empty.</p>
+
+    <p><img src="media/managedlab/46-aso-viewblobstorage.png" alt="view blob" /></p>
+  </li>
+  <li>Move on to the next step to add some files.</li>
+</ol>
+
+<h4 id="create-files-in-your-azure-blob-storage-container">Create files in your Azure Blob Storage Container</h4>
+
+<p>For this step we will use OStoy to create a file and upload it to the Blob Storage Container. While Blob Storage can accept any kind of file, for this workshop we’ll use text files so that the contents can easily be rendered in the browser.</p>
+
+<ol>
+  <li>Click on “ASO - Blob Storage” in the left menu in OSToy.</li>
+  <li>Scroll down to the section underneath the “Existing files” section, titled “Upload a text file to Blob Storage”.</li>
+  <li>Enter a file name for your file.</li>
+  <li>Enter some content for your file.</li>
+  <li>
+    <p>Click “Create file”.</p>
+
+    <p><img src="media/managedlab/47-aso-createblob.png" alt="create file" /></p>
+  </li>
+  <li>Scroll up to the top section for existing files and you should see your file that you just created there.</li>
+  <li>
+    <p>Click on the file name to view the file.</p>
+
+    <p><img src="media/managedlab/48-aso-viewblob.png" alt="viewfilecontents" /></p>
+  </li>
+  <li>
+    <p>Now to confirm that this is not just some smoke and mirrors, let’s confirm directly via the CLI. Run the following to list the contents of our bucket.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az storage blob list --account-name ostoystorage${MY_UUID} --connection-string $CONNECTION_STRING -c ${PROJECT_NAME}-container --query "[].name" -o tsv
+</code></pre></div>    </div>
+
+    <p>We should see our file(s) returned.</p>
+  </li>
+</ol>
+
+        </section>
+    
+
+    
+        <section id="concepts" class="h1">
+            
+                    
+                    <h1>Concepts</h1>
+                    
+                
+
+            
+
+        </section>
+    
+
+    
+        <section id="s2i" class="">
+            
+
+            <h3 id="source-to-image-s2i">Source-To-Image (S2I)</h3>
+
+<p>Source-to-Image (S2I) is a toolkit and workflow for building reproducible container images from source code. S2I produces ready-to-run images by injecting source code into a container image and letting the container prepare that source code for execution. By creating self-assembling builder images, you can version and control your build environments exactly like you use container images to version your runtime environments.</p>
+
+<h4 id="how-it-works">How it works</h4>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>For a dynamic language like Ruby, the build-time and run-time environments are typically the same. Starting with a builder image that describes this environment - with Ruby, Bundler, Rake, Apache, GCC, and other packages needed to set up and run a Ruby application installed - source-to-image performs the following steps:</p>
+
+<ol>
+  <li>
+    <p>Start a container from the builder image with the application source injected into a known directory</p>
+  </li>
+  <li>
+    <p>The container process transforms that source code into the appropriate runnable setup - in this case, by installing dependencies with Bundler and moving the source code into a directory where Apache has been preconfigured to look for the Ruby config.ru file.</p>
+  </li>
+  <li>
+    <p>Commit the new container and set the image entrypoint to be a script (provided by the builder image) that will start Apache to host the Ruby application.</p>
+  </li>
+</ol>
+
+<p>For compiled languages like C, C++, Go, or Java, the dependencies necessary for compilation might dramatically outweigh the size of the actual runtime artifacts. To keep runtime images slim, S2I enables a multiple-step build processes, where a binary artifact such as an executable or Java WAR file is created in the first builder image, extracted, and injected into a second runtime image that simply places the executable in the correct location for execution.</p>
+
+<p>For example, to create a reproducible build pipeline for Tomcat (the popular Java webserver) and Maven:</p>
+
+<ol>
+  <li>
+    <p>Create a builder image containing OpenJDK and Tomcat that expects to have a WAR file injected</p>
+  </li>
+  <li>
+    <p>Create a second image that layers on top of the first image Maven and any other standard dependencies, and expects to have a Maven project injected</p>
+  </li>
+  <li>
+    <p>Invoke source-to-image using the Java application source and the Maven image to create the desired application WAR</p>
+  </li>
+  <li>
+    <p>Invoke source-to-image a second time using the WAR file from the previous step and the initial Tomcat image to create the runtime image</p>
+  </li>
+</ol>
+
+<p>By placing our build logic inside of images, and by combining the images into multiple steps, we can keep our runtime environment close to our build environment (same JDK, same Tomcat JARs) without requiring build tools to be deployed to production.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<h4 id="goals-and-benefits">Goals and benefits</h4>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<h5 id="reproducibility">Reproducibility</h5>
+
+<p>Allow build environments to be tightly versioned by encapsulating them within a container image and defining a simple interface (injected source code) for callers. Reproducible builds are a key requirement to enabling security updates and continuous integration in containerized infrastructure, and builder images help ensure repeatability as well as the ability to swap runtimes.</p>
+
+<h5 id="flexibility">Flexibility</h5>
+
+<p>Any existing build system that can run on Linux can be run inside of a container, and each individual builder can also be part of a larger pipeline. In addition, the scripts that process the application source code can be injected into the builder image, allowing authors to adapt existing images to enable source handling.</p>
+
+<h5 id="speed">Speed</h5>
+
+<p>Instead of building multiple layers in a single Dockerfile, S2I encourages authors to represent an application in a single image layer. This saves time during creation and deployment, and allows for better control over the output of the final image.</p>
+
+<h5 id="security">Security</h5>
+
+<p>Dockerfiles are run without many of the normal operational controls of containers, usually running as root and having access to the container network. S2I can be used to control what permissions and privileges are available to the builder image since the build is launched in a single container. In concert with platforms like OpenShift, source-to-image can enable admins to tightly control what privileges developers have at build time.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+
+        </section>
+    
+
+    
+        <section id="routes" class="">
+            
+
+            <h3 id="routes">Routes</h3>
+
+<p>An OpenShift <code class="language-plaintext highlighter-rouge">Route</code> exposes a service at a host name, like www.example.com, so that external clients can reach it by name. When a <code class="language-plaintext highlighter-rouge">Route</code> object is created on OpenShift, it gets picked up by the built-in HAProxy load balancer in order to expose the requested service and make it externally available with the given configuration. You might be familiar with the Kubernetes <code class="language-plaintext highlighter-rouge">Ingress</code> object and might already be asking “what’s the difference?”. Red Hat created the concept of <code class="language-plaintext highlighter-rouge">Route</code> in order to fill this need and then contributed the design principles behind this to the community; which heavily influenced the <code class="language-plaintext highlighter-rouge">Ingress</code> design.  Though a <code class="language-plaintext highlighter-rouge">Route</code> does have some additional features as can be seen in the chart below.</p>
+
+<p><img src="media/managedlab/routes-vs-ingress.png" alt="routes vs ingress" /></p>
+
+<blockquote>
+  <p><strong>NOTE:</strong> DNS resolution for a host name is handled separately from routing; your administrator may have configured a cloud domain that will always correctly resolve to the router, or if using an unrelated host name you may need to modify its DNS records independently to resolve to the router.</p>
+</blockquote>
+
+<p>Also of note is that an individual route can override some defaults by providing specific configuraitons in its annotations.  See here for more details: <a href="https://docs.openshift.com/aro/4/networking/routes/route-configuration.html">https://docs.openshift.com/aro/4/networking/routes/route-configuration.html</a></p>
+
+
+        </section>
+    
+
+    
+        <section id="imagestreams" class="">
+            
+
+            <h3 id="imagestreams">ImageStreams</h3>
+
+<p>An ImageStream stores a mapping of tags to images, metadata overrides that are applied when images are tagged in a stream, and an optional reference to a Docker image repository on a registry.</p>
+
+<h4 id="what-are-the-benefits">What are the benefits</h4>
+
+<!-- Begin collapsible container div -->
+<div class="collapsible-content-container">
+  <!-- Begin collapsible container button -->
+  <button class="toggle-collapsible">Toggle</button>
+  <!-- Begin collapsible container content div -->
+  <div class="collapsible-content">
+    <!-- Begin parsedText -->
+    
+<p>Using an ImageStream makes it easy to change a tag for a container image.  Otherwise to change a tag you need to download the whole image, change it locally, then push it all back. Also promoting applications by having to do that to change the tag and then update the deployment object entails many steps.  With ImageStreams you upload a container image once and then you manage it’s virtual tags internally in OpenShift.  In one project you may use the <code class="language-plaintext highlighter-rouge">dev</code> tag and only change reference to it internally, in prod you may use a <code class="language-plaintext highlighter-rouge">prod</code> tag and also manage it internally. You don’t really have to deal with the registry!</p>
+
+<p>You can also use ImageStreams in conjunction with DeploymentConfigs to set a trigger that will start a deployment as soon as a new image appears or a tag changes its reference.</p>
+
+
+    <!-- End parsedText -->
+  </div>
+  <!-- End collapsible container content div -->
+</div>
+<!-- End collapsible container div -->
+
+<p>See here for more details: <a href="https://blog.openshift.com/image-streams-faq/">https://blog.openshift.com/image-streams-faq/</a> <br />
+OpenShift Docs: <a href="https://docs.openshift.com/aro/4/openshift_images/managing_images/managing-images-overview.html">https://docs.openshift.com/aro/4/openshift_images/managing_images/managing-images-overview.html</a><br />
+ImageStream and Builds: <a href="https://cloudowski.com/articles/why-managing-container-images-on-openshift-is-better-than-on-kubernetes/">https://cloudowski.com/articles/why-managing-container-images-on-openshift-is-better-than-on-kubernetes/</a></p>
+
+
+        </section>
+    
+
+    
+        <section id="builds" class="">
+            
+
+            <h3 id="builds">Builds</h3>
+
+<p>A build is the process of transforming input parameters into a resulting object. Most often, the process is used to transform input parameters or source code into a runnable image. A BuildConfig object is the definition of the entire build process.</p>
+
+<p>OpenShift Container Platform leverages Kubernetes by creating Docker-formatted containers from build images and pushing them to a container image registry.</p>
+
+<p>Build objects share common characteristics: inputs for a build, the need to complete a build process, logging the build process, publishing resources from successful builds, and publishing the final status of the build. Builds take advantage of resource restrictions, specifying limitations on resources such as CPU usage, memory usage, and build or pod execution time.</p>
+
+<p>See here for more details: <a href="https://docs.openshift.com/aro/4/openshift_images/image-streams-manage.html">https://docs.openshift.com/aro/4/openshift_images/image-streams-manage.html</a></p>
+
+        </section>
+    
+
+    
+        <section id="contributors" class="h1">
+            
+                    
+                    <h1>Contributors</h1>
+                    
+                
+
+            <p>The following people have contributed to this workshop, thanks!</p>
+
+<div class="github-contributors">
+<div class="github-contributor">
+  <img class="github-avatar" alt="@chzbrgr71 on Twitter" src="https://avatars.githubusercontent.com/chzbrgr71?s=60&amp;v=4" />
+  <span>
+    <a href="http://github.com/chzbrgr71">@chzbrgr71</a>
+  </span>
+</div>
+
+<div class="github-contributor">
+  <img class="github-avatar" alt="@haroldwongms on Twitter" src="https://avatars.githubusercontent.com/haroldwongms?s=60&amp;v=4" />
+  <span>
+    <a href="http://github.com/haroldwongms">@haroldwongms</a>
+  </span>
+</div>
+
+<div class="github-contributor">
+  <img class="github-avatar" alt="@jschluchter on Twitter" src="https://avatars.githubusercontent.com/jschluchter?s=60&amp;v=4" />
+  <span>
+    <a href="http://github.com/jschluchter">@jschluchter</a>
+  </span>
+</div>
+
+<div class="github-contributor">
+  <img class="github-avatar" alt="@jamesread on Twitter" src="https://avatars.githubusercontent.com/jamesread?s=60&amp;v=4" />
+  <span>
+    <a href="http://github.com/jamesread">@jamesread</a>
+  </span>
+</div>
+
+<div class="github-contributor">
+  <img class="github-avatar" alt="@nichochen on Twitter" src="https://avatars.githubusercontent.com/nichochen?s=60&amp;v=4" />
+  <span>
+    <a href="http://github.com/nichochen">@nichochen</a>
+  </span>
+</div>
+
+<div class="github-contributor">
+  <img class="github-avatar" alt="@0kashi on Twitter" src="https://avatars.githubusercontent.com/0kashi?s=60&amp;v=4" />
+  <span>
+    <a href="http://github.com/0kashi">@0kashi</a>
+  </span>
+</div>
+
+<div class="github-contributor">
+  <img class="github-avatar" alt="@sabbour on Twitter" src="https://avatars.githubusercontent.com/sabbour?s=60&amp;v=4" />
+  <span>
+    <a href="http://github.com/sabbour">@sabbour</a>
+  </span>
+</div>
+
+<div class="github-contributor">
+  <img class="github-avatar" alt="@wgordon17 on Twitter" src="https://avatars.githubusercontent.com/wgordon17?s=60&amp;v=4" />
+  <span>
+    <a href="http://github.com/wgordon17">@wgordon17</a>
+  </span>
+</div>
+
+<div class="github-contributor">
+  <img class="github-avatar" alt="@lgmorand on Twitter" src="https://avatars.githubusercontent.com/lgmorand?s=60&amp;v=4" />
+  <span>
+    <a href="http://github.com/lgmorand">@lgmorand</a>
+  </span>
+</div>
+
+</div>
+
+        </section>
+    
+
+
+            </article>
+        </div>
+    </div>
+
+    <script scr="js/jquery.scrollTo.js"></script>
+    <script src="js/jquery.nav.js"></script>
+    <script src="js/scripts.js"></script>
+
+</body>
+
+</html>
